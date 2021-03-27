@@ -1,0 +1,64 @@
+<div class="card">
+  <div class="card-body row">
+    <div class="col-12 col-md-3 col-xl-2 nav-search">
+      <div class="cate">
+        <h4 class="title">Danh mục sản phẩm</h4>
+        <ul class="nav-cate">
+          <li class="nav-cate-item">
+            <a href="">Mẹ và bé</a>
+          </li>
+          <li class="nav-cate-item">
+            <a href="">Sức khỏe & đời sống</a>
+          </li>
+          <li class="nav-cate-item">
+            <a href="">Thời trang</a>
+          </li>
+          <li class="nav-cate-item">
+            <a href="">Điện tử</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="cate">
+        <h4 class="title">Đánh giá</h4>
+        <ul class="nav-cate">
+          <li class="nav-cate-item">
+            <ngb-rating [rate]="5" [max]="5" [readonly]="true"></ngb-rating>
+            <span class="fs13">từ 5 sao</span>
+          </li>
+          <li class="nav-cate-item">
+            <ngb-rating [rate]="4" [max]="5" [readonly]="true"></ngb-rating>
+            <span class="fs13">từ 4 sao</span>
+          </li>
+          <li class="nav-cate-item">
+            <ngb-rating [rate]="3" [max]="5" [readonly]="true"></ngb-rating>
+            <span class="fs13">từ 3 sao</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="cate">
+        <h4 class="title">giá</h4>
+        <div class="form-group range-pirce">
+          <label for="" class="fs11 text-muted">Chọn khoảng giá</label>
+          <div class="d-flex">
+            <div class="">
+              <input type="text" class="price-range" value="0">
+            </div>
+            <span> - </span>
+            <div class="">
+              <input type="text" class="price-range" value="0">
+            </div>
+          </div>
+          <button type="button" class="btn-acept">Áp dụng</button>
+        </div>
+        
+      </div>
+
+    </div>
+    <div class="col-12 col-md-9 col-xl-10">
+      <h4 class="title-result">Kết quả tìm kiếm cho `key_word`: <span>0 kết quả</span></h4>
+      <app-prod-item [searchResult]="true"></app-prod-item>
+    </div>
+  </div>
+</div>

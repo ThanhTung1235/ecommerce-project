@@ -1,0 +1,13 @@
+.quick-links{
+    margin: 16px 0;
+    padding: 16px 0;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+@media (max-width: 992px) {
+    .quick-links{
+        overflow-x: auto;
+    }
+}

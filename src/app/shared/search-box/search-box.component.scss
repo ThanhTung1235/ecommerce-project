@@ -1,0 +1,20 @@
+input {
+    border: none;
+    border-radius: 2px;
+    height: 100%;
+    outline: none;
+    padding: 0 10px;
+    font-size: 13px;
+}
+
+button{
+    background-color: #0D5CB6;
+    position: absolute;
+    right: -1px;
+    top: 0;
+    color: #fff;
+    border-radius: 0%;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}

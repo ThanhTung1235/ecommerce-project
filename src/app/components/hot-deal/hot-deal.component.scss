@@ -1,0 +1,59 @@
+.hot-deal-header{
+    padding: 16px
+}
+
+.hot-deal-header img{
+    max-height: 28px
+}
+
+.hot-deal-body{
+    display: flex;
+}
+
+.deals-item{
+    display: flex;
+    flex-direction: column;
+    width: 248px;
+    align-items: center;
+    padding: 16px;
+    cursor: pointer;
+}
+
+.deals-item:hover{
+    box-shadow: rgb(0 0 0 / 10%) 0px 0px 20px;
+    z-index: 1;
+}
+
+.deals-item .deals-thumb{
+    position: relative;
+}
+
+.deals-thumb .deals-discount{
+    position: absolute;
+    background-color: #FF424E;
+    color: #fff;
+    padding: 2px 8px 4px 2px;
+    border-radius: 4px 0px 26px;
+    font-size: 13px;
+    font-weight: 500;
+    top: 0;
+    left: 0;
+    line-height: 20px;
+}
+
+.deals-item .deals-price{
+    margin: 12px 0 8px;
+}
+
+.deals-item .progress{
+    width: 100%;
+    background-color: #FFAAAF;
+    position: relative;
+}
+
+.progress-title{
+    position: absolute;
+    color: #fff;
+    top: 7px;
+    right: 30%;
+}

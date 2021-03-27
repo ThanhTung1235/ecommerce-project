@@ -1,0 +1,23 @@
+ul li input{
+    width: 40px;
+    font-size: 14px;
+    text-align: center;
+    border: none;
+    outline: none;
+}
+
+ul li{
+    text-align: center;
+}
+
+ul li:first-child, ul li:last-child{
+    width: 30px;
+    height: 30px;
+}
+
+ul li i{
+    padding: 6px;
+    background-color: #F2F2F2;
+    color: #8A8A8A;
+    cursor: pointer;
+}

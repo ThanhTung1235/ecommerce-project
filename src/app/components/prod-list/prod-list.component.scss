@@ -1,0 +1,23 @@
+#myTab{
+    position: sticky;
+    top: 0px;
+    z-index: 999;
+    background: #fff;
+}
+.prod-list .nav-tabs .nav-item .nav-link{
+    width: 120px;
+}
+
+.btn-view-more{
+    background-color: #fff;
+    border:1px solid #0D5CB6;
+    color: #0D5CB6;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.btn-view-more:hover{
+    background-color: #0D5CB6;
+    color: #fff;
+}

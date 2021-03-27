@@ -1,0 +1,26 @@
+.quick-link-item{
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-basis: 103px;
+    flex-shrink: 0;
+    text-decoration: none;
+    color: black;
+    font-size: 13px;
+    padding: 10px;
+}
+
+.quick-link-item .item-thumb{
+    width: 48px;
+    height: 48px;
+}
+
+.quick-link-item p{
+    margin-top: 12px;
+    text-align: center;
+}
+
+@media (max-width: 992px) {
+    
+}

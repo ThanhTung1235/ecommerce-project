@@ -1,0 +1,28 @@
+.list-cart{
+    list-style-type: none;
+}
+
+
+.product-content-price{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.deal-item{
+    border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+    .product-content-price{
+        align-items: flex-end;
+        margin-top: 1rem;
+        padding-right: 3rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .product-name a{
+        font-size: 13px;
+    }
+}

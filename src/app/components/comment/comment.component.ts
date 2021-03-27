@@ -1,0 +1,32 @@
+import { Component, OnInit } from '@angular/core';
+
+declare var $;
+
+@Component({
+  selector: 'app-comment',
+  templateUrl: './comment.component.html',
+  styleUrls: ['./comment.component.scss']
+})
+export class CommentComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+    $('[data-toggle="collapse"]').on('click', function() {
+      var $this = $(this),
+              $parent = typeof $this.data('parent')!== 'undefined' ? $($this.data('parent')) : undefined;
+      if($parent === undefined) { /* Just toggle my  */
+          $this.find('.glyphicon').toggleClass('glyphicon-plus glyphicon-minus');
+          return true;
+      }
+  
+      /* Open element will be close if parent !== undefined */
+      var currentIcon = $this.find('.glyphicon');
+      currentIcon.toggleClass('glyphicon-plus glyphicon-minus');
+      $parent.find('.glyphicon').not(currentIcon).removeClass('glyphicon-minus').addClass('glyphicon-plus');
+  
+  });
+  
+  }
+
+}
