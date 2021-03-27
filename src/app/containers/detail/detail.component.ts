@@ -27,8 +27,18 @@ export class DetailComponent implements OnInit {
       quantity: this.quantityProd
     };
     const listProd = [];
-    listProd.push(data);
-    AppUtils.saveDataToCookies('_cart', JSON.stringify(listProd));
+    const dataFormCookies = AppUtils.getDataFromCookies('_cart');
+    if (dataFormCookies) {
+      console.log(this.quantityProd);
+      const products = JSON.parse(dataFormCookies);
+      const product = products.find(x => x.product_id === '12');
+      product.quantity = this.quantityProd + product.quantity;
+      listProd.push(product);
+      AppUtils.saveDataToCookies('_cart', JSON.stringify(listProd));
+    }else {
+      listProd.push(data);
+      AppUtils.saveDataToCookies('_cart', JSON.stringify(listProd));
+    }
     this.router.navigate(['/gio-hang']);
   }
 

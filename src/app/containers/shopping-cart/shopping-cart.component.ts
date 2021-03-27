@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AppUtils } from 'src/app/utils/app.utils';
 
 @Component({
@@ -8,11 +8,13 @@ import { AppUtils } from 'src/app/utils/app.utils';
 })
 export class ShoppingCartComponent implements OnInit {
   data: any;
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
     this.initData();
   }
+
 
   initData(): void {
     const data = AppUtils.getDataFromCookies('_cart');
