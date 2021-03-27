@@ -1,19 +1,20 @@
-import { Directive, HostListener, ElementRef } from '@angular/core';
+import { Directive, HostListener, ElementRef, Input } from '@angular/core';
+import { NgControl } from '@angular/forms';
 
 @Directive({
   selector: '[appNumberOnly]'
 })
 export class NumberOnlyDirective {
+  private el: NgControl;
 
-  constructor(private el: ElementRef) { }
-
-  @HostListener('input', ['$event']) onInputChange(event): void {
-    const initalValue = this.el.nativeElement.value;
-    this.el.nativeElement.value = initalValue.replace(/[^0-9]*/g, '');
-    if (initalValue !== this.el.nativeElement.value) {
-      event.stopPropagation();
-    }
+  constructor(private ngControl: NgControl) {
+    this.el = ngControl;
   }
 
-
+  // Listen for the input event to also handle copy and paste.
+  @HostListener('input', ['$event.target.value'])
+  onInput(value: string): void {
+    // Use NgControl patchValue to prevent the issue on validation
+    this.el.control.patchValue(value.replace(/[^0-9]/g, ''));
+  }
 }

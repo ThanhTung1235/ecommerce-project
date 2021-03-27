@@ -5,7 +5,7 @@
     </a>
   </li>
   <li>
-    <input type="text" (ngModelChange)="quantityChange($event)"  [(ngModel)]="quantityNumber" name="quantity">
+    <input (ngModelChange)="quantityChange($event)"  [(ngModel)]="quantityNumber" name="quantity" appNumberOnly>
   </li>
   <li class="border-start-0">
     <a (click)="plus()">
