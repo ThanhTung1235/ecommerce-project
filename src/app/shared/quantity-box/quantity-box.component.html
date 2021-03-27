@@ -1,11 +1,15 @@
 <ul style="display: flex; list-style-type: none; align-items: center; border-radius: 5px;">
   <li class="border-end-0">
-    <i class='bx bx-minus'></i>
+    <a (click)="minus()">
+      <i class='bx bx-minus'></i>
+    </a>
   </li>
   <li>
-    <input type="text" value="1">
+    <input type="text" (ngModelChange)="quantityChange($event)"  [(ngModel)]="quantityNumber" name="quantity">
   </li>
   <li class="border-start-0">
-    <i class='bx bx-plus'></i>
+    <a (click)="plus()">
+      <i class='bx bx-plus'></i>
+    </a>
   </li>
 </ul>

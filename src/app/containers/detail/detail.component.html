@@ -49,13 +49,12 @@
       </div>   
       <div class="section" style="padding-bottom:20px;">
           <h6 class="title-attr"><small>Số lượng</small></h6>                    
-          <app-quantity-box></app-quantity-box>
+          <app-quantity-box (quantity)="quantityChange($event)"></app-quantity-box>
       </div>                
 
       <!-- Botones de compra -->
       <div class="section" style="padding-bottom:20px;">
-          <button class="btn btn-success"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Agregar al carro</button>
-          <h6><a href="#"><span class="glyphicon glyphicon-heart-empty" style="cursor:pointer;"></span> Agregar a lista de deseos</a></h6>
+          <button class="btn btn-danger btn-block">Mua ngay</button>
       </div>                                        
   </div> 
   

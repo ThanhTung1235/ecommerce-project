@@ -9,7 +9,11 @@ export class DetailComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+  }
+
+  quantityChange(quanity): void {
+    console.log(quanity);
   }
 
 }
