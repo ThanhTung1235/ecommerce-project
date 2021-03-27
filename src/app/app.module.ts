@@ -6,6 +6,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {ProductService} from './services/product.service';
+import {CategoryService} from './services/category.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,9 +18,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserModule,
     SharedModule,
     RouterModule.forRoot(AppRouting),
-    NgbModule
+    NgbModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    ProductService,
+    CategoryService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

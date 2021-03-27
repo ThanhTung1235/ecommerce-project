@@ -2,27 +2,7 @@
   <div class="card-body">
     <p class="text-uppercase fs20 fw400 pb-3">Danh mục nổi bật</p>
     <div class="high-light-cate">
-      <app-item></app-item>
-      <app-item></app-item>
-      <app-item></app-item>
-      <app-item></app-item>
-      <app-item></app-item>
-      <app-item></app-item>
-      <app-item></app-item>
-      <app-item></app-item>
-      <app-item></app-item>
-      <app-item></app-item>
-
-      <app-item></app-item>
-      <app-item></app-item>
-      <app-item></app-item>
-      <app-item></app-item>
-      <app-item></app-item>
-      <app-item></app-item>
-      <app-item></app-item>
-      <app-item></app-item>
-      <app-item></app-item>
-      <app-item></app-item>
+      <app-item *ngFor="let row of listCategory" [avatar]="row['image']" [name]="row['name']" [id]="row['id']"></app-item>
     </div>
   </div>
 </div>
