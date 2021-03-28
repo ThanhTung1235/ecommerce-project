@@ -1,13 +1,13 @@
 <div *ngIf="!searchResult" class="product-list">
-  <a  *ngFor="let item of data" [routerLink]="['/chi-tiet/dong-ho']"  class="card product-item">
+  <a  *ngFor="let item of listProduct" [routerLink]="['/chi-tiet/dong-ho']"  class="card product-item">
     <div class="card-body">
       <div class="product-thumb">
-        <img class="img-fluid" src="https://salt.tikicdn.com/cache/280x280/ts/product/b8/8f/81/abdc074c7e4300c6f313fd5c4e10c2cd.jpg" alt="">
+        <img class="img-fluid" src="{{item['image']}}" alt="">
       </div>
-      <p class="product-name">Màn Hình The Space Samsung LS27R750QEEXXV ...</p>
+      <p class="product-name">{{item['name']}}</p>
       <ngb-rating [rate]="3" [max]="5"></ngb-rating>
       <p class="product-price">
-        7.490.000 ₫
+        {{item['price']}}
         <span class="product-discount">-10%</span>
       </p>
     </div>
