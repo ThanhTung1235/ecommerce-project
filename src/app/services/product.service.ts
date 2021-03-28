@@ -15,7 +15,12 @@ export class ProductService extends BaseService {
 
   getListProduct(params): Observable<ResponseData> {
     params = Helpers.prototype.optimize_params(params);
-    return this.http.get<ResponseData>(this.endpoint + '/get', {params});
+    return this.http.get<ResponseData>(this.endpoint + '/get', {params, headers: this.requestHeaders});
+  }
+
+  getDetailProduct(params): Observable<ResponseData> {
+    params = Helpers.prototype.optimize_params(params);
+    return this.http.get<ResponseData>(`${this.endpoint}/get_detail`, {params, headers: this.requestHeaders});
   }
   //
   // getStatisticAgency(params): Observable<ResponseData> {

@@ -22,12 +22,6 @@
     color: #fff;
 }
 
-.list-cate{
-    overflow-x: scroll;
-    flex-wrap: nowrap;
-    overflow-x: visible;
-}
-
 .cate-item{
     display: flex;
     width: 150px !important;
@@ -49,4 +43,12 @@
 }
 .thumb-cate img{
     border-radius: 50%;
+}
+
+@media (max-width: 992px) {
+    .list-cate{
+        overflow-x: scroll;
+        flex-wrap: nowrap;
+        overflow-y: hidden;
+    }
 }

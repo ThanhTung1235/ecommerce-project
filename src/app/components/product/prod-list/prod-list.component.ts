@@ -29,12 +29,12 @@ export class ProdListComponent implements OnInit {
   }
 
   getProdByCate(cateId): void{
-    // this.getProductByCateId(cateId);
+    this.getProductByCateId(cateId);
   }
 
   getProductByCateId(cateId): void{
     this.productService.getListProduct({category_id: cateId}).subscribe(res => {
-      this.products = res.data;
+      this.products = res.data.result;
     });
   }
 

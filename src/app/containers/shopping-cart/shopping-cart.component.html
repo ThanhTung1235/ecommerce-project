@@ -8,17 +8,17 @@
           </li>
           <li class="inner-product row">
             <div class="product-thumb col-6 col-md-2">
-              <img class="img-fluid" src="https://salt.tikicdn.com/cache/200x200/ts/product/97/89/e3/822949875175032e9a9f470937ad9019.jpg" alt="">
+              <img class="img-fluid" [src]="item.img" alt="">
             </div>
             <div class="product-name col-6 col-md-8">
-              <a class="text-decoration-none text-dark" routerLink="/chi-tiet/man-hinh">{{item.product_name}}</a>  
+              <a class="text-decoration-none text-dark" [routerLink]="['/chi-tiet/'+ item?.product_link]" routerLinkActive="router-link-active" >{{item.product_name}}</a>  
               <p class="  text-secondary fs13">{{item.seller}}</p>
-              <app-quantity-box [quantityProduct]="item.quantity"></app-quantity-box>
+              <app-quantity-box [quantityProduct]="item.quantity" (quantity)="quantityChange($event,item.product_id)"></app-quantity-box>
             </div>
             <div class="product-content-price col-12 col-md-2">
-              <p class="fw500">{{item?.price}}</p>
+              <p class="fw500 fs22">{{item?.price | number}}</p>
               <div class="d-flex">
-                <a class="fs12 mr-3">Xóa</a> 
+                <a (click)="removeProduct(item?.product_id)" class="fs12 mr-3">Xóa</a> 
                 <a class="fs12">Mua sau</a>
               </div>
             </div>
@@ -28,6 +28,7 @@
         
     </div>
   </div>
+
   <div class="col-12 col-md-4 col-xl-3">
     <div class="card card-body deal-item">
         <p class="fw500">Địa chỉ nhận hàng</p>
@@ -44,11 +45,11 @@
   <div class="card card-body mt-3 deal-item">
     <div class="d-flex justify-content-between">
       <p class="fs16 fw300">Tạm tính</p>
-      <p>2.350.000đ</p>  
+      <p>{{totalAmount | number}}đ</p>  
     </div>
     <div class="d-flex justify-content-between mt-2">
       <p class="fs16 fw300">Thành tiền</p>
-      <p class="text-danger fs22">2.350.000đ</p>  
+      <p class="text-danger fs22">{{totalAmount | number}}đ</p>  
     </div>
   </div>
 

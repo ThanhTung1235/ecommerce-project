@@ -1,3 +1,4 @@
+import { AppUtils } from 'src/app/utils/app.utils';
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
 
@@ -8,7 +9,7 @@ import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
 })
 export class ProdItemComponent implements OnInit, OnChanges {
   @Input() searchResult: boolean;
-  @Input() products: any;
+  @Input() products = [];
   currentRate = 6;
   data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   listProduct = [];
@@ -27,5 +28,11 @@ export class ProdItemComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.loading = true;
+    console.log(changes);
+    if (changes.products.currentValue) {
+      this.products.map(data => {
+        data.linkName = AppUtils.productNameInURL(data.name, data.uid);
+      });
+    }
   }
 }
