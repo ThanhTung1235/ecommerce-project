@@ -4,11 +4,11 @@ import { CommonModule } from '@angular/common';
 import { SearchResultComponent } from './search-result.component';
 
 import { Routes, RouterModule } from '@angular/router';
-import { ProductModule } from 'src/app/components/product.module';
+import { ProductModule } from 'src/app/components/product/product.module';
 
 const routes: Routes = [
   {path: '', component: SearchResultComponent}
-]
+];
 @NgModule({
   imports: [
     CommonModule,

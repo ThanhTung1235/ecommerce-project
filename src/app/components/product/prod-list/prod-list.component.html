@@ -1,5 +1,5 @@
 <div class="card border-0 prod-list">
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <!-- <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
       <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
         <img src="https://salt.tikicdn.com/ts/upload/f4/67/1b/8f7b421be961d877af6ebebf45da2d62.png" class="img-fluid" alt="">
@@ -18,15 +18,31 @@
   </ul>
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-      <app-prod-item [searchResult]="false"></app-prod-item>
+      <app-prod-item [searchResult]="false" [products]=""></app-prod-item>
     </div>
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-      <app-prod-item [searchResult]="false"></app-prod-item>
+      <app-prod-item [searchResult]="false" [products]=""></app-prod-item>
     </div>
     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-      <app-prod-item [searchResult]="false"></app-prod-item>
+      <app-prod-item [searchResult]="false" [products]=""></app-prod-item>
     </div>
-  </div>
+  </div> -->
+  
+  <ul ngbNav #nav="ngbNav" [(activeId)]="activeCate" class="nav-tabs list-cate">
+    <li *ngFor="let item of categories" [ngbNavItem]="item?.uid">
+      <a class="cate-item" ngbNavLink (click)="getProdByCate(item?.uid)">
+        <span class="fs13">{{item?.name}} </span>
+        <div class="thumb-cate">
+          <img [src]="item?.image" alt="" class="img-fluid">
+        </div>
+      </a>
+      <ng-template ngbNavContent>
+        <app-prod-item [searchResult]="false" [products]="products"></app-prod-item>
+      </ng-template>
+    </li>
+  </ul>
+  
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
 
   <div class="d-flex justify-content-center p-3">
     <button class="col-2 btn-view-more">Xem thêm</button>

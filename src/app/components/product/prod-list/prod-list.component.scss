@@ -21,3 +21,32 @@
     background-color: #0D5CB6;
     color: #fff;
 }
+
+.list-cate{
+    overflow-x: scroll;
+    flex-wrap: nowrap;
+    overflow-x: visible;
+}
+
+.cate-item{
+    display: flex;
+    width: 150px !important;
+    align-items: center;
+    justify-content: space-around;
+    color: #000;
+    text-transform: capitalize;
+}
+
+.list-cate .nav-item .active{
+    border-color: red red #fff;;
+}
+
+.thumb-cate{
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+}
+.thumb-cate img{
+    border-radius: 50%;
+}
