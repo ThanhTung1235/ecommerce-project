@@ -59,7 +59,7 @@ export class DetailComponent implements OnInit {
     if (dataFormCookies) {
       console.log(this.quantityProd);
       const products = JSON.parse(dataFormCookies);
-      const product = products.find(x => x.product_id === _product.uid);
+      const product = products.find(x => x.product_id === this.prodId);
       if (product) {
         product.quantity = this.quantityProd + product.quantity;
       } else {
