@@ -7,10 +7,7 @@ import { HomeComponent } from './home.component';
 
 import { RouterModule, Routes } from '@angular/router';
 import { HightLightsComponent } from 'src/app/components/hight-lights/hight-lights.component';
-import { ItemComponent } from 'src/app/components/item/item.component';
-import { ProdListComponent } from 'src/app/components/prod-list/prod-list.component';
-import { ProdItemComponent } from 'src/app/components/prod-item/prod-item.component';
-import { ProductModule } from 'src/app/components/product.module';
+import { ProductModule } from 'src/app/components/product/product.module';
 
 const routes: Routes = [
   {path: '', component: HomeComponent}

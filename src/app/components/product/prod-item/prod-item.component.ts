@@ -1,6 +1,6 @@
+import { AppUtils } from 'src/app/utils/app.utils';
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
-import {ProductService} from '../../services/product.service';
 
 @Component({
   selector: 'app-prod-item',
@@ -9,6 +9,7 @@ import {ProductService} from '../../services/product.service';
 })
 export class ProdItemComponent implements OnInit, OnChanges {
   @Input() searchResult: boolean;
+  @Input() products = [];
   currentRate = 6;
   data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   listProduct = [];
@@ -17,7 +18,6 @@ export class ProdItemComponent implements OnInit, OnChanges {
 
   constructor(
     config: NgbRatingConfig,
-    private productService: ProductService
   ) {
     config.max = 5;
     config.readonly = true;
@@ -26,13 +26,13 @@ export class ProdItemComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     this.loading = true;
-    this.productService.getListProduct({}).subscribe(response => {
-      if (response.status_code === 200) {
-        this.listProduct = response.data.result;
-        this.totalProduct = response.data.total;
-      }
-    });
+    console.log(changes);
+    if (changes.products.currentValue) {
+      this.products.map(data => {
+        data.linkName = AppUtils.productNameInURL(data.name, data.uid);
+      });
+    }
   }
 }

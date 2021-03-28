@@ -1,13 +1,13 @@
 <div *ngIf="!searchResult" class="product-list">
-  <a  *ngFor="let item of listProduct" [routerLink]="['/chi-tiet/dong-ho']"  class="card product-item">
+  <a *ngFor="let item of products" [routerLink]="['/chi-tiet/'+ item.linkName]"  class="card product-item">
     <div class="card-body">
       <div class="product-thumb">
-        <img class="img-fluid" src="{{item['image']}}" alt="">
+        <img class="img-fluid" [src]="item?.image" alt="">
       </div>
       <p class="product-name">{{item['name']}}</p>
       <ngb-rating [rate]="3" [max]="5"></ngb-rating>
       <p class="product-price">
-        {{item['price']}}
+        {{item['price'] | number}}đ
         <span class="product-discount">-10%</span>
       </p>
     </div>

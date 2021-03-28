@@ -1,5 +1,4 @@
 import {Component, Input} from '@angular/core';
-import {ProductService} from '../../services/product.service';
 
 @Component({
   selector: 'app-item',
@@ -11,9 +10,7 @@ export class ItemComponent {
   @Input() avatar;
   @Input() id;
 
-  constructor(
-    private productService: ProductService
-  ) {
+  constructor() {
   }
 
   searchProduct = (id: string = null): void => {

@@ -1,0 +1,21 @@
+<div class="card border-0 prod-list">
+  <ul ngbNav #nav="ngbNav" [(activeId)]="activeCate" class="nav-tabs list-cate">
+    <li *ngFor="let item of categories" [ngbNavItem]="item?.uid">
+      <a class="cate-item" ngbNavLink (click)="getProdByCate(item?.uid)">
+        <span class="fs13">{{item?.name}} </span>
+        <div class="thumb-cate">
+          <img [src]="item?.image" alt="" class="img-fluid">
+        </div>
+      </a>
+      <ng-template ngbNavContent>
+        <app-prod-item [searchResult]="false" [products]="products"></app-prod-item>
+      </ng-template>
+    </li>
+  </ul>
+  
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+  <div class="d-flex justify-content-center p-3">
+    <button class="col-2 btn-view-more">Xem thêm</button>
+  </div>
+</div>

@@ -6,7 +6,7 @@ import { ProdItemComponent } from './prod-item/prod-item.component';
 
 import { CommonModule } from '@angular/common';
 import { ProdListComponent } from './prod-list/prod-list.component';
-import {ProductService} from '../services/product.service';
+import { ProductService } from '../../services/product.service';
 
 @NgModule({
     imports: [
@@ -20,12 +20,12 @@ import {ProductService} from '../services/product.service';
         ProdListComponent
     ],
     declarations: [
+        ProdListComponent,
         ItemComponent,
         ProdItemComponent,
-        ProdListComponent
     ],
     providers: [
-      ProductService
+        ProductService
     ],
 })
 export class ProductModule { }

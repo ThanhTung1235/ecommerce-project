@@ -26,4 +26,9 @@ export class AppUtils{
     public static clearLocalStorage(key): void {
         localStorage.removeItem(key);
     }
+
+    public static productNameInURL(name, id): string{
+        const _name = name.replaceAll(' ', '-');
+        return `${_name}_i.${id}`;
+    }
 }

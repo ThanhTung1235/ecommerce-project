@@ -11,6 +11,11 @@
 
 .deal-item{
     border-radius: 8px;
+    margin-top: 20px;
+}
+
+.deal-item:first-child{
+    margin-top: 0;
 }
 
 @media (max-width: 768px) {

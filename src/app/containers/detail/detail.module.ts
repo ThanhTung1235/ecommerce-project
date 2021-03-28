@@ -1,3 +1,4 @@
+import { ProductDescriptionComponent } from './../../components/product-description/product-description.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommentComponent } from './../../components/comment/comment.component';
 import { NgModule } from '@angular/core';
@@ -17,7 +18,15 @@ export const routes: Routes = [
     SharedModule,
     NgbModule
   ],
-  declarations: [DetailComponent, CommentComponent],
-  exports: [DetailComponent, CommentComponent]
+  declarations: [
+    DetailComponent,
+    CommentComponent,
+    ProductDescriptionComponent
+  ],
+  exports: [
+      DetailComponent,
+      CommentComponent,
+      ProductDescriptionComponent
+    ]
 })
 export class DetailModule { }

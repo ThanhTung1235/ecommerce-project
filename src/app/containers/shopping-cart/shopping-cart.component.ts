@@ -7,7 +7,8 @@ import { AppUtils } from 'src/app/utils/app.utils';
   styleUrls: ['./shopping-cart.component.scss']
 })
 export class ShoppingCartComponent implements OnInit {
-  data: any;
+  data = [];
+  totalAmount = 0;
   constructor() {
   }
 
@@ -18,7 +19,29 @@ export class ShoppingCartComponent implements OnInit {
 
   initData(): void {
     const data = AppUtils.getDataFromCookies('_cart');
-    this.data = JSON.parse(data);
+    if (data) {
+      this.data = JSON.parse(data);
+      this.calculatorAmount();
+    }
+  }
+
+  quantityChange(quantity, id): void {
+    this.data.find(x => x.product_id === id);
+  }
+
+  removeProduct(id): void{
+    const productIndex =  this.data.findIndex(x => x.product_id === id);
+    if (productIndex > -1) {
+      this.data.splice(productIndex, 1);
+      this.calculatorAmount();
+    }
+  }
+
+  calculatorAmount(): void {
+    this.totalAmount = this.data.reduce((subtotal, item) => {
+      return subtotal + item.price * item.quantity;
+    }, 0);
+    AppUtils.saveDataToCookies('_cart', JSON.stringify(this.data));
   }
 
 }
