@@ -18,6 +18,11 @@
     margin-top: 0;
 }
 
+.empty-thumb{
+    margin: auto;
+    width: 170px;
+}
+
 @media (max-width: 768px) {
     .product-content-price{
         align-items: flex-end;

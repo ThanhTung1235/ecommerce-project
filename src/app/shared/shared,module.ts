@@ -1,3 +1,4 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -13,7 +14,8 @@ import { SharedDirectiveModule } from '../core/directives/shared.directive.modul
         CommonModule,
         RouterModule,
         FormsModule,
-        SharedDirectiveModule
+        SharedDirectiveModule,
+        NgbModule
     ],
     exports: [HeaderComponent, SearchBoxComponent, QuantityBoxComponent],
     declarations: [HeaderComponent, SearchBoxComponent, QuantityBoxComponent],

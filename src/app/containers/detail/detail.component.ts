@@ -2,6 +2,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppUtils } from 'src/app/utils/app.utils';
+import { BaseService } from 'src/app/services/base.service';
 
 @Component({
   selector: 'app-detail',
@@ -12,10 +13,12 @@ export class DetailComponent implements OnInit {
   quantityProd: number;
   product: any;
   prodId: any;
+  showNotiCart = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private productService: ProductService) { }
+    private productService: ProductService,
+    private dataService: BaseService) { }
 
   ngOnInit(): void {
     this.detetUrl();
@@ -45,6 +48,8 @@ export class DetailComponent implements OnInit {
   }
 
   buyNow(_product): void{
+    this.showNotiCart = true;
+    this.dataService.sendData(true);
     const data = {
       product_name: _product.name,
       product_id: this.prodId,
@@ -59,7 +64,7 @@ export class DetailComponent implements OnInit {
     if (dataFormCookies) {
       console.log(this.quantityProd);
       const products = JSON.parse(dataFormCookies);
-      const product = products.find(x => x.product_id === _product.uid);
+      const product = products.find(x => x.product_id === this.prodId);
       if (product) {
         product.quantity = this.quantityProd + product.quantity;
       } else {
@@ -71,7 +76,15 @@ export class DetailComponent implements OnInit {
       listProd.push(data);
       AppUtils.saveDataToCookies('_cart', JSON.stringify(listProd));
     }
-    this.router.navigate(['/gio-hang']);
+    // this.router.navigate(['/gio-hang']);
+  }
+
+  closeNotiCart(): void{
+    if(this.showNotiCart) {
+      this.showNotiCart = false;
+    } else {
+      this.showNotiCart = true;
+    }
   }
 
 }

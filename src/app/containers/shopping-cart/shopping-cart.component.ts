@@ -26,7 +26,11 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   quantityChange(quantity, id): void {
-    this.data.find(x => x.product_id === id);
+    const product = this.data.find(x => x.product_id === id);
+    if (product) {
+      product.quantity = quantity;
+      this.calculatorAmount();
+    }
   }
 
   removeProduct(id): void{
