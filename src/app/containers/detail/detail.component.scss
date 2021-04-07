@@ -125,13 +125,24 @@ div.section > div > input {
   padding: 0px;
 }
 
-@media (max-width: 426px) {
+.noti-cart div{
+  align-items: center;
+}
+
+.prod-info div{
+  line-height: 20px;
+}
+
+@media (max-width: 768px) {
   .noti-cart-overlay{
     position: fixed;
     inset: 0px;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 100;
   }
+}
+
+@media (max-width: 426px) {
   .container {
     margin-top: 0px !important;
   }

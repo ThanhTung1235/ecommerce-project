@@ -21,16 +21,23 @@
           <p class="fs13 mb-0">Đăng nhập <i class='bx bxs-down-arrow fs8'></i></p>
         </div>
       </div>
-      <a routerLink="/gio-hang" class="cart-box header-top-item text-decoration-none">
-        <p class="position-relative mb-0">
+      <div class="cart-box header-top-item text-decoration-none">
+        <a routerLink="/gio-hang"  class="position-relative mb-0 text-white text-decoration-none">
           <i class='bx bx-cart fs30' ></i>
-          <span class="bg-warning cart-quatity">1</span>
-        </p>
+          <span class="bg-warning cart-quatity">{{productCount}}</span>
+        </a>
         <div class="user-content">
           <p class="fs11 mb-0">&nbsp;</p>
           <p class="fs13 mb-0">Giỏ hàng <i class='bx bxs-down-arrow fs8'></i></p>
+          <div ngbDropdown #myDrop="ngbDropdown" placement="bottom-right">
+            <button class="d-none" id="dropNotifyCart" ngbDropdownAnchor (click)="myDrop.open()"></button>
+            <div ngbDropdownMenu aria-labelledby="dropNotifyCart" class="mt-2 ml-5 p-3 dropNotifyCart">
+              <p class="mb-2"> <i class='bx bxs-check-circle text-success'></i> Thêm vào giỏ hàng thành công!</p>
+              <a routerLink="/gio-hang" class="btn btn-danger btn-block" (click)="myDrop.close()">Xem giỏ hàng và thanh toán</a>
+            </div>
+          </div>
         </div>
-      </a>  
+      </div>  
     </div>
     <div class="header-bottom">
       <span></span>
