@@ -1,7 +1,7 @@
 
  <div class="row">
     <div class="row card card-body flex-row mb-5 ml-0 p-3">
-      <div class="col-md-4 item-photo">
+      <div class="col-md-5 item-photo">
           
           <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -25,13 +25,17 @@
             </button>
           </div>
       </div>
-      <div class="col-md-6" style="border:0px solid gray">
+      <div class="col-md-7" style="border:0px solid gray">
           <!-- Datos del vendedor y titulo del producto -->
           <h3 class="fw300 fs24">{{product?.name}}</h3>    
           <h5><ngb-rating [rate]="3" [max]="5"></ngb-rating> · <small style="color:#337ab7">(5054 ventas)</small></h5>
-    
+          <ul>
+            <li>0% TRẢ GÓP 12 tháng x ₫257.500 (Lãi suất 0%)</li>
+            <li>Miễn phí vận chuyển</li>
+          </ul>
           <!-- Precios -->
           <h3>{{product?.price | number}} ₫</h3>
+          <p class="fs13 text-decoration-line-throug">5.750.000 ₫-19%</p>
     
           <!-- Detalles especificos del producto -->
           <div class="section">
@@ -58,26 +62,6 @@
               <button class="btn btn-danger btn-block" (click)="buyNow(product)">Chọn mua</button>
           </div>                                        
       </div> 
-      
-      <div class="col-md-2">
-       <div class="cate">
-         <h4 class="title">Danh mục sản phẩm</h4>
-         <ul class="nav-cate">
-           <li class="nav-cate-item">
-             <a href="">Mẹ và bé</a>
-           </li>
-           <li class="nav-cate-item">
-             <a href="">Sức khỏe & đời sống</a>
-           </li>
-           <li class="nav-cate-item">
-             <a href="">Thời trang</a>
-           </li>
-           <li class="nav-cate-item">
-             <a href="">Điện tử</a>
-           </li>
-         </ul>
-       </div>
-      </div>
     </div>
     
       <div class="col-12 mb-5 p-0">

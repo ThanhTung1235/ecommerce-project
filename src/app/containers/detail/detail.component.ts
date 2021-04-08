@@ -42,9 +42,14 @@ export class DetailComponent implements OnInit {
   }
 
   getDetailProduct(id): void {
-    this.productService.getDetailProduct({product_id: id}).subscribe(res => {
-      this.product = res.data.result[0];
-    });
+    this.product = {
+      image : 'https://salt.tikicdn.com/cache/550x550/ts/product/86/1f/13/41351980c0e8bd616bcc36fc431d033d.jpg',
+      name: 'Loa Bluetooth JBL Go 2 - Hàng Chính Hãng',
+      price: 630000,
+    }
+    // this.productService.getDetailProduct({product_id: id}).subscribe(res => {
+    //   this.product = res.data.result[0];
+    // });
   }
 
   buyNow(_product): void{
