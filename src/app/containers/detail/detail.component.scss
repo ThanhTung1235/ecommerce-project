@@ -133,6 +133,50 @@ div.section > div > input {
   line-height: 20px;
 }
 
+.product-option input[type='radio'] {
+  display: none;
+}
+
+.product-option label {
+  content: " ";
+  display: inline-block;
+  position: relative;
+  top: 5px;
+  margin: 0 5px 0 0;
+  border: 1px solid #8e8e8e;
+  width: max-content;
+  height: auto;
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.product-option label:hover{
+  border: 1px solid blue;
+  background-image: url('../../../assets/imgs/checked.svg');
+  background-repeat: no-repeat;
+  background-position: top right;
+}
+
+.product-option input[type='radio']:checked+label {
+  position: relative;
+  border-radius: 5px;
+  border: 1px solid blue;
+  width: max-content;
+  height: auto;
+  top: 5px;
+  content: " ";
+  display: inline-block;
+  background-image: url('../../../assets/imgs/checked.svg');
+  background-repeat: no-repeat;
+  background-position: top right;
+  padding: 4px 8px;
+  font-size: 14px;
+}
+
 @media (max-width: 768px) {
   .noti-cart-overlay{
     position: fixed;

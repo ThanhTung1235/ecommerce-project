@@ -14,6 +14,7 @@ export class DetailComponent implements OnInit {
   product: any;
   prodId: any;
   showNotiCart = false;
+  productOption: string;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -46,10 +47,12 @@ export class DetailComponent implements OnInit {
       image : 'https://salt.tikicdn.com/cache/550x550/ts/product/86/1f/13/41351980c0e8bd616bcc36fc431d033d.jpg',
       name: 'Loa Bluetooth JBL Go 2 - Hàng Chính Hãng',
       price: 630000,
-    }
-    // this.productService.getDetailProduct({product_id: id}).subscribe(res => {
-    //   this.product = res.data.result[0];
-    // });
+      product_option: ['3.15m', '4.15m', '5.15m']
+    };
+    this.productOption = this.product.product_option[0];
+    this.productService.getDetailProduct({product_id: id}).subscribe(res => {
+      this.product = res.data.result[0];
+    });
   }
 
   buyNow(_product): void{
@@ -67,7 +70,6 @@ export class DetailComponent implements OnInit {
     let listProd = [];
     const dataFormCookies = AppUtils.getDataFromCookies('_cart');
     if (dataFormCookies) {
-      console.log(this.quantityProd);
       const products = JSON.parse(dataFormCookies);
       const product = products.find(x => x.product_id === this.prodId);
       if (product) {
@@ -90,6 +92,10 @@ export class DetailComponent implements OnInit {
     } else {
       this.showNotiCart = true;
     }
+  }
+
+  productOptionChange(value): void{
+    this.productOption = value;
   }
 
 }
