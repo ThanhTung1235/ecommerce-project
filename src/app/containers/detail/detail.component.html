@@ -1,6 +1,6 @@
 <div class="row">
   <div class="row card card-body flex-row mb-5 ml-0 p-3">
-    <div class="col-md-5 item-photo">
+    <div class="col-md-4 item-photo">
       <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active" data-bs-interval="10000">
@@ -23,7 +23,8 @@
         </button>
       </div>
     </div>
-    <div class="col-md-7" style="border: 0px solid gray">
+
+    <div class="col-md-5 border-1">
       <!-- Datos del vendedor y titulo del producto -->
       <h3 class="fw300 fs24">{{ product?.name }}</h3>
       <h5>
@@ -72,6 +73,43 @@
         </button>
       </div>
     </div>
+
+    <div class="col-md col-12">
+      <div class="current-seller mt-md-5">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td class="text-left text-muted p-0 pb-3">Thời gian bảo hành</td>
+              <td class="text-right p-0">12 tháng</td>
+            </tr>
+            <tr>
+              <td class="text-left text-muted p-0 pb-3">Hình thức bảo hành</td>
+              <td class="text-right p-0">Điện tử</td>
+            </tr>
+            <tr>
+              <td class="text-left text-muted p-0">Nơi bảo hành</td>
+              <td class="text-right p-0">Chính hãng</td>
+            </tr>
+          </tbody>
+        </table>
+  
+        <div class="customer-benefit">
+          <div class="benefit-item">
+            <img src="../../../assets/imgs/compensation.svg" alt="">
+            <p>Hoàn tiền <br> 111% <br> nếu giả</p>
+          </div>
+          <div class="benefit-item">
+            <img src="../../../assets/imgs/guarantee.svg" alt="">
+            <p>Mở hộp <br> kiểm tra <br> nhận hàng</p>
+          </div>
+          <div class="benefit-item">
+            <img src="../../../assets/imgs/refund.svg" alt="">
+            <p>Đổi trả <br> <b>7 ngày</b> <br> nếu sp lỗi</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="col-12 mb-5 p-0">

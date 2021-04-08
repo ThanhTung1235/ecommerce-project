@@ -6,6 +6,7 @@ ul > li {
   margin-right: 25px;
   font-weight: lighter;
   cursor: pointer;
+  list-style: none;
 }
 li.active {
   border-bottom: 3px solid silver;
@@ -34,7 +35,6 @@ li.active {
   padding: 2px;
   padding-left: 15px;
   padding-right: 15px;
-  background: #f8f9f9;
 }
 .title-price {
   margin-top: 30px;
@@ -175,6 +175,29 @@ div.section > div > input {
   background-position: top right;
   padding: 4px 8px;
   font-size: 14px;
+}
+
+.current-seller{
+  border: 1px solid #F6F6F6;
+  padding: 8px;
+}
+
+.customer-benefit{
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #F6F6F6;
+  padding-top: 15px;
+}
+
+.customer-benefit .benefit-item img{
+  width: 20px;
+  margin-bottom: 10px;
+}
+
+.customer-benefit .benefit-item{
+  font-size: 13px;
+  text-align: center;
+  line-height: 20px;
 }
 
 @media (max-width: 768px) {
