@@ -6,10 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search-result.component.scss']
 })
 export class SearchResultComponent implements OnInit {
+  isToggleFilter = false;
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+  }
+
+  showFilter(): void {
+    if (this.isToggleFilter) {
+      this.isToggleFilter = false;
+    } else {
+      this.isToggleFilter = true;
+    }
   }
 
 }

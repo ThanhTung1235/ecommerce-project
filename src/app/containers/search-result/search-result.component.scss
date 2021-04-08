@@ -89,3 +89,16 @@
     margin-top: 10px;
 
 }
+
+@media (max-width: 768px) {
+    .nav-search{
+        height: 0px;
+        overflow: hidden;
+        transition: all 0.5s;
+    }
+    .show{
+        height: 415px;
+        transition: all 0.5s;
+
+    }
+}

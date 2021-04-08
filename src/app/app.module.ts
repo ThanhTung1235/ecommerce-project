@@ -1,6 +1,6 @@
 import { AppRouting } from './app.routing';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from './shared/shared,module';
+import { SharedModule } from './shared/shared.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
