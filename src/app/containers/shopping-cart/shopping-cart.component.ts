@@ -26,7 +26,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   quantityChange(quantity, id): void {
-    const product = this.data.find(x => x.product_id === id);
+    const product = this.data.find(x => x.product_option_id === id);
     if (quantity > 0) {
       if (product) {
         product.quantity = quantity;
@@ -36,7 +36,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   removeProduct(id): void{
-    const productIndex =  this.data.findIndex(x => x.product_id === id);
+    const productIndex =  this.data.findIndex(x => x.product_option_id === id);
     if (productIndex > -1) {
       this.data.splice(productIndex, 1);
       this.calculatorAmount();

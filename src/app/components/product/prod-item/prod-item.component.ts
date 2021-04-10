@@ -28,7 +28,6 @@ export class ProdItemComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.loading = true;
-    console.log(changes);
     if (changes.products.currentValue) {
       this.products.map(data => {
         data.linkName = AppUtils.productNameInURL(data.name, data.uid);

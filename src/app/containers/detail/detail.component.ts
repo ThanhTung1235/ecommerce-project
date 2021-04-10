@@ -52,7 +52,6 @@ export class DetailComponent implements OnInit {
   }
 
   buyNow(_product): void{
-    console.log(_product);
     this.showNotiCart = true;
     this.dataService.sendData(true);
     const data = {
@@ -65,7 +64,7 @@ export class DetailComponent implements OnInit {
       size: _product.size,
       color: _product.color,
       product_link: AppUtils.productNameInURL(this.product.name, this.prodId),
-      product_option_id: _product.id
+      product_option_id: _product.uid
     };
     let listProd = [];
     const dataFormCookies = AppUtils.getDataFromCookies('_cart');
@@ -73,6 +72,7 @@ export class DetailComponent implements OnInit {
       const products = JSON.parse(dataFormCookies);
       const product = products.find(x => x.product_option_id === this.productOption.uid);
       if (product) {
+        console.log(this.quantityProd + product.quantity);
         product.quantity = this.quantityProd + product.quantity;
       } else {
         products.push(data);
