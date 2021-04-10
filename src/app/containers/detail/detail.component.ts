@@ -52,24 +52,26 @@ export class DetailComponent implements OnInit {
   }
 
   buyNow(_product): void{
+    console.log(_product);
     this.showNotiCart = true;
     this.dataService.sendData(true);
     const data = {
       product_name: this.product.name,
-      product_id: _product.uid,
+      product_id: this.prodId,
       price: _product.price,
       seller: 'Máy tính Lanh Dung',
       quantity: this.quantityProd,
       img: _product.image,
       size: _product.size,
       color: _product.color,
-      product_link: AppUtils.productNameInURL(this.product.name, _product.uid)
+      product_link: AppUtils.productNameInURL(this.product.name, this.prodId),
+      product_option_id: _product.id
     };
     let listProd = [];
     const dataFormCookies = AppUtils.getDataFromCookies('_cart');
     if (dataFormCookies) {
       const products = JSON.parse(dataFormCookies);
-      const product = products.find(x => x.product_id === this.prodId);
+      const product = products.find(x => x.product_option_id === this.productOption.uid);
       if (product) {
         product.quantity = this.quantityProd + product.quantity;
       } else {

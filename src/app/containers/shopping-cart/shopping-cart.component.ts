@@ -32,8 +32,6 @@ export class ShoppingCartComponent implements OnInit {
         product.quantity = quantity;
         this.calculatorAmount();
       }
-    } else{
-      this.removeProduct(id);
     }
   }
 
