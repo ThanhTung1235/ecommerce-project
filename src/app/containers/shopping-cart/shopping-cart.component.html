@@ -13,7 +13,7 @@
             <div class="product-name col-6 col-md-8">
               <a class="text-decoration-none text-dark" [routerLink]="['/chi-tiet/'+ item?.product_link]" routerLinkActive="router-link-active" >{{item.product_name}}</a>  
               <p class="  text-secondary fs13"> <span>Kích thước</span> {{item.size}}</p>
-              <app-quantity-box [quantityProduct]="item.quantity" (quantity)="quantityChange($event,item.product_id)"></app-quantity-box>
+              <app-quantity-box [quantityProduct]="item.quantity" (quantity)="quantityChange($event,item.product_option_id)"></app-quantity-box>
             </div>
             <div class="product-content-price col-12 col-md-2">
               <p class="fw500 fs22">{{item?.price | number}}</p>

@@ -9,7 +9,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {ProductService} from './services/product.service';
 import {CategoryService} from './services/category.service';
 import {HttpClientModule} from '@angular/common/http';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -18,7 +17,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
   imports: [
     BrowserModule,
     SharedModule,
-    RouterModule.forRoot(AppRouting),
+    RouterModule.forRoot(AppRouting, { useHash: true }),
     NgbModule,
     HttpClientModule
   ],

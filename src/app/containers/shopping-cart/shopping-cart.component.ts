@@ -4,18 +4,16 @@ import { AppUtils } from 'src/app/utils/app.utils';
 @Component({
   selector: 'app-shopping-cart',
   templateUrl: './shopping-cart.component.html',
-  styleUrls: ['./shopping-cart.component.scss']
+  styleUrls: ['./shopping-cart.component.scss'],
 })
 export class ShoppingCartComponent implements OnInit {
   data = [];
   totalAmount = 0;
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit(): void {
     this.initData();
   }
-
 
   initData(): void {
     const data = AppUtils.getDataFromCookies('_cart');
@@ -49,5 +47,4 @@ export class ShoppingCartComponent implements OnInit {
     }, 0);
     AppUtils.saveDataToCookies('_cart', JSON.stringify(this.data));
   }
-
 }
