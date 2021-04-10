@@ -58,7 +58,7 @@ export class DetailComponent implements OnInit {
       product_name: this.product.name,
       product_id: this.prodId,
       price: _product.price,
-      seller: 'Máy tính Lanh Dung',
+      seller: 'Mua hoàn tiền',
       quantity: this.quantityProd,
       img: _product.image,
       size: _product.size,
