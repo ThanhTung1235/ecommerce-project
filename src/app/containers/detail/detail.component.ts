@@ -14,7 +14,7 @@ export class DetailComponent implements OnInit {
   product: any;
   prodId: any;
   showNotiCart = false;
-  productOption: string;
+  productOption: any;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -43,15 +43,11 @@ export class DetailComponent implements OnInit {
   }
 
   getDetailProduct(id): void {
-    this.product = {
-      image : 'https://salt.tikicdn.com/cache/550x550/ts/product/86/1f/13/41351980c0e8bd616bcc36fc431d033d.jpg',
-      name: 'Loa Bluetooth JBL Go 2 - Hàng Chính Hãng',
-      price: 630000,
-      product_option: ['3.15m', '4.15m', '5.15m']
-    };
-    this.productOption = this.product.product_option[0];
+    // this.product = this.productService.getDataDemo();
+    // this.productOption = this.product.products[0];
     this.productService.getDetailProduct({product_id: id}).subscribe(res => {
-      this.product = res.data.result[0];
+      this.product = res.data.result;
+      this.productOption = this.product.products[0];
     });
   }
 
@@ -59,13 +55,15 @@ export class DetailComponent implements OnInit {
     this.showNotiCart = true;
     this.dataService.sendData(true);
     const data = {
-      product_name: _product.name,
-      product_id: this.prodId,
+      product_name: this.product.name,
+      product_id: _product.uid,
       price: _product.price,
       seller: 'Máy tính Lanh Dung',
       quantity: this.quantityProd,
       img: _product.image,
-      product_link: AppUtils.productNameInURL(_product.name, this.prodId)
+      size: _product.size,
+      color: _product.color,
+      product_link: AppUtils.productNameInURL(this.product.name, _product.uid)
     };
     let listProd = [];
     const dataFormCookies = AppUtils.getDataFromCookies('_cart');
@@ -95,7 +93,10 @@ export class DetailComponent implements OnInit {
   }
 
   productOptionChange(value): void{
-    this.productOption = value;
+    const optionChange = this.product.products.find(x => x.uid === value);
+    if (optionChange) {
+      this.productOption = {...optionChange};
+    }
   }
 
 }

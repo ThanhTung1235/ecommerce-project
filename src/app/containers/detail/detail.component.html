@@ -4,7 +4,7 @@
       <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active" data-bs-interval="10000">
-            <img [src]="product?.image" class="d-block w-100" alt="..." />
+            <img [src]="productOption?.image" class="d-block w-100" alt="..." />
           </div>
           <!-- <div class="carousel-item" data-bs-interval="2000">
                 <img [src]="product?.image" class="d-block w-100" alt="...">
@@ -31,30 +31,30 @@
         <ngb-rating [rate]="3" [max]="5"></ngb-rating> ·
         <small style="color: #337ab7">(5054 ventas)</small>
       </h5>
-      <ul>
+      <ul class="d-none">
         <li>0% TRẢ GÓP 12 tháng x ₫257.500 (Lãi suất 0%)</li>
         <li>Miễn phí vận chuyển</li>
       </ul>
       <!-- Precios -->
-      <h3>{{ product?.price | number }} ₫</h3>
-      <p class="fs13 text-decoration-line-throug">5.750.000 ₫-19%</p>
+      <h3>{{ productOption?.price | number }} ₫</h3>
+      <p class="fs13 text-decoration-line-throug d-none">5.750.000 ₫-19%</p>
 
       <!-- Detalles especificos del producto -->
       <div class="section mt-3">
         <h6 class="title-attr mb-2 fs15">
-          <small class="text-muted">Chọn kích thước</small> {{ productOption }}
+          <small class="text-muted">Chọn kích thước</small> {{ productOption?.size}}
         </h6>
         <div class="product-option">
-          <ng-container *ngFor="let item of product?.product_option">
+          <ng-container *ngFor="let item of product?.products">
             <input
               (change)="productOptionChange($event.target.value)"
-              id="{{ item }}"
+              id="{{ item?.uid }}"
               type="radio"
               name="option"
-              [value]="item"
-              [checked]="item == productOption"
+              [value]="item?.uid"
+              [checked]="item?.uid == productOption?.uid"
             />
-            <label for="{{ item }}">{{ item }}m</label>
+            <label for="{{ item?.uid }}">{{ item?.size }}m</label>
           </ng-container>
         </div>
       </div>
@@ -68,7 +68,7 @@
 
       <!-- Botones de compra -->
       <div class="section" style="padding-bottom: 20px">
-        <button class="btn btn-danger btn-block" (click)="buyNow(product)">
+        <button class="btn btn-danger btn-block" (click)="buyNow(productOption)">
           Chọn mua
         </button>
       </div>
@@ -149,8 +149,7 @@
           class="tab-pane fade"
           id="pills-home"
           role="tabpanel"
-          aria-labelledby="pills-home-tab"
-        >
+          aria-labelledby="pills-home-tab" >
           <app-product-description></app-product-description>
         </div>
 
@@ -162,38 +161,9 @@
         >
           <table class="table col-12 col-sm-12 col-md-10 detail-info">
             <tbody>
-              <tr>
-                <th scope="row">Thương hiệu</th>
-                <td colspan="2">Larry the Bird</td>
-              </tr>
-              <tr>
-                <th scope="row">Kết nối</th>
-                <td colspan="2">HDMI, VGA, AUDIO</td>
-              </tr>
-              <tr>
-                <th scope="row">Hiển thị màu sắc</th>
-                <td colspan="2">TYP 3000:1</td>
-              </tr>
-              <tr>
-                <th scope="row">Phụ kiện đi kèm</th>
-                <td colspan="2">Màn hình , sách hướng dẫn , adapter</td>
-              </tr>
-
-              <tr>
-                <th scope="row">Thương hiệu</th>
-                <td colspan="2">Larry the Bird</td>
-              </tr>
-              <tr>
-                <th scope="row">Kết nối</th>
-                <td colspan="2">HDMI, VGA, AUDIO</td>
-              </tr>
-              <tr>
-                <th scope="row">Hiển thị màu sắc</th>
-                <td colspan="2">TYP 3000:1</td>
-              </tr>
-              <tr>
-                <th scope="row">Phụ kiện đi kèm</th>
-                <td colspan="2">Màn hình , sách hướng dẫn , adapter</td>
+              <tr *ngFor="let item of product?.detail_information">
+                <th scope="row">{{item?.key}}</th>
+                <td colspan="2">{{item?.value}}</td>
               </tr>
             </tbody>
           </table>

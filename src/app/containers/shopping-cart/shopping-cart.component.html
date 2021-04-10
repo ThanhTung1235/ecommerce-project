@@ -4,7 +4,7 @@
     <div *ngFor="let item of data" class="card card-body deal-item">
         <ul class="list-cart">
           <li class="shop-name">
-            <p class="fw500 mb-3">{{item.seller}}</p>
+            <p class="fw500 mb-3"> {{item.seller}}</p>
           </li>
           <li class="inner-product row">
             <div class="product-thumb col-6 col-md-2">
@@ -12,14 +12,14 @@
             </div>
             <div class="product-name col-6 col-md-8">
               <a class="text-decoration-none text-dark" [routerLink]="['/chi-tiet/'+ item?.product_link]" routerLinkActive="router-link-active" >{{item.product_name}}</a>  
-              <p class="  text-secondary fs13">{{item.seller}}</p>
+              <p class="  text-secondary fs13"> <span>Kích thước</span> {{item.size}}</p>
               <app-quantity-box [quantityProduct]="item.quantity" (quantity)="quantityChange($event,item.product_id)"></app-quantity-box>
             </div>
             <div class="product-content-price col-12 col-md-2">
               <p class="fw500 fs22">{{item?.price | number}}</p>
               <div class="d-flex">
                 <a (click)="removeProduct(item?.product_id)" class="fs12 mr-3">Xóa</a> 
-                <a class="fs12">Mua sau</a>
+                <a class="fs12 d-none">Mua sau</a>
               </div>
             </div>
           </li>
