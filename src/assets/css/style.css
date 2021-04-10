@@ -1,1 +1,5 @@
 @import url("../fonts/boxicons/css/boxicons.min.css");
+
+.cursor-pointer{
+    cursor: pointer;
+}
