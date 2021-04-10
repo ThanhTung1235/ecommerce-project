@@ -2,6 +2,7 @@ export class AppUtils{
     constructor() {}
     public static saveDataToCookies(key, value): void {
         document.cookie = `${key}=${value};domain=localhost`;
+        document.cookie = `${key}=${value};domain=muahoantien.com`;
     }
 
     public static saveDataToLocalStorage(key, value): void {
@@ -21,6 +22,7 @@ export class AppUtils{
 
     public static clearCookies(key): void {
         document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=localhost`;
+        document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=muahoantien.com`;
     }
 
     public static clearLocalStorage(key): void {
