@@ -17,7 +17,7 @@ import {HttpClientModule} from '@angular/common/http';
   imports: [
     BrowserModule,
     SharedModule,
-    RouterModule.forRoot(AppRouting),
+    RouterModule.forRoot(AppRouting, { useHash: true }),
     NgbModule,
     HttpClientModule
   ],
