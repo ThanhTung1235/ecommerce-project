@@ -77,32 +77,32 @@ export class ShoppingCartComponent implements OnInit {
         referral: this.getCookie('referral')
       };
       console.log(this.getCookie('referral'));
-      // const productDetail = this.data.map((item) => {
-      //   return {
-      //     product_id: item.product_option_id,
-      //     price: item.price,
-      //     quantity: item.quantity,
-      //     product_name: item.product_name,
-      //     size: item.size,
-      //     image: item.image,
-      //   };
-      // });
-      // const order = new Order(
-      //   this.totalAmount,
-      //   data.ship_money,
-      //   this.totalAmount,
-      //   data.note,
-      //   data.address,
-      //   productDetail
-      // );
-      // this.orderService.createOrder(order).subscribe(res => {
-      //   if (res.status_code === 200) {
-      //     this.orderSuccess = true;
-      //     AppUtils.clearCookies('_cart');
-      //   } else {
-      //     console.error(res.message);
-      //   }
-      // });
+      const productDetail = this.data.map((item) => {
+        return {
+          product_id: item.product_option_id,
+          price: item.price,
+          quantity: item.quantity,
+          product_name: item.product_name,
+          size: item.size,
+          image: item.image,
+        };
+      });
+      const order = new Order(
+        this.totalAmount,
+        data.ship_money,
+        this.totalAmount,
+        data.note,
+        data.address,
+        productDetail
+      );
+      this.orderService.createOrder(order).subscribe(res => {
+        if (res.status_code === 200) {
+          this.orderSuccess = true;
+          AppUtils.clearCookies('_cart');
+        } else {
+          console.error(res.message);
+        }
+      });
     } else {
       this.showError = true;
     }
