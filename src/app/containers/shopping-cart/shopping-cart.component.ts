@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Order } from 'src/app/models/order';
-import { OrderService } from 'src/app/services/order.service';
-import { AppUtils } from 'src/app/utils/app.utils';
+import {Component, OnInit} from '@angular/core';
+import {Order} from 'src/app/models/order';
+import {OrderService} from 'src/app/services/order.service';
+import {AppUtils} from 'src/app/utils/app.utils';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -13,7 +13,9 @@ export class ShoppingCartComponent implements OnInit {
   totalAmount = 0;
   orderSuccess = false;
   showError = false;
-  constructor(private orderService: OrderService) {}
+
+  constructor(private orderService: OrderService) {
+  }
 
   ngOnInit(): void {
     this.initData();
@@ -52,39 +54,55 @@ export class ShoppingCartComponent implements OnInit {
     AppUtils.saveDataToCookies('_cart', JSON.stringify(this.data));
   }
 
+  getCookie(name: string) {
+    const ca: Array<string> = document.cookie.split(';');
+    const caLen: number = ca.length;
+    const cookieName = `${name}=`;
+    let c: string;
+
+    for (let i = 0; i < caLen; i += 1) {
+      c = ca[i].replace(/^\s+/g, '');
+      if (c.indexOf(cookieName) === 0) {
+        return c.substring(cookieName.length, c.length);
+      }
+    }
+  }
+
   createOrder(address): void {
     if (address) {
       const data = {
         ship_money: 5000,
         note: '',
         address: address,
+        referral: this.getCookie('referral')
       };
-      const productDetail = this.data.map((item) => {
-        return {
-          product_id: item.product_option_id,
-          price: item.price,
-          quantity: item.quantity,
-          product_name: item.product_name,
-          size: item.size,
-          image: item.image,
-        };
-      });
-      const order = new Order(
-        this.totalAmount,
-        data.ship_money,
-        this.totalAmount,
-        data.note,
-        data.address,
-        productDetail
-      );
-      this.orderService.createOrder(order).subscribe(res => {
-        if (res.status_code === 200) {
-          this.orderSuccess = true;
-          AppUtils.clearCookies('_cart');
-        } else {
-          console.error(res.message);
-        }
-      });
+      console.log(this.getCookie('referral'));
+      // const productDetail = this.data.map((item) => {
+      //   return {
+      //     product_id: item.product_option_id,
+      //     price: item.price,
+      //     quantity: item.quantity,
+      //     product_name: item.product_name,
+      //     size: item.size,
+      //     image: item.image,
+      //   };
+      // });
+      // const order = new Order(
+      //   this.totalAmount,
+      //   data.ship_money,
+      //   this.totalAmount,
+      //   data.note,
+      //   data.address,
+      //   productDetail
+      // );
+      // this.orderService.createOrder(order).subscribe(res => {
+      //   if (res.status_code === 200) {
+      //     this.orderSuccess = true;
+      //     AppUtils.clearCookies('_cart');
+      //   } else {
+      //     console.error(res.message);
+      //   }
+      // });
     } else {
       this.showError = true;
     }
