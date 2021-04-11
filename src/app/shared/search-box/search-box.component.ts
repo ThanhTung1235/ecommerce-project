@@ -13,8 +13,11 @@ export class SearchBoxComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  search(): void{
-    this.router.navigate(['/tim-kiem/iphone-12']);
+  search(keyword): void{
+    if (keyword) {
+      console.log(keyword);
+      this.router.navigate(['/tim-kiem'], {queryParams: []});
+    }
   }
 
 }
