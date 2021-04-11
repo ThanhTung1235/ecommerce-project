@@ -24,7 +24,7 @@ export class ProductService extends BaseService {
     return this.http.get<ResponseData>(`${this.endpoint}/get_detail`, {params, headers: this.requestHeaders});
   }
 
-  getDataDemo() {
+  getDataDemo(): any {
     return {
       category: '5629674762023824595',
       detail_information: [
