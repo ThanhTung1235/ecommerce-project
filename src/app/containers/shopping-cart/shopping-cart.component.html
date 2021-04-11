@@ -1,72 +1,92 @@
-<h2 class="fs18 fw400 text-uppercase">Giỏ hàng</h2>
-<div *ngIf="data.length > 0" class="row">
-  <div class="col-12 col-md-8 col-xl-9">
-    <div *ngFor="let item of data" class="card card-body deal-item">
-        <ul class="list-cart">
-          <li class="shop-name">
-            <p class="fw500 mb-3 text-capitalize"> {{item.seller}} <i class='bx bxs-chevron-right' ></i></p>
-          </li>
-          <li class="inner-product row">
-            <div class="product-thumb col-6 col-md-2">
-              <img class="img-fluid" [src]="item.img" alt="">
-            </div>
-            <div class="product-name col-6 col-md-8">
-              <a class="text-decoration-none text-dark" [routerLink]="['/chi-tiet/'+ item?.product_link]" routerLinkActive="router-link-active" >{{item.product_name}}</a>  
-              <p class="  text-secondary fs13"> <span>Kích thước</span> {{item.size}}</p>
-              <app-quantity-box [quantityProduct]="item.quantity" (quantity)="quantityChange($event,item.product_option_id)"></app-quantity-box>
-            </div>
-            <div class="product-content-price col-12 col-md-2">
-              <p class="fw500 fs22">{{item?.price | number}}</p>
-              <div class="d-flex">
-                <a (click)="removeProduct(item?.product_option_id)" class="fs12 mr-3 cursor-pointer">Xóa</a> 
-                <a class="fs12 d-none">Mua sau</a>
+<ng-template [ngIf]="!orderSuccess">
+  <h2 class="fs18 fw400 text-uppercase">Giỏ hàng</h2>
+  <div *ngIf="data.length > 0" class="row">
+    <div class="col-12 col-md-8 col-xl-9">
+      <div *ngFor="let item of data" class="card card-body deal-item">
+          <ul class="list-cart">
+            <li class="shop-name">
+              <p class="fw500 mb-3 text-capitalize"> {{item.seller}} <i class='bx bxs-chevron-right' ></i></p>
+            </li>
+            <li class="inner-product row">
+              <div class="product-thumb col-6 col-md-2">
+                <img class="img-fluid" [src]="item.img" alt="">
               </div>
-            </div>
-          </li>
-        </ul>
-
-        
+              <div class="product-name col-6 col-md-8">
+                <a class="text-decoration-none text-dark" [routerLink]="['/chi-tiet/'+ item?.product_link]" routerLinkActive="router-link-active" >{{item.product_name}}</a>  
+                <p class="  text-secondary fs13"> <span>Kích thước</span> {{item.size}}</p>
+                <app-quantity-box [quantityProduct]="item.quantity" (quantity)="quantityChange($event,item.product_option_id)"></app-quantity-box>
+              </div>
+              <div class="product-content-price col-12 col-md-2">
+                <p class="fw500 fs22">{{item?.price | number}}</p>
+                <div class="d-flex">
+                  <a (click)="removeProduct(item?.product_option_id)" class="fs12 mr-3 cursor-pointer">Xóa</a> 
+                  <a class="fs12 d-none">Mua sau</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+  
+          
+      </div>
     </div>
-  </div>
-
-  <div class="col-12 col-md-4 col-xl-3">
-    <div class="card card-body deal-item">
-        <p class="fw500">Địa chỉ nhận hàng</p>
-        <p class="fs14 fw500">Nguyễn Văn A  |  0969296543</p>
-        <p class="fs12 text-muted">97-99 Láng Hạ - Đống Đa- Hà Nội</p>
-    </div>
+  
+    <div class="col-12 col-md-4 col-xl-3">
+      <div class="card card-body deal-item">
+          <p class="fw500">Địa chỉ nhận hàng</p>
+          <p class="fs14 fw500">Nguyễn Văn A  |  0969296543</p>
+          <!-- <p class="fs12 text-muted">97-99 Láng Hạ - Đống Đa- Hà Nội</p> -->
+      </div>
+  
+      <!-- <div class="card card-body mt-3 deal-item">
+        <p class="fw500">Voucher | Mã giảm giá</p>
+        <input type="text" placeholder="Nhập mã giảm giá" class="form-control">
+        <a class="btn btn-primary mt-1 btn-sm">Áp dụng</a>
+    </div> -->
 
     <div class="card card-body mt-3 deal-item">
-      <p class="fw500">Voucher | Mã giảm giá</p>
-      <input type="text" placeholder="Nhập mã giảm giá" class="form-control">
-      <a class="btn btn-primary mt-1 btn-sm">Áp dụng</a>
+      <p class="fw500">Địa chỉ</p>
+      <input type="text" placeholder="Nhập địa chỉ" #address class="form-control">
+      <p *ngIf="showError" class="text-danger fs12 mb-0">Địa chỉ không được bỏ trống</p>
   </div>
-
-  <div class="card card-body mt-3 deal-item">
-    <div class="d-flex justify-content-between">
-      <p class="fs16 fw300">Tạm tính</p>
-      <p>{{totalAmount | number}}đ</p>  
-    </div>
-    <div class="d-flex justify-content-between mt-2">
-      <p class="fs16 fw300">Thành tiền</p>
-      <p class="text-danger fs22">{{totalAmount | number}}đ</p>  
-    </div>
-  </div>
-
-  <button (click)="createOrder()" class="btn btn-danger btn-block mt-2">Thanh toán</button>
-  </div>
-</div>
-
-<div *ngIf="data.length === 0" class="row">
-  <div class="col-12">
-    <div class="card card-body">
-      <div class="empty-thumb">
-        <img class="img-fluid" src="../../../assets/imgs/mascot@2x.png" alt="">
+  
+    <div class="card card-body mt-3 deal-item">
+      <div class="d-flex justify-content-between">
+        <p class="fs16 fw300">Tạm tính</p>
+        <p>{{totalAmount | number}}đ</p>  
       </div>
-      <div class="empty-content text-center mt-5">
-        <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
-        <a routerLink="/" class="btn btn-warning">Tiếp tục mua sắm</a>
+      <div class="d-flex justify-content-between mt-2">
+        <p class="fs16 fw300">Thành tiền</p>
+        <p class="text-danger fs22">{{totalAmount | number}}đ</p>  
       </div>
+    </div>
+  
+    <button (click)="createOrder(address.value)" class="btn btn-danger btn-block mt-2">Thanh toán</button>
+    </div>
+  </div>
+  
+  <div *ngIf="data.length === 0" class="row">
+    <div class="col-12">
+      <div class="card card-body">
+        <div class="empty-thumb">
+          <img class="img-fluid" src="../../../assets/imgs/mascot@2x.png" alt="">
+        </div>
+        <div class="empty-content text-center mt-5">
+          <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
+          <a routerLink="/" class="btn btn-warning">Tiếp tục mua sắm</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<div *ngIf="orderSuccess" class="order-succes pt-5 pb-5">
+  <div class="card">
+    <div class="card-body text-center">
+      <i class='bx bx-check-circle fs50 text-primary'></i>
+      <p class="text-primary fs24 fw500">Đặt hàng thành công</p>
+      <p class="fs16">Mã đơn hàng của bạn</p>
+      <p class="fs13">Bạn sẽ nhận được chi tiết đơn hàng trong email <span class="text-primary">example@mail.com</span></p>
     </div>
   </div>
 </div>

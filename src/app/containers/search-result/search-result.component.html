@@ -59,8 +59,15 @@
       <a (click)="showFilter()" class="btn btn-outline-primary float-right">Bộ lọc <i class='bx bx-filter-alt'></i></a>
     </div>
     <div class="col-12 col-md-9 col-xl-10">
-      <h4 class="title-result">Kết quả tìm kiếm cho `key_word`: <span>0 kết quả</span></h4>
-      <app-prod-item [searchResult]="true"></app-prod-item>
+      <h4 class="title-result fw400">{{keyword}}: <span class="text-muted">{{totalProd}} kết quả</span></h4>
+      <ng-template [ngIf]="totalProd > 0">
+        <app-prod-item [searchResult]="true" [products]="productList"></app-prod-item>
+      </ng-template>
+      <ng-template [ngIf]="totalProd == 0">
+        <div class="alert alert-warning" role="alert">
+          Không có kết quả
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

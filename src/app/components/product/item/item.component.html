@@ -1,4 +1,4 @@
-<a class="quick-link-item" href="#">
+<a class="quick-link-item" [routerLink]="['/tim-kiem']" [queryParams]="{query_cate: name+ '_i.'+ id}">
   <div class="item-thumb">
     <img src="{{avatar}}" (click)="searchProduct(id)" class="img-fluid" alt="{{name}}">
   </div>

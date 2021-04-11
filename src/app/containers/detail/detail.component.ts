@@ -43,12 +43,12 @@ export class DetailComponent implements OnInit {
   }
 
   getDetailProduct(id): void {
-    this.product = this.productService.getDataDemo();
-    this.productOption = this.product.products[0];
-    // this.productService.getDetailProduct({product_id: id}).subscribe(res => {
-    //   this.product = res.data.result;
-    //   this.productOption = this.product.products[0];
-    // });
+    // this.product = this.productService.getDataDemo();
+    // this.productOption = this.product.products[0];
+    this.productService.getDetailProduct({product_id: id}).subscribe(res => {
+      this.product = res.data.result;
+      this.productOption = this.product.products[0];
+    });
   }
 
   buyNow(_product): void{

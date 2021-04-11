@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { Order, ProductDetail } from 'src/app/models/order';
+import { Component, OnInit } from '@angular/core';
+import { Order } from 'src/app/models/order';
 import { OrderService } from 'src/app/services/order.service';
 import { AppUtils } from 'src/app/utils/app.utils';
 
@@ -11,6 +11,8 @@ import { AppUtils } from 'src/app/utils/app.utils';
 export class ShoppingCartComponent implements OnInit {
   data = [];
   totalAmount = 0;
+  orderSuccess = false;
+  showError = false;
   constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {
@@ -50,31 +52,41 @@ export class ShoppingCartComponent implements OnInit {
     AppUtils.saveDataToCookies('_cart', JSON.stringify(this.data));
   }
 
-  createOrder(): void {
-    const data = {
-      ship_money: 5000,
-      note: '',
-      address: '97-99 Láng Hạ - Đống Đa- Hà Nội',
-    };
-    const productDetail = this.data.map((item) => {
-      return {
-        product_id: item.product_id,
-        price: item.price,
-        quantity: item.quantity,
-        product_name: item.product_name,
-        size: item.size
+  createOrder(address): void {
+    if (address) {
+      const data = {
+        ship_money: 5000,
+        note: '',
+        address: address,
       };
-    });
-    const order = new Order(
-      this.totalAmount,
-      data.ship_money,
-      this.totalAmount,
-      data.note,
-      data.address,
-      productDetail
-    );
-    this.orderService.createOrder(order).subscribe(res => {
-      console.log(res);
-    });
+      const productDetail = this.data.map((item) => {
+        return {
+          product_id: item.product_option_id,
+          price: item.price,
+          quantity: item.quantity,
+          product_name: item.product_name,
+          size: item.size,
+          image: item.image,
+        };
+      });
+      const order = new Order(
+        this.totalAmount,
+        data.ship_money,
+        this.totalAmount,
+        data.note,
+        data.address,
+        productDetail
+      );
+      this.orderService.createOrder(order).subscribe(res => {
+        if (res.status_code === 200) {
+          this.orderSuccess = true;
+          AppUtils.clearCookies('_cart');
+        } else {
+          console.error(res.message);
+        }
+      });
+    } else {
+      this.showError = true;
+    }
   }
 }
