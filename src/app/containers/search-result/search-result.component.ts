@@ -3,6 +3,7 @@ import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-search-result',
@@ -16,13 +17,20 @@ export class SearchResultComponent implements OnInit {
   productList: any;
   keyword: any;
   totalProd: any;
+  listCategory: any;
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService) { }
+    private productService: ProductService,
+    private categoryService: CategoryService) { }
 
   ngOnInit(): void {
     this.detectUrl();
+    this.categoryService.getListCategory({}).subscribe(response => {
+      if (response.status_code === 200){
+        this.listCategory = response.data.result;
+      }
+    });
   }
 
   detectUrl(): void{
