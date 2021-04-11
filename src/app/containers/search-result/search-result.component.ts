@@ -46,6 +46,11 @@ export class SearchResultComponent implements OnInit {
     }
   }
 
+  cateChange(cateId, name): void{
+    this.getProductOfCate(cateId);
+    this.keyword = name;
+  }
+
   getProductOfCate(cateId): void{
     this.productService.getListProduct({category_id: cateId}).subscribe(res => {
       if (res.status_code === 200) {

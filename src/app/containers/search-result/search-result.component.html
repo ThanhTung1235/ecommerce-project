@@ -5,7 +5,7 @@
         <h4 class="title">Danh mục sản phẩm</h4>
         <ul class="nav-cate">
           <li *ngFor="let item of listCategory" class="nav-cate-item">
-            <a [routerLink]="['/tim-kiem']" [queryParams]="{query_cate: item?.name+ '_i.'+ item?.uid}">{{item?.name}}</a>
+            <a (click)="cateChange(item?.uid, item?.name)" [routerLink]="['/tim-kiem']" [queryParams]="{query_cate: item?.name+ '_i.'+ item?.uid}">{{item?.name}}</a>
           </li>
         </ul>
       </div>
