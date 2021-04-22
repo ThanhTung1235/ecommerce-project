@@ -70,3 +70,48 @@
         padding: 0.5rem;
     }
 }
+
+@media (max-width: 992px) {
+
+}
+
+@media (max-width: 768px) {
+    .product-list{
+        overflow-x: auto;
+        grid-template-columns: repeat(10, 25%);
+        gap: 0px;
+    }
+
+    .product-item{
+        padding: 0;
+    }
+
+    .product-thumb{
+        width: 120px;
+        height: 120px;
+    }
+
+    .product-item .card-body{
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .product-list{
+        grid-template-columns: repeat(10, 45%);
+    }
+    .product-thumb{
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 320px) {
+    .product-list{
+        grid-template-columns: repeat(10, 50%);
+    }
+    .product-thumb{
+        width: 80px;
+        height: 80px;
+    }
+}
