@@ -4,17 +4,8 @@
       <div class="cate">
         <h4 class="title">Danh mục sản phẩm</h4>
         <ul class="nav-cate">
-          <li class="nav-cate-item">
-            <a href="">Mẹ và bé</a>
-          </li>
-          <li class="nav-cate-item">
-            <a href="">Sức khỏe & đời sống</a>
-          </li>
-          <li class="nav-cate-item">
-            <a href="">Thời trang</a>
-          </li>
-          <li class="nav-cate-item">
-            <a href="">Điện tử</a>
+          <li *ngFor="let item of listCategory" class="nav-cate-item">
+            <a (click)="cateChange(item?.uid, item?.name)" [routerLink]="['/tim-kiem']" [queryParams]="{query_cate: item?.name+ '_i.'+ item?.uid}">{{item?.name}}</a>
           </li>
         </ul>
       </div>
