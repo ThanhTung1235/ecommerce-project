@@ -1,5 +1,5 @@
 import { AppUtils } from 'src/app/utils/app.utils';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { BaseService } from 'src/app/services/base.service';
 
@@ -8,8 +8,9 @@ import { BaseService } from 'src/app/services/base.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
   productCount: any;
+  isTop = false
   constructor(private dataService: BaseService) {}
 
   ngOnInit(): void {
@@ -23,6 +24,17 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit(){
+    const haederMobile = document.getElementById("header-sm");
+    if (window.pageYOffset > 0) {
+      haederMobile.style.height = "50px";
+      this.isTop = false;
+    }else { 
+      this.isTop = true;
+      haederMobile.style.height = "110px";
+    }
+  }
+
   countProductInCart(): void {
     AppUtils.getDataFromCookies('_cart');
     const dataFromCookie = AppUtils.getDataFromCookies('_cart');
@@ -32,5 +44,19 @@ export class HeaderComponent implements OnInit {
     } else {
       this.productCount = 0;
     }
+  }
+
+  @HostListener('window:scroll', ['$event']) // for window scroll events
+  onScroll(event) {
+    const haederMobile = document.getElementById("header-sm");
+    if (window.pageYOffset > 0) {
+      haederMobile.style.height = "50px";
+      this.isTop = false;
+    }else { 
+      this.isTop = true;
+      haederMobile.style.height = "110px";
+    }
+    
+    
   }
 }

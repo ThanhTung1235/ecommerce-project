@@ -1,10 +1,11 @@
-input {
+.search-box-lg input {
     border: none;
     border-radius: 2px;
     height: 100%;
     outline: none;
     padding: 0 10px;
     font-size: 13px;
+    height: 37px;
 }
 
 button{
@@ -17,4 +18,34 @@ button{
     display: flex;
     align-items: center;
     height: 100%;
+}
+
+.search-box-sm{
+    display: none;
+}
+
+.search-box-sm button{
+    left: 10px;
+    background: transparent;
+    color: #afabab;
+    font-size: 25px;
+}
+
+.search-box-sm input{
+    border-radius: 3px;
+    height: 37px;
+    padding: 0 35px;
+    outline: none;
+    font-size: 13px;
+    border: none;
+}
+
+@media only screen and (max-width: 992px) {
+    .search-box-lg{
+        display: none;
+    }
+
+    .search-box-sm{
+        display: block;
+    }
 }
