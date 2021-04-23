@@ -56,12 +56,24 @@
   </div>
 </section>
 
-<!--<section class="header-sm">-->
-<!--  <div class="logo-sm">-->
-<!--    <img class="img-fluid" src="https://salt.tikicdn.com/ts/upload/d4/ca/89/28d85ed27396c1beebad8a3fec18bfe4.png" alt="">-->
-<!--  </div>-->
-<!--  &lt;!&ndash; <app-search-box></app-search-box> &ndash;&gt;-->
-<!--  <div class="search-box col-12 mt-2">-->
-<!--    <input type="text" placeholder="Ban tim gi hom nay?" style="width: 100%;">-->
-<!--  </div>-->
-<!--</section>-->
+<section class="header-sm" id="header-sm">
+  <div *ngIf="isTop" class="d-flex align-items-end pr15">
+    <div id="logo-sm" class="logo-sm">
+      <img class="img-fluid" src="https://salt.tikicdn.com/ts/upload/d4/ca/89/28d85ed27396c1beebad8a3fec18bfe4.png" alt="">
+    </div>
+    <div class="cart-sm">
+      <i class='bx bx-cart fs30 text-white'></i>
+      <span class="bg-warning cart-quatity">{{productCount}}</span>
+    </div>
+  </div>
+
+  <div class="search-box mt-2 d-flex">
+    <div [ngClass]="{'col-12': isTop, 'col-11': !isTop}">
+      <app-search-box></app-search-box>
+    </div>
+    <div *ngIf="!isTop" class="cart-sm">
+      <i class='bx bx-cart fs30 text-white'></i>
+      <span class="bg-warning cart-quatity">{{productCount}}</span>
+    </div>
+  </div>
+</section>

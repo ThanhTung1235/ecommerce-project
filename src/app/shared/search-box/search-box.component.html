@@ -1,2 +1,9 @@
-<input #keyword type="text" placeholder="Tìm sản phẩm, danh mục hay thương hiệu mong muốn ..." style="width:100%">
-<button (click)="search(keyword.value)" class="btn "><i class='bx bx-search-alt'></i> &nbsp; <span class="fs12">Tìm kiếm</span></button>
+<section class="search-box-lg">
+    <input #keyword type="text" placeholder="Tìm sản phẩm, danh mục hay thương hiệu mong muốn ..." style="width:100%">
+    <button (click)="search(keyword.value)" class="btn "><i class='bx bx-search-alt'></i> &nbsp; <span class="fs12">Tìm kiếm</span></button>
+</section>
+
+<section class="search-box-sm">
+    <input #keyword type="text" placeholder="Bạn tìm gì hôm nay?" style="width:100%">
+    <button (click)="search(keyword.value)" class="btn "><i class='bx bx-search-alt'></i></button>
+</section>

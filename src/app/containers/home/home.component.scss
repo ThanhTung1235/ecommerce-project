@@ -12,7 +12,14 @@
 }
 
 @media (max-width: 992px) {
-    .banner{
+
+    .banner .banner-right{
         display: none;
+    }
+
+    .banner{
+        display: block;
+        height: auto;
+        margin-top: 105px;
     }
 }
