@@ -5,6 +5,7 @@
         <span class="fs13">{{item?.name}} </span>
         <div class="thumb-cate">
           <img [src]="item?.image" alt="" class="img-fluid">
+<!--          <img src="http://static.muahoantien.com/uploads/library/goi-y-sp.png" alt="gợi ý hôm nay" class="img-fluid">-->
         </div>
       </a>
       <ng-template ngbNavContent>
@@ -12,7 +13,7 @@
       </ng-template>
     </li>
   </ul>
-  
+
   <div [ngbNavOutlet]="nav" class="mt-2"></div>
 
   <div *ngIf="false" class="d-flex justify-content-center p-3">
