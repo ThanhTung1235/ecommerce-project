@@ -189,22 +189,18 @@
     <div class="row">
       <div class="col-4">
         <div class="prod-thumb">
-          <img
-            class="img-fluid"
-            src="https://salt.tikicdn.com/cache/550x550/ts/product/86/1f/13/41351980c0e8bd616bcc36fc431d033d.jpg"
-            alt=""
-          />
+          <img class="img-fluid" [src]="productBuyer?.img" alt=""/>
         </div>
       </div>
       <div class="col-8">
         <div class="prod-info">
           <div class="prod-name fs13 fw500">
-            Loa Bluetooth JBL Go 2 - Hàng Chính Hãng
+            {{productBuyer?.product_name}}
           </div>
           <div class="prod-color fs11">
-            <span class="text-muted">Màu: </span> <span>Xanh rêu</span>
+            <span class="text-muted">Loại: </span> <span>{{productBuyer?.size}}</span>
           </div>
-          <div class="prod-price fs15 fw500">630.000 ₫</div>
+          <div class="prod-price fs15 fw500">{{productBuyer?.price | number}} ₫</div>
         </div>
       </div>
       <div class="col-12">

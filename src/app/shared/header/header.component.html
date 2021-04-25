@@ -59,11 +59,15 @@
 <section class="header-sm" id="header-sm">
   <div *ngIf="isTop" class="d-flex align-items-end pr15">
     <div id="logo-sm" class="logo-sm">
-      <img class="img-fluid" src="https://salt.tikicdn.com/ts/upload/d4/ca/89/28d85ed27396c1beebad8a3fec18bfe4.png" alt="">
+      <a routerLink="/">
+        <img class="img-fluid" src="https://salt.tikicdn.com/ts/upload/d4/ca/89/28d85ed27396c1beebad8a3fec18bfe4.png" alt="">
+      </a>
     </div>
     <div class="cart-sm">
-      <i class='bx bx-cart fs30 text-white'></i>
-      <span class="bg-warning cart-quatity">{{productCount}}</span>
+      <a routerLink="/gio-hang">
+        <i class='bx bx-cart fs30 text-white'></i>
+        <span class="bg-warning cart-quatity">{{productCount}}</span>
+      </a>
     </div>
   </div>
 
@@ -72,8 +76,10 @@
       <app-search-box></app-search-box>
     </div>
     <div *ngIf="!isTop" class="cart-sm">
-      <i class='bx bx-cart fs30 text-white'></i>
-      <span class="bg-warning cart-quatity">{{productCount}}</span>
+      <a routerLink="/gio-hang">
+        <i class='bx bx-cart fs30 text-white'></i>
+        <span class="bg-warning cart-quatity">{{productCount}}</span>
+      </a>
     </div>
   </div>
 </section>
