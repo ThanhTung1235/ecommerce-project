@@ -15,6 +15,7 @@ export class DetailComponent implements OnInit {
   prodId: any;
   showNotiCart = false;
   productOption: any;
+  productBuyer: any;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -66,6 +67,7 @@ export class DetailComponent implements OnInit {
       product_link: AppUtils.productNameInURL(this.product.name, this.prodId),
       product_option_id: _product.uid
     };
+    this.productBuyer = data
     let listProd = [];
     const dataFormCookies = AppUtils.getDataFromCookies('_cart');
     if (dataFormCookies) {
