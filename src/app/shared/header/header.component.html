@@ -4,11 +4,24 @@
       <a class="logo" routerLink="/">
         <img width="100" src="http://static.muahoantien.com/uploads/library/logo_requa_vn.png" class="img-fluid" alt="">
       </a>
-      <div class="menu-box header-top-item">
-        <p class="mb-0"><i class='bx bx-menu fs30'></i></p>
-        <div class="menu-content">
+      <div class="header-top-item position-relative category-content-dropdown">
+        <div class="menu-box">
+          <p class="mb-0"><i class='bx bx-menu fs30'></i></p>
+          <div class="menu-content">
           <p class="fs11 mb-0">Danh mục</p>
           <p class="fs13 mb-0">Sản phẩm <i class='bx bxs-down-arrow fs8'></i></p>
+        </div>
+        </div>
+        <div class="category-dropdown">
+          <!-- <a class="category-dropdown-item" [routerLink]="['/tim-kiem']" [queryParams]="{query_cate: name+ '_i.'+ id}"><i class='bx bx-home'></i> Hello</a> -->
+          <a *ngFor="let item of listCategory" [routerLink]="['/tim-kiem']" [queryParams]="{query_cate: item?.name+ '_i.'+ item?.uid}" class="category-dropdown-item">
+            <i class="bx" [ngClass]="{'bxs-cookie': item?.name === 'Thức Ăn', 
+                                      'bx-laptop' : item?.name === 'Điện Máy', 
+                                      'bx-home' : item?.name === 'Trang Trí', 
+                                      'bx-drink' : item?.name === 'Bình Nước',
+                                      'bx-medal' : item?.name === 'Trang Sức',
+                                      'bx-box' : item?.name === 'Tủ đồ' }"></i> {{item?.name}}
+          </a>
         </div>
       </div>
       <div class="search-box">
@@ -20,7 +33,6 @@
           <p class="fs11 mb-0">Tài khoản</p>
           <p class="fs13 mb-0">Đăng nhập <i class='bx bxs-down-arrow fs8'></i></p>
         </div>
-
       </div>
       <div class="cart-box header-top-item text-decoration-none">
         <a routerLink="/gio-hang"  class="position-relative mb-0 text-white text-decoration-none">
