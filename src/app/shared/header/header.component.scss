@@ -61,7 +61,6 @@
 .logo-sm{
     width: 50px;
     height: 50px;
-    margin: auto;
     padding-top: 15px;
 }
 
@@ -113,7 +112,37 @@
     margin-right: 10px;
 }
 
+.content-menu-category{
+    background: #ffff;
+    position: fixed;
+    height: 100%;
+    width: 0;
+    padding: 0;
+    transition: all 0.3s;
+    left: -100px;
+    top: 0;
+}
 
+.content-menu-category-active{
+    width: 60%;
+    height: 100%;
+    left: 0;
+}
+
+.content-menu-category ul li{
+    padding: 16px;
+}
+
+.content-menu-category ul li a{
+    color: #878787;
+    font-size: 20px;
+}
+
+.clear-both{
+    content: "";
+    clear: both;
+    display: table;
+}
 
 @media only screen and (max-width: 992px) {
     .header-lg{

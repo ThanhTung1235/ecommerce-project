@@ -34,16 +34,19 @@ export class SearchResultComponent implements OnInit {
   }
 
   detectUrl(): void{
-    this.queryCate = this.route.snapshot.paramMap.get('query_cate');
+    // this.queryCate = this.route.snapshot.paramMap.get('query_cate');
     this.sub = this.route.queryParams.subscribe(params => {
       this.queryCate = params.query_cate;
-    });
-    // this.productService.getListProduct({category_id: this});
-    if (this.queryCate) {
       const cateId = AppUtils.getNameAndIdOfURL(this.queryCate);
       this.getProductOfCate(cateId.id);
       this.keyword = cateId.name;
-    }
+    });
+    // this.productService.getListProduct({category_id: this});
+    // if (this.queryCate) {
+    //   const cateId = AppUtils.getNameAndIdOfURL(this.queryCate);
+    //   this.getProductOfCate(cateId.id);
+    //   this.keyword = cateId.name;
+    // }
   }
 
   cateChange(cateId, name): void{

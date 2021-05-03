@@ -22,7 +22,7 @@
         <div class="product-thumb">
           <img class="img-fluid" [src]="item.image" alt="">
         </div>
-        <p class="product-name">{{item?.name}}</p>
+        <p class="product-name">{{ (item?.name.length > 50)? (item?.name | slice:0:50)+'..':(item?.name)}}</p>
         <!-- <ngb-rating [rate]="3" [max]="5"></ngb-rating> -->
         <p class="product-price">
           {{item?.price | number}}₫

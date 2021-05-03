@@ -13,7 +13,6 @@
         </div>
         </div>
         <div class="category-dropdown">
-          <!-- <a class="category-dropdown-item" [routerLink]="['/tim-kiem']" [queryParams]="{query_cate: name+ '_i.'+ id}"><i class='bx bx-home'></i> Hello</a> -->
           <a *ngFor="let item of listCategory" [routerLink]="['/tim-kiem']" [queryParams]="{query_cate: item?.name+ '_i.'+ item?.uid}" class="category-dropdown-item">
             <i class="bx" [ngClass]="{'bxs-cookie': item?.name === 'Thức Ăn', 
                                       'bx-laptop' : item?.name === 'Điện Máy', 
@@ -69,10 +68,13 @@
 </section>
 
 <section class="header-sm" id="header-sm">
-  <div *ngIf="isTop" class="d-flex align-items-end pr15">
+  <div *ngIf="isTop" class="d-flex align-items-end pr15 pl15 justify-content-between">
+    <div (click)="categoryMenuShow()" class="category-menu">
+      <i class='bx bx-menu-alt-left fs30 text-white'></i>
+    </div>
     <div id="logo-sm" class="logo-sm">
       <a routerLink="/">
-        <img class="img-fluid" src="https://salt.tikicdn.com/ts/upload/d4/ca/89/28d85ed27396c1beebad8a3fec18bfe4.png" alt="">
+        <img class="img-fluid" src="http://static.muahoantien.com/uploads/library/logo_requa_vn.png" alt="">
       </a>
     </div>
     <div class="cart-sm">
@@ -84,7 +86,10 @@
   </div>
 
   <div class="search-box mt-2 d-flex">
-    <div [ngClass]="{'col-12': isTop, 'col-11': !isTop}">
+    <div (click)="categoryMenuShow()" *ngIf="!isTop" class="category-menu pl10">
+      <i class='bx bx-menu-alt-left fs30 text-white'></i>
+    </div>
+    <div [ngClass]="{'col-12': isTop, 'col-10': !isTop}">
       <app-search-box></app-search-box>
     </div>
     <div *ngIf="!isTop" class="cart-sm">
@@ -93,5 +98,23 @@
         <span class="bg-warning cart-quatity">{{productCount}}</span>
       </a>
     </div>
+  </div>
+  <div [ngClass]="isShowCategory ? 'content-menu-category-active' : ''" class="content-menu-category">
+    <div (click)="categoryMenuShow()" class="category-menu pt-3 pr-3">
+      <i class='bx bx-x fs30 text-muted float-right'></i>
+      <div class="clear-both"></div>
+    </div>
+    <ul>
+     <li *ngFor="let item of listCategory">
+        <a (click)="categoryMenuShow()" [routerLink]="['/tim-kiem']" [queryParams]="{query_cate: item?.name+ '_i.'+ item?.uid}">
+          <i class="bx" [ngClass]="{'bxs-cookie': item?.name === 'Thức Ăn', 
+                                  'bx-laptop' : item?.name === 'Điện Máy', 
+                                  'bx-home' : item?.name === 'Trang Trí', 
+                                  'bx-drink' : item?.name === 'Bình Nước',
+                                  'bx-medal' : item?.name === 'Trang Sức',
+                                  'bx-box' : item?.name === 'Tủ đồ' }"></i> {{item?.name}}
+        </a>
+      </li>
+    </ul>
   </div>
 </section>

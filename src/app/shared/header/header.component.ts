@@ -1,27 +1,39 @@
 import { AppUtils } from 'src/app/utils/app.utils';
-import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { BaseService } from 'src/app/services/base.service';
 import { CategoryService } from 'src/app/services/category.service';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, AfterViewInit {
+export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   productCount: any;
   isTop = false;
   listCategory: any;
+  isShowCategory = false;
+  sub: Subscription;
   constructor(
     private dataService: BaseService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private route: ActivatedRoute
     ) {}
 
   ngOnInit(): void {
     this.countProductInCart();
     this.getNotifyFromSubject();
     this.getCategory();
+    this.detectUrlChange();
+  }
+
+  detectUrlChange() {
+    this.sub = this.route.queryParams.subscribe(params => {
+      this.isShowCategory = false;
+    });
   }
 
   ngAfterViewInit(){
@@ -74,7 +86,15 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       this.isTop = true;
       haederMobile.style.height = "110px";
     }
-    
-    
+  }
+
+  categoryMenuShow() {
+    this.isShowCategory = this.isShowCategory == true ? false : true;
+  }
+
+  ngOnDestroy() {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }
