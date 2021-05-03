@@ -2,14 +2,21 @@
   <ul ngbNav #nav="ngbNav" [(activeId)]="activeCate" class="nav-tabs list-cate">
     <li *ngFor="let item of categories" [ngbNavItem]="item?.uid">
       <a class="cate-item" ngbNavLink (click)="getProdByCate(item?.uid)">
-        <span class="fs13">{{item?.name}} </span>
-        <div class="thumb-cate">
+        <span *ngIf="item?.name !== 'Gợi ý'" class="fs13">{{item?.name}} </span>
+        <div class="thumb-cate" [ngStyle]="{'width': item?.name == 'Gợi ý' ? '80px' : ''}">
           <img [src]="item?.image" alt="" class="img-fluid">
 <!--          <img src="http://static.muahoantien.com/uploads/library/goi-y-sp.png" alt="gợi ý hôm nay" class="img-fluid">-->
         </div>
       </a>
       <ng-template ngbNavContent>
-        <app-prod-item [searchResult]="false" [products]="products"></app-prod-item>
+        <ng-template [ngIf]="products?.length == 0">
+          <p class="text-center mt-5 mb-5">
+            Hiện chưa có sản phẩm
+          </p>
+        </ng-template>
+        <ng-template [ngIf]="products?.length > 0">
+          <app-prod-item [searchResult]="false" [products]="products"></app-prod-item>
+        </ng-template>
       </ng-template>
     </li>
   </ul>

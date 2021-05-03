@@ -22,7 +22,14 @@ export class ProdListComponent implements OnInit {
 
   getCategory(): void {
     this.categoryService.getListCategory({}).subscribe(res => {
-      this.categories = res.data.result;
+      const default_cate = { 
+        "image": "http://static.muahoantien.com/uploads/library/goi-y-sp.png", 
+        "image_150": "http://static.muahoantien.com/uploads/library/goi-y-sp.png", 
+        "image_full": "http://static.muahoantien.com/uploads/library/goi-y-sp.png", 
+        "name": "Gợi ý", "status": 1, "uid": "0000" 
+      }
+      this.categories  = [...res.data.result];
+      this.categories =  [default_cate].concat(this.categories);
       this.activeCate = this.categories[0].uid;
       this.getProductByCateId(this.activeCate);
     });

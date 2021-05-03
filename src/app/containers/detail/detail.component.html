@@ -28,8 +28,8 @@
       <!-- Datos del vendedor y titulo del producto -->
       <h3 class="fw300 fs24">{{ product?.name }}</h3>
       <h5>
-        <ngb-rating [rate]="3" [max]="5"></ngb-rating> ·
-        <small style="color: #337ab7">(5054 ventas)</small>
+        <ngb-rating [rate]="0" [max]="5"></ngb-rating> ·
+        <small style="color: #337ab7">(0 lượt bán)</small>
       </h5>
       <ul class="d-none">
         <li>0% TRẢ GÓP 12 tháng x ₫257.500 (Lãi suất 0%)</li>
@@ -121,8 +121,7 @@
             type="button"
             role="tab"
             aria-controls="pills-profile"
-            aria-selected="true"
-          >
+            aria-selected="true">
             Thông tin chi tiết
           </button>
         </li>
@@ -135,8 +134,7 @@
             type="button"
             role="tab"
             aria-controls="pills-home"
-            aria-selected="false"
-          >
+            aria-selected="false">
             Mô tả sản phẩm
           </button>
         </li>
@@ -146,16 +144,15 @@
           class="tab-pane fade"
           id="pills-home"
           role="tabpanel"
-          aria-labelledby="pills-home-tab" >
-          <app-product-description></app-product-description>
+          aria-labelledby="pills-home-tab">
+          <app-product-description [description]="product?.description"></app-product-description>
         </div>
 
         <div
           class="tab-pane fade active show"
           id="pills-profile"
           role="tabpanel"
-          aria-labelledby="pills-profile-tab"
-        >
+          aria-labelledby="pills-profile-tab">
           <table class="table col-12 col-sm-12 col-md-10 detail-info">
             <tbody>
               <tr *ngFor="let item of product?.detail_information">
@@ -169,8 +166,7 @@
           class="tab-pane fade"
           id="pills-contact"
           role="tabpanel"
-          aria-labelledby="pills-contact-tab"
-        >
+          aria-labelledby="pills-contact-tab" >
           ...
         </div>
       </div>

@@ -31,7 +31,7 @@ export class AppUtils{
 
     public static productNameInURL(name, id): string{
         const _name = name.replaceAll(' ', '-');
-        return `${_name}_i.${id}`;
+        return `_i.${id}`;
     }
 
     public static getNameAndIdOfURL(value): any{
