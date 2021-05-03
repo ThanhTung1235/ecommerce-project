@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   countProductInCart(): void {
     AppUtils.getDataFromCookies('_cart');
-    const dataFromCookie = AppUtils.getDataFromCookies('_cng serveart');
+    const dataFromCookie = AppUtils.getDataFromCookies('_cart');
     if (dataFromCookie) {
       const products = JSON.parse(dataFromCookie);
       this.productCount = products.length;
