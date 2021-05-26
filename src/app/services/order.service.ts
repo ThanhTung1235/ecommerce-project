@@ -8,7 +8,7 @@ import { ResponseData } from '../models/response';
   providedIn: 'root'
 })
 export class OrderService extends BaseService{
-  API_HOST = `${environment.endpoint}/order`;
+  API_HOST = `${environment.endpoint}/ord`;
   createOrder(order): Observable<ResponseData>{
     return this.http.post<ResponseData>(`${this.API_HOST}/create`, order, {headers: this.requestHeaders});
   }
