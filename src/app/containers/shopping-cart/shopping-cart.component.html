@@ -12,7 +12,7 @@
                 <img class="img-fluid" [src]="item.img" alt="">
               </div>
               <div class="product-name col-6 col-md-8">
-                <a class="text-decoration-none text-dark" [routerLink]="['/chi-tiet/'+ item?.product_link]" routerLinkActive="router-link-active" >{{item.product_name}}</a>
+                <a class="text-decoration-none text-dark" [routerLink]="['/chi-tiet/'+ item?.product_link]" routerLinkActive="router-link-active" >{{ (item.product_name.length > 25)? (item.product_name | slice:0:25)+'..':(item.product_name)}}</a>
                 <p class="  text-secondary fs13"> <span>Kích thước</span> {{item.size}}</p>
                 <app-quantity-box [quantityProduct]="item.quantity" (quantity)="quantityChange($event,item.product_option_id)"></app-quantity-box>
               </div>
@@ -22,6 +22,13 @@
                   <a (click)="removeProduct(item?.product_option_id)" class="fs12 mr-3 cursor-pointer">Xóa</a>
                   <a class="fs12 d-none">Mua sau</a>
                 </div>
+              </div>
+
+              <div *ngIf="item?.product_attached.name" class="product-gift d-flex justify-content-between">
+                <p class="fs11 text-muted">Quà tặng kèm</p>
+                <img [src]="item?.product_attached.image" alt="">
+                <p>{{ (item.product_name.length > 25)? (item.product_attached.product_name | slice:0:25)+'..':(item.product_attached.product_name)}}</p>
+                <p class="fs13">{{item?.product_attached.price | number}}đ</p>
               </div>
             </li>
           </ul>

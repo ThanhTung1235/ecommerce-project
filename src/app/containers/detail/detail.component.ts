@@ -65,7 +65,8 @@ export class DetailComponent implements OnInit {
       size: _product.size,
       color: _product.color,
       product_link: AppUtils.productNameInURL(this.product.name, this.prodId),
-      product_option_id: _product.uid
+      product_option_id: _product.uid,
+      product_attached: this.product.product_attached
     };
     this.productBuyer = data
     let listProd = [];
