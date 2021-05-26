@@ -9,7 +9,7 @@ import { BaseService } from './base.service';
 
 @Injectable()
 export class ProductService extends BaseService {
-  endpoint = environment.endpoint + '/product';
+  endpoint = environment.endpoint + '/prod';
 
   getListProduct(params): Observable<ResponseData> {
     params = Helpers.prototype.optimize_params(params);

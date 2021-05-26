@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class CategoryService extends BaseService {
-  endpoint = environment.endpoint + '/category';
+  endpoint = environment.endpoint + '/cate';
 
   getListCategory(params): Observable<ResponseData> {
     params = Helpers.prototype.optimize_params(params);
