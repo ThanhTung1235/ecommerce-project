@@ -200,6 +200,15 @@ div.section > div > input {
   line-height: 20px;
 }
 
+.product-gift img{
+    display: block;
+    width: 64px;
+    height: 64px;
+    border: 1px solid rgb(199, 199, 199);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
 @media (max-width: 768px) {
   .noti-cart-overlay{
     position: fixed;
@@ -233,3 +242,4 @@ div.section > div > input {
     padding-left: 0;
   }
 }
+

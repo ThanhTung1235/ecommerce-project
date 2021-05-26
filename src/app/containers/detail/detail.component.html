@@ -26,7 +26,7 @@
 
     <div class="col-md-5 border-1">
       <!-- Datos del vendedor y titulo del producto -->
-      <h3 class="fw300 fs24">{{ product?.name }}</h3>
+      <h3 class="fw300 fs24">{{ (product?.name.length > 25)? (product?.name | slice:0:25)+'..':(product?.name)}}</h3>
       <h5>
         <ngb-rating [rate]="0" [max]="5"></ngb-rating> ·
         <small style="color: #337ab7">(0 lượt bán)</small>
@@ -58,6 +58,13 @@
           </ng-container>
         </div>
       </div>
+
+      <div *ngIf="product?.product_attached.name" class="mt-5 product-gift">
+        <p class="fw500">Quà tặng kèm</p>
+        <img [src]="product?.product_attached.image" [alt]="product?.product_attached.name">
+        <p class="fs12 mt-1 text-muted">{{product?.product_attached.name}}</p>
+      </div>
+
       <div class="section mt-3">
         <h6 class="title-attr mb-2"><small>Số lượng</small></h6>
         <app-quantity-box [quantityProduct]="1" (quantity)="quantityChange($event)"></app-quantity-box>
