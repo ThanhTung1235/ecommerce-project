@@ -3,8 +3,13 @@
     <div class="card-body">
       <div class="product-thumb">
         <img class="img-fluid" [src]="item?.image" alt="">
+        <div *ngIf="item?.product_attached.name" class="gift">
+          
+            <span>Quà tặng</span>
+            <div class="gift-thumb" [ngStyle]="{'background-image': 'url('+ item?.product_attached.image +')'}"></div>
+        </div>
       </div>
-      <p class="product-name">{{item['name']}}</p>
+      <p class="product-name">{{ (item?.name.length > 55)? (item?.name | slice:0:55)+'...':(item?.name)}}</p>
       <ngb-rating [rate]="0" [max]="5"></ngb-rating>
       <p class="product-price">
         {{item['price'] | number}}đ

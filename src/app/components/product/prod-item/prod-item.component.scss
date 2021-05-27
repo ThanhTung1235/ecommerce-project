@@ -12,6 +12,7 @@
     align-items: center;
     overflow: hidden;
     margin: auto;
+    position: relative;
 }
 
 .product-item{
@@ -21,6 +22,7 @@
     border: none;
     text-decoration: none;
     color: black;
+    position: relative;
 }
 
 .product-item:hover{
@@ -50,6 +52,35 @@
     color: white;
     padding: 0px 2px;
 
+}
+
+.gift{
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+    background-color: #FF424E;
+    display: flex;
+    width: 55%;
+    justify-content: space-around;
+    padding: 0 5px;
+    align-items: center;
+    height: 35px;
+    border-radius: 4px 0px 26px;
+}
+
+.gift .gift-thumb{
+    width: 25px;
+    height: 25px;
+    overflow: hidden;
+    border-radius: 5px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.gift span{
+    color: #fff;
+    font-size: 13px;
 }
 
 
