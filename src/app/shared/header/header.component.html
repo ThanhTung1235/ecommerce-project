@@ -4,7 +4,7 @@
       <a class="logo" routerLink="/">
         <img width="100" src="http://static.muahoantien.com/uploads/library/logo_requa_vn.png" class="img-fluid" alt="">
       </a>
-      <div class="header-top-item position-relative category-content-dropdown">
+      <div id="categoryBox" class="header-top-item content-dropdown">
         <div class="menu-box">
           <p class="mb-0"><i class='bx bx-menu fs30'></i></p>
           <div class="menu-content">
@@ -12,8 +12,8 @@
           <p class="fs13 mb-0">Sản phẩm <i class='bx bxs-down-arrow fs8'></i></p>
         </div>
         </div>
-        <div class="category-dropdown">
-          <a *ngFor="let item of listCategory" [routerLink]="['/tim-kiem']" [queryParams]="{query_cate: item?.name+ '_i.'+ item?.uid}" class="category-dropdown-item">
+        <div class="dropdown-item">
+          <a *ngFor="let item of listCategory" [routerLink]="['/tim-kiem']" [queryParams]="{query_cate: item?.name+ '_i.'+ item?.uid}" class="dropdown-item-item">
             <i class="bx" [ngClass]="{'bxs-cookie': item?.name === 'Thức Ăn', 
                                       'bx-laptop' : item?.name === 'Điện Máy', 
                                       'bx-home' : item?.name === 'Trang Trí', 
@@ -26,11 +26,15 @@
       <div class="search-box">
         <app-search-box></app-search-box>
       </div>
-      <div class="user-box header-top-item">
+      <div class="user-box header-top-item content-dropdown">
         <p class="mb-0"><i class='bx bx-user fs30' ></i></p>
         <div class="user-content">
           <p class="fs11 mb-0">Tài khoản</p>
           <p class="fs13 mb-0">Đăng nhập <i class='bx bxs-down-arrow fs8'></i></p>
+        </div>
+        <div class="dropdown-item user-button">
+          <a routerLink="/tai-khoan/dang-nhap" class="btn btn-warning btn-block fs13 fw500">Đăng nhập</a>
+          <a routerLink="/tai-khoan/dang-ki" class="btn btn-warning btn-block fs13 fw500">Tạo tài khoản</a>
         </div>
       </div>
       <div class="cart-box header-top-item text-decoration-none">
@@ -118,3 +122,21 @@
     </ul>
   </div>
 </section>
+
+
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>One fine body&hellip;</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>

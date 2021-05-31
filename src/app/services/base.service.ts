@@ -27,8 +27,10 @@ export class BaseService {
   }
 
   private createAPIHeader(): any {
+    const token = localStorage.getItem('re_tk')
     return new HttpHeaders({
       'Content-Type': 'application/json',
+      'Authorization': `Bearer${token}`
     });
   }
 }

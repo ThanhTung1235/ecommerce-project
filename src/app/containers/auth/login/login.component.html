@@ -1,0 +1,30 @@
+<div class="card col-12 col-sm-12 col-md-5 user-form">
+  <div class="form-header">
+    <div class="mr-3">
+      <img src="/assets/imgs/icon1.png" alt="">
+    </div>
+    <div>
+      <h6 class="mb-0">Đăng nhập</h6>
+      <p class="fs13">Bạn chưa có tài khoản? <a routerLink="/tai-khoan/dang-ki">Đăng ký</a></p>
+    </div>
+  </div>
+    <form #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && submit()">
+      <div class="form-group">
+        <input [(ngModel)]="customer.phone" name="phone" #phone="ngModel" type="text" class="form-control fs13" placeholder="Nhập số điện thoại" required>
+        <div *ngIf="loginForm.submitted && phone.invalid" class="text-danger small mt-1">
+          Trường này không được bỏ trống
+        </div>
+      </div>
+      <div class="form-group">
+        <input [(ngModel)]="customer.password" name="password" #password="ngModel" type="password" class="form-control fs13" placeholder="Nhập mật khẩu" required>
+        <div *ngIf="loginForm.submitted && password.invalid" class="text-danger small mt-1">
+          Trường này không được bỏ trống
+        </div>
+      </div>
+      <p class="fs12">Quên mật khẩu? Nhấn vào <a href="#">đây</a></p>
+      <button [disabled]="isLoading" class="btn btn-block btn-warning" type="submit">
+        Đăng nhập
+        <div *ngIf="isLoading" class="spinner spinner-border" role="status"></div>
+      </button>
+    </form>
+</div>

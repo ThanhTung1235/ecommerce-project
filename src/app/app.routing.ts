@@ -5,4 +5,6 @@ export const AppRouting: Routes = [
     {path: 'chi-tiet/:name', loadChildren: () => import('./containers/detail/detail.module').then(m => m.DetailModule)},
     {path: 'tim-kiem', loadChildren: () => import('./containers/search-result/search-result.module').then(m => m.SearchResultModule)},
     {path: 'gio-hang', loadChildren: () => import('./containers/shopping-cart/shopping-cart.module').then(m => m.ShoppingCartModule)},
+    {path: 'tai-khoan', loadChildren: () => import('./containers/auth/auth.module').then(m => m.AuthModule)},
+
 ];

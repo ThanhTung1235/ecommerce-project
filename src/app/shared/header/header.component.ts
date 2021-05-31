@@ -1,6 +1,6 @@
 import { AppUtils } from 'src/app/utils/app.utils';
 import { AfterViewInit, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BaseService } from 'src/app/services/base.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { ActivatedRoute } from '@angular/router';
@@ -20,7 +20,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private dataService: BaseService,
     private categoryService: CategoryService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private modalService: NgbModal
     ) {}
 
   ngOnInit(): void {
