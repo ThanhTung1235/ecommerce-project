@@ -1,0 +1,35 @@
+.add-new-address{
+    border: 1px dashed rgb(216, 216, 216);
+    padding: 15px 0;
+    color: #52C0F8;
+    background-color: rgb(255, 255, 255);
+}
+
+.user-info-address{
+    background-color: rgb(255, 255, 255);
+    margin-top: 0.5rem;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-info-address ul{
+    list-style: none;
+}
+
+.user-info--name{
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 1rem;
+}
+
+.user-info--address, .user-info--phone{
+    font-size: 13px;
+    
+}
+
+.user-info--address span, .user-info--phone span{
+    color: rgb(120, 120, 120);
+}

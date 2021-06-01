@@ -1,6 +1,8 @@
 .user-form{
     margin: auto;
     padding: 15px;
+    height: 300px;
+    justify-content: space-around;
 }
 
 .form-header{
@@ -15,4 +17,26 @@
     width: 15px;
     height: 15px;
     font-size: 8px;
+}
+.customer-auth{
+    background-color: #D2EFFD;
+    height: 100%;
+}
+
+.form-content{
+    padding: 70px 0;
+}
+
+.bg-footer{
+    margin-top: 2rem;
+    background-image: url('../../../assets/imgs/bg-form.png');
+    background-repeat: no-repeat;
+    background-position: bottom;
+    height: 100px;
+}
+
+@media (max-width: 768px) {
+    .form-content{
+        padding: 170px 5px;
+    }
 }

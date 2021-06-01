@@ -1,0 +1,39 @@
+.user-info-nav{
+    padding: 0.5rem  1rem;
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar img{
+    border-radius: 50%;
+    width: 50px;
+    object-fit: contain;
+    margin-right: 15px;
+}
+
+.user-name p{
+    font-size: 13px;
+    line-height: 15px;
+    color: rgb(51, 51, 51);
+    font-weight: 300;
+}
+
+.user-name h6{
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: 400;
+    display: block;
+    margin: 4px 0px 0px;
+}
+
+.heading-user-info{
+    font-size: 19px;
+    line-height: 21px;
+    font-weight: 300;
+    margin: 20px 0px 15px;
+}
+
+.content-user-info{
+    // background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+}

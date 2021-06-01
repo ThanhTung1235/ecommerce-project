@@ -1,4 +1,6 @@
-<div class="container">
-    <router-outlet></router-outlet>
-    <h1>hello</h1>
+<div class="customer-auth" [style.background-color]="auth_form ? '#D2EFFD' : '#F4F4F4'">
+    <div [ngClass]="auth_form ? 'form-content' : ''">
+        <router-outlet></router-outlet>
+        <div *ngIf="auth_form" class="bg-footer"></div>
+    </div>
 </div>

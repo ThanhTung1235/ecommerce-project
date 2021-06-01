@@ -11,6 +11,7 @@ declare var $;
 export class AppComponent implements OnInit {
   title = 'ecommerce-project';
   param1: string;
+  auth_form = false;
 
   constructor(
     private router: Router,
@@ -29,6 +30,9 @@ export class AppComponent implements OnInit {
       if (!(evt instanceof NavigationEnd)) {
         return;
       }
+      const url = evt.url
+
+      this.auth_form = url.includes('tai-khoan/dang-nhap') || url.includes('tai-khoan/dang-ki') ? true : false
       window.scrollTo(0, 0);
     });
   }

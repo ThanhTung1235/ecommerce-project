@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-12 col-md-3">
+    <div class="user-info-nav">
+      <div class="user-avatar">
+        <img src="../../../../assets/imgs/avatar.png" alt="">
+      </div>
+      <div class="user-name">
+        <p class="fs13 mb-0 text-muted fw300">Tài khoản của</p>
+        <h6 class="">{{'username'}}</h6>
+      </div>
+    </div>
+      <nav class="nav flex-column">
+          <a class="nav-link active" aria-current="page" routerLink="/tai-khoan/" [routerLinkActive]="['active']">
+            <i class='bx bxs-user'></i>
+            Thông tin tài khoản
+          </a>
+          <a class="nav-link" routerLink="/tai-khoan/dia-chi" [routerLinkActive]="['active']">
+            <i class='bx bxs-edit-location' ></i>
+            Sổ địa chỉ
+          </a>
+      </nav>
+  </div>
+  <div class="col-12 col-md-9">
+      <h3 class="heading-user-info">Thông tin tài khoản</h3>
+      <div class="content-user-info">
+        <router-outlet></router-outlet>
+      </div>
+  </div>
+</div>

@@ -5,10 +5,18 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
+import { CustomerInfoComponent } from './customer-info/customer-info.component';
 
 export const routes: Routes = [
-  {path: 'dang-nhap', component: LoginComponent},
-  {path: 'dang-ki', component: RegisterComponent},
+  {
+    path: '',
+    component: AuthComponent,
+    children: [
+      { path: '', loadChildren: () => import('./customer-info/customer-info.module').then(m => m.CustomerInfoModule) },
+      { path: 'dang-nhap', component: LoginComponent },
+      { path: 'dang-ki', component: RegisterComponent },
+    ],
+  },
 ];
 
 @NgModule({
@@ -20,11 +28,16 @@ export const routes: Routes = [
   declarations: [
     AuthComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    CustomerInfoComponent
   ],
   exports: [
+    AuthComponent,
+    CustomerInfoComponent,
     LoginComponent,
-    RegisterComponent,
+    RegisterComponent
+  ],
+  bootstrap: [
     AuthComponent
   ]
 })

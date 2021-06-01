@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   listCategory: any;
   isShowCategory = false;
   sub: Subscription;
+  isLogin = false;
   constructor(
     private dataService: BaseService,
     private categoryService: CategoryService,
@@ -29,6 +30,10 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getNotifyFromSubject();
     this.getCategory();
     this.detectUrlChange();
+
+    const token = localStorage.getItem('re_tk')
+    this.isLogin = token ? true : false
+    
   }
 
   detectUrlChange() {

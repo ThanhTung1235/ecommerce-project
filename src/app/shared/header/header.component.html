@@ -30,11 +30,17 @@
         <p class="mb-0"><i class='bx bx-user fs30' ></i></p>
         <div class="user-content">
           <p class="fs11 mb-0">Tài khoản</p>
-          <p class="fs13 mb-0">Đăng nhập <i class='bx bxs-down-arrow fs8'></i></p>
+          <p *ngIf="!isLogin" class="fs13 mb-0">Đăng nhập <i class='bx bxs-down-arrow fs8'></i></p>
+          <p *ngIf="isLogin" class="fs13 mb-0">{{'username'}} <i class='bx bxs-down-arrow fs8'></i></p>
         </div>
         <div class="dropdown-item user-button">
-          <a routerLink="/tai-khoan/dang-nhap" class="btn btn-warning btn-block fs13 fw500">Đăng nhập</a>
-          <a routerLink="/tai-khoan/dang-ki" class="btn btn-warning btn-block fs13 fw500">Tạo tài khoản</a>
+          <ng-template [ngIf]="!isLogin">
+            <a routerLink="/tai-khoan/dang-nhap" class="btn btn-warning btn-block fs13 fw500">Đăng nhập</a>
+            <a routerLink="/tai-khoan/dang-ki" class="btn btn-warning btn-block fs13 fw500">Tạo tài khoản</a>
+          </ng-template>
+          <ng-template [ngIf]="isLogin">
+            <a routerLink="/tai-khoan/" class="text-muted text-decoration-none fs13 fw500">Tài khoản của tôi</a>
+          </ng-template>
         </div>
       </div>
       <div class="cart-box header-top-item text-decoration-none">
@@ -90,16 +96,16 @@
   </div>
 
   <div class="search-box mt-2 d-flex">
-    <div (click)="categoryMenuShow()" *ngIf="!isTop" class="category-menu pl10">
+    <div (click)="categoryMenuShow()" *ngIf="!isTop" class="category-menu pl10 col">
       <i class='bx bx-menu-alt-left fs30 text-white'></i>
     </div>
-    <div [ngClass]="{'col-12': isTop, 'col-10': !isTop}">
+    <div [ngClass]="{'col-12': isTop, 'col-9': !isTop}">
       <app-search-box></app-search-box>
     </div>
-    <div *ngIf="!isTop" class="cart-sm">
+    <div *ngIf="!isTop" class="cart-sm col p-0">
       <a routerLink="/gio-hang">
         <i class='bx bx-cart fs30 text-white'></i>
-        <span class="bg-warning cart-quatity">{{productCount}}</span>
+        <span [ngClass]="{'cart-quatity': isTop, 'cart-quatity-sm': !isTop}" class="bg-warning">{{productCount}}</span>
       </a>
     </div>
   </div>
