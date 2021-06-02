@@ -31,7 +31,7 @@
         <div class="user-content">
           <p class="fs11 mb-0">Tài khoản</p>
           <p *ngIf="!isLogin" class="fs13 mb-0">Đăng nhập <i class='bx bxs-down-arrow fs8'></i></p>
-          <p *ngIf="isLogin" class="fs13 mb-0">{{'username'}} <i class='bx bxs-down-arrow fs8'></i></p>
+          <p *ngIf="isLogin" class="fs13 mb-0">{{user?.name}} <i class='bx bxs-down-arrow fs8'></i></p>
         </div>
         <div class="dropdown-item user-button">
           <ng-template [ngIf]="!isLogin">
@@ -39,7 +39,11 @@
             <a routerLink="/tai-khoan/dang-ki" class="btn btn-warning btn-block fs13 fw500">Tạo tài khoản</a>
           </ng-template>
           <ng-template [ngIf]="isLogin">
-            <a routerLink="/tai-khoan/" class="text-muted text-decoration-none fs13 fw500">Tài khoản của tôi</a>
+            <ul class="list-style-none border-bottom user-account">
+              <li><a routerLink="/tai-khoan/chinh-sua" class="text-muted text-decoration-none fs13 fw500 d-block">Tài khoản của tôi</a></li>
+              <li><a routerLink="/tai-khoan/dia-chi" class="text-muted text-decoration-none fs13 fw500 d-block">Sổ địa chỉ</a></li>
+            </ul>
+            <a (click)="logOut()" class="btn btn-danger btn-block mt-2">Đăng xuất</a>
           </ng-template>
         </div>
       </div>

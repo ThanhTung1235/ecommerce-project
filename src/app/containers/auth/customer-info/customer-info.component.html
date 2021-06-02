@@ -6,22 +6,22 @@
       </div>
       <div class="user-name">
         <p class="fs13 mb-0 text-muted fw300">Tài khoản của</p>
-        <h6 class="">{{'username'}}</h6>
+        <h6 class="">{{customer_info?.name}}</h6>
       </div>
     </div>
       <nav class="nav flex-column">
-          <a class="nav-link active" aria-current="page" routerLink="/tai-khoan/" [routerLinkActive]="['active']">
-            <i class='bx bxs-user'></i>
-            Thông tin tài khoản
+          <a class="nav-link customer-info-nav--item" [routerLink]="['/tai-khoan//chinh-sua']" [routerLinkActive]="['customer-info-nav--item-active']">
+            <i class='bx bxs-user customer-info-icon'></i>
+            <span class="customer-info-text-content">Thông tin tài khoản</span>
           </a>
-          <a class="nav-link" routerLink="/tai-khoan/dia-chi" [routerLinkActive]="['active']">
-            <i class='bx bxs-edit-location' ></i>
-            Sổ địa chỉ
+          <a class="nav-link customer-info-nav--item"  [routerLink]="['/tai-khoan/dia-chi']"  [routerLinkActive]="['customer-info-nav--item-active']">
+            <i class='bx bxs-edit-location customer-info-icon' ></i>
+            <span class="customer-info-text-content">Sổ địa chỉ</span>
           </a>
       </nav>
   </div>
   <div class="col-12 col-md-9">
-      <h3 class="heading-user-info">Thông tin tài khoản</h3>
+      <h3 class="heading-user-info">{{title_page}}</h3>
       <div class="content-user-info">
         <router-outlet></router-outlet>
       </div>

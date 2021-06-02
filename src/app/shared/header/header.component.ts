@@ -1,9 +1,11 @@
+import { CustomerInfo } from './../../models/customer';
+import { CustomerService } from 'src/app/services/customer.service';
 import { AppUtils } from 'src/app/utils/app.utils';
 import { AfterViewInit, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BaseService } from 'src/app/services/base.service';
 import { CategoryService } from 'src/app/services/category.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -18,11 +20,14 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   isShowCategory = false;
   sub: Subscription;
   isLogin = false;
+  user: CustomerInfo;
   constructor(
     private dataService: BaseService,
     private categoryService: CategoryService,
     private route: ActivatedRoute,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private customerService: CustomerService,
+    private router: Router
     ) {}
 
   ngOnInit(): void {
@@ -30,8 +35,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getNotifyFromSubject();
     this.getCategory();
     this.detectUrlChange();
-
-    const token = localStorage.getItem('re_tk')
+    this.getUserInfo();
+    const token = AppUtils.getDataFromCookies('re_tk');
     this.isLogin = token ? true : false
     
   }
@@ -96,6 +101,33 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   categoryMenuShow() {
     this.isShowCategory = this.isShowCategory == true ? false : true;
+  }
+
+  getUserInfo(){
+    if (AppUtils.getDataFromCookies('re_tk')) {
+      this.customerService.getInfoCustomer().subscribe(res => {
+        this.user = res.data;
+        this.isLogin = true
+      })
+    }else {
+      this.customerService.getData().subscribe(data => {
+        if (data['login_success']) {
+          this.customerService.getInfoCustomer().subscribe(res => {
+            this.user = res.data;
+            this.isLogin = true
+          })
+        }
+      })
+    }
+  }
+
+  logOut() {
+    AppUtils.clearCookies('re_tk');
+    this.isLogin = false;
+    this.user = undefined;
+    if (this.router.url.includes('/tai-khoan')) {
+      this.router.navigate(['/tai-khoan/dang-nhap'])
+    }
   }
 
   ngOnDestroy() {

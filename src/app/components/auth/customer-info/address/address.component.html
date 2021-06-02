@@ -1,34 +1,74 @@
-<div class="add-new-address text-center">
-  <i class='bx bx-plus'></i>
-  Thêm địa chỉ mới
-</div>
+<ng-template [ngIf]="!show_address_form">
+  <div class="add-new-address text-center cursor-pointer" (click)="editAddress()">
+    <i class='bx bx-plus'></i>
+    Thêm địa chỉ mới
+  </div>
+  
+  <div class="user-info-address">
+    <ul>
+      <li class="user-info--name">{{'username'}}</li>
+      <li class="user-info--address"><span>Địa chỉ:</span> Tòa Nhà 97 99 láng hạ, Phường Láng Hạ, Quận Đống Đa, Hà Nội</li>
+      <li class="user-info--phone"><span>Điện thoại:</span> 0969296064</li>
+    </ul>
+  
+    <div class="user-infor-address--action">
+      <a class="text-primary cursor-pointer mr-2" (click)="editAddress()">Chỉnh sửa</a>
+      <a class="text-danger cursor-pointer" (click)="deleteAddress()">Xóa</a>
+    </div>
+  </div>
 
-<div class="user-info-address">
-  <ul>
-    <li class="user-info--name">{{'username'}}</li>
-    <li class="user-info--address"><span>Địa chỉ:</span> Tòa Nhà 97 99 láng hạ, Phường Láng Hạ, Quận Đống Đa, Hà Nội</li>
-    <li class="user-info--phone"><span>Điện thoại:</span> 0969296064</li>
-  </ul>
+</ng-template>
 
-  <a href="">Chỉnh sửa</a>
-</div>
 
-<div class="user-info-address">
-  <ul>
-    <li class="user-info--name">{{'username'}}</li>
-    <li class="user-info--address"><span>Địa chỉ:</span> Tòa Nhà 97 99 láng hạ, Phường Láng Hạ, Quận Đống Đa, Hà Nội</li>
-    <li class="user-info--phone"><span>Điện thoại:</span> 0969296064</li>
-  </ul>
+<ng-template [ngIf]="show_address_form">
+  <form class="address-info-form">
+    <div class="form-group">
+      <label for="" class="fs13" >Họ tên</label>
+      <input type="text" class="form-control">
+    </div>
 
-  <a href="">Chỉnh sửa</a>
-</div>
+    <div class="form-group">
+      <label for="" class="fs13" >Số điện thoại </label>
+      <input type="text" class="form-control">
+    </div>
 
-<div class="user-info-address">
-  <ul>
-    <li class="user-info--name">{{'username'}}</li>
-    <li class="user-info--address"><span>Địa chỉ:</span> Tòa Nhà 97 99 láng hạ, Phường Láng Hạ, Quận Đống Đa, Hà Nội</li>
-    <li class="user-info--phone"><span>Điện thoại:</span> 0969296064</li>
-  </ul>
+    <div class="form-group">
+      <label for="" class="fs13" >Tỉnh thành phố</label>
+      <select name="" id="" class="form-control">
+        <option value="">Hà nội</option>
+      </select>
+    </div>
 
-  <a href="">Chỉnh sửa</a>
-</div>
+    <div class="form-group">
+      <label for="" class="fs13" >Quận huyện</label>
+      <select name="" id="" class="form-control">
+        <option value="">Hà nội</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="" class="fs13" >Phường xã</label>
+      <select name="" id="" class="form-control">
+        <option value="">Hà nội</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="" class="fs13" >Địa chỉ</label>
+      <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+        <label class="form-check-label fs13" for="inlineRadio1">Nhà riêng / Chung cư</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+        <label class="form-check-label fs13" for="inlineRadio2"> Công ty / Cơ quan </label>
+      </div>
+    </div>
+
+    <button class="btn btn-warning mt-3">Cật nhật</button>
+</form>
+</ng-template>

@@ -12,7 +12,7 @@ export const routes: Routes = [
     path: '',
     component: CustomerInfoComponent,
     children: [
-      { path: '', component: UserInfoComponent },
+      { path: 'chinh-sua', component: UserInfoComponent },
       { path: 'dia-chi', component: AddressComponent },
     ],
   },

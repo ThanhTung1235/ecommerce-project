@@ -33,3 +33,15 @@
 .user-info--address span, .user-info--phone span{
     color: rgb(120, 120, 120);
 }
+
+.address-info-form{
+    background-color: #fff;
+    padding: 20px;
+}
+
+
+@media (max-width: 768px) {
+    .user-info-address{
+        display: block;
+    }
+}

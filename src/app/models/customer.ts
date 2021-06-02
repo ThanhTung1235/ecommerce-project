@@ -9,3 +9,9 @@ export class Customer{
         this.phone = ''
     }
 }
+export interface CustomerInfo {
+  avatar: string;
+  login_name: string;
+  uid: string;
+  name: string;
+}

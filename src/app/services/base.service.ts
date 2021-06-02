@@ -1,3 +1,4 @@
+import { AppUtils } from 'src/app/utils/app.utils';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
@@ -27,10 +28,10 @@ export class BaseService {
   }
 
   private createAPIHeader(): any {
-    const token = localStorage.getItem('re_tk')
+    const token = AppUtils.getDataFromCookies('re_tk')
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer${token}`
+      'Authorization': `Bearer ${token}`
     });
   }
 }

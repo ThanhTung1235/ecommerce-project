@@ -26,5 +26,6 @@
         Đăng nhập
         <div *ngIf="isLoading" class="spinner spinner-border" role="status"></div>
       </button>
+      <p class="text-danger fs12 mt-3" *ngIf="error_message !== ''">{{error_message}}</p>
     </form>
 </div>

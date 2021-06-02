@@ -40,4 +40,9 @@ export class AppUtils{
             id: value.split('_i.')[1]
         };
     }
+
+    public static logOut(): any{
+        localStorage.removeItem('re_tk')
+        
+    }
 }
