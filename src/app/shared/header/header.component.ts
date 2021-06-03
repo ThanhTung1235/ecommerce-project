@@ -36,6 +36,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getCategory();
     this.detectUrlChange();
     this.getUserInfo();
+    this.getUserInfoAfterLogin();
     const token = AppUtils.getDataFromCookies('re_tk');
     this.isLogin = token ? true : false
     
@@ -105,20 +106,24 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getUserInfo(){
     if (AppUtils.getDataFromCookies('re_tk')) {
+      console.log('exists token');
       this.customerService.getInfoCustomer().subscribe(res => {
         this.user = res.data;
         this.isLogin = true
       })
-    }else {
-      this.customerService.getData().subscribe(data => {
-        if (data['login_success']) {
-          this.customerService.getInfoCustomer().subscribe(res => {
-            this.user = res.data;
-            this.isLogin = true
-          })
-        }
-      })
     }
+  }
+
+  getUserInfoAfterLogin() {
+    this.customerService.getData().subscribe(data => {
+      console.log("login_succes: ", data['login_success']);
+      if (data['login_success']) {
+        this.customerService.getInfoCustomer().subscribe(res => {
+          this.user = res.data;
+          this.isLogin = true
+        })
+      }
+    })
   }
 
   logOut() {

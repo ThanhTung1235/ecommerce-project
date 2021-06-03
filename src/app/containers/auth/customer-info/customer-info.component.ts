@@ -43,7 +43,9 @@ export class CustomerInfoComponent implements OnInit {
   }
 
   getUserInfo() {
-
+    this.customerService.getcustomerInfoCache().subscribe(res => {
+      this.customer_info = res.data;
+    })
   }
 
 }

@@ -2,7 +2,7 @@ import { Directive, HostListener, ElementRef, Input } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Directive({
-  selector: '[appNumberOnly]'
+  selector: '[numberOnly]'
 })
 export class NumberOnlyDirective {
   private el: NgControl;

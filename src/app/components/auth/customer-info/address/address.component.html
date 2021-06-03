@@ -12,8 +12,8 @@
     </ul>
   
     <div class="user-infor-address--action">
-      <a class="text-primary cursor-pointer mr-2" (click)="editAddress()">Chỉnh sửa</a>
-      <a class="text-danger cursor-pointer" (click)="deleteAddress()">Xóa</a>
+      <a class="text-primary cursor-pointer mr-2" (click)="editAddress('123')">Chỉnh sửa</a>
+      <a class="text-danger cursor-pointer" (click)="deleteAddress('123')">Xóa</a>
     </div>
   </div>
 
@@ -21,44 +21,77 @@
 
 
 <ng-template [ngIf]="show_address_form">
-  <form class="address-info-form">
-    <div class="form-group">
+  <form  #userAddressForm="ngForm" 
+        (ngSubmit)="userAddressForm.form.valid && 
+                    customer_address.city_id !== '0' &&
+                    customer_address.district_id !== '0' &&
+                    customer_address.ward_id !== '0' && 
+                    saveUserAddress()" 
+        class="address-info-form">
+    <!-- <div class="form-group">
       <label for="" class="fs13" >Họ tên</label>
       <input type="text" class="form-control">
-    </div>
-
+    </div> -->
     <div class="form-group">
       <label for="" class="fs13" >Số điện thoại </label>
-      <input type="text" class="form-control">
+      <input type="tel" class="form-control" 
+            [(ngModel)]="customer_address.phone_number" 
+            name="phone"  #phone="ngModel" required numberOnly>
+      <p *ngIf="userAddressForm.submitted && phone.invalid" class="text-danger fs12 mt-1"> 
+        Trường này không được bỏ trống
+      </p>
     </div>
 
     <div class="form-group">
       <label for="" class="fs13" >Tỉnh thành phố</label>
-      <select name="" id="" class="form-control">
-        <option value="">Hà nội</option>
+      <select class="form-select" 
+              [(ngModel)]="customer_address.city_id" 
+              #city_id name="city_id"
+              (change)="onCityChange($event.target.value)">
+              {{list_cities_fetch | json}}
+        <option *ngFor="let item of list_cities_fetch" [value]="item.code">{{item.name}}</option>
       </select>
+      <p *ngIf="userAddressForm.submitted && customer_address.city_id == '0'" class="text-danger fs12 mt-1"> 
+        Trường này không được bỏ trống
+      </p>
     </div>
 
     <div class="form-group">
       <label for="" class="fs13" >Quận huyện</label>
-      <select name="" id="" class="form-control">
-        <option value="">Hà nội</option>
+      <select class="form-select" 
+                [(ngModel)]="customer_address.district_id" 
+                #district_id name="district_id"
+                (change)="onDistrictChange($event.target.value)">
+        <option *ngFor="let item of list_district_fetch" [value]="item.code">{{item.name}}</option>
       </select>
+      <p *ngIf="userAddressForm.submitted && customer_address.district_id == '0'" class="text-danger fs12 mt-1"> 
+        Trường này không được bỏ trống
+      </p>
     </div>
 
     <div class="form-group">
       <label for="" class="fs13" >Phường xã</label>
-      <select name="" id="" class="form-control">
-        <option value="">Hà nội</option>
+      <select class="form-select" 
+              [(ngModel)]="customer_address.ward_id" 
+              #ward_id name="ward_id">
+        <option *ngFor="let item of list_ward_fetch" [value]="item.code">{{item.name}}</option>
       </select>
+      <p *ngIf="userAddressForm.submitted && customer_address.ward_id == '0'" class="text-danger fs12 mt-1"> 
+        Trường này không được bỏ trống
+      </p>
     </div>
 
     <div class="form-group">
       <label for="" class="fs13" >Địa chỉ</label>
-      <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
+      <textarea name="address" id="" cols="30" rows="5" 
+                class="form-control" #address="ngModel" 
+                [(ngModel)]="customer_address.address" required></textarea>
+      <p *ngIf="userAddressForm.submitted && phone.invalid" class="text-danger fs12 mt-1"> 
+          Trường này không được bỏ trống
+      </p>          
     </div>
     
-    <div class="form-group">
+    <!-- <div class="form-group">
       <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
         <label class="form-check-label fs13" for="inlineRadio1">Nhà riêng / Chung cư</label>
@@ -67,8 +100,8 @@
         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
         <label class="form-check-label fs13" for="inlineRadio2"> Công ty / Cơ quan </label>
       </div>
-    </div>
+    </div> -->
 
-    <button class="btn btn-warning mt-3">Cật nhật</button>
+    <button type="submit" class="btn btn-warning mt-3">Cật nhật</button>
 </form>
 </ng-template>

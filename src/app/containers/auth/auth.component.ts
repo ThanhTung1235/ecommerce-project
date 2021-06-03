@@ -1,3 +1,4 @@
+import { CustomerInfo } from './../../models/customer';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -8,7 +9,8 @@ import { CustomerService } from 'src/app/services/customer.service';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-  auth_form = false
+  auth_form = false;
+  customer_info : CustomerInfo;
   constructor(
     private router: Router,
     private customerService: CustomerService) { }
@@ -25,14 +27,6 @@ export class AuthComponent implements OnInit {
       this.auth_form = (url.includes('tai-khoan/dang-nhap') || url.includes('tai-khoan/dang-ki')) ? true : false
       window.scrollTo(0, 0);
     });
-    this.checkUserLogin()
-  }
-
-  checkUserLogin() {
-    this.customerService.getcustomerInfoCache().subscribe(res => {
-      console.log(res);
-      
-    })
   }
 
 }

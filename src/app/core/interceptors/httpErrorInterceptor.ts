@@ -16,7 +16,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       map(
         (x) => {
           const response = { ...x['body'] };
-          if (!response.status || response.status === 401) {
+          if (response.status === 401) {
                 AppUtils.logOut();
                 if (this.router.url.includes('/tai-khoan/chinh-sua') || this.router.url.includes('/tai-khoan/dia-chi')) {
                     console.log("navigate dang nhap");

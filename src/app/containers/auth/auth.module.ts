@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
 import { CustomerInfoComponent } from './customer-info/customer-info.component';
+import { SharedDirectiveModule } from 'src/app/core/directives/shared.directive.module';
 
 export const routes: Routes = [
   {
@@ -23,7 +24,8 @@ export const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    FormsModule
+    FormsModule,
+    SharedDirectiveModule
   ],
   declarations: [
     AuthComponent,

@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CustomerInfoComponent } from './customer-info.component';
 import { UserInfoComponent } from 'src/app/components/auth/customer-info/user-info/user-info.component';
 import { AddressComponent } from 'src/app/components/auth/customer-info/address/address.component';
+import { SharedDirectiveModule } from 'src/app/core/directives/shared.directive.module';
 
 
 export const routes: Routes = [
@@ -22,7 +23,8 @@ export const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    FormsModule
+    FormsModule,
+    SharedDirectiveModule
   ],
   declarations: [
     UserInfoComponent,
