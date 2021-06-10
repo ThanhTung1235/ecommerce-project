@@ -1,27 +1,4 @@
-<ng-template [ngIf]="!show_address_form">
-  <div class="add-new-address text-center cursor-pointer" (click)="editAddress()">
-    <i class='bx bx-plus'></i>
-    Thêm địa chỉ mới
-  </div>
-  
-  <div *ngFor="let item of list_user_address" class="user-info-address">
-    <ul>
-      <li class="user-info--name">{{this.customer_info?.name}}</li>
-      <li class="user-info--address"><span>Địa chỉ:</span> {{item.address}}</li>
-      <li class="user-info--phone"><span>Điện thoại:</span> {{this.customer_info?.phone}}</li>
-    </ul>
-  
-    <div class="user-infor-address--action">
-      <a class="text-primary cursor-pointer mr-2" (click)="editAddress(item.id)">Chỉnh sửa</a>
-      <a class="text-danger cursor-pointer" (click)="deleteAddress(item.id)">Xóa</a>
-    </div>
-  </div>
-
-</ng-template>
-
-
-<ng-template [ngIf]="show_address_form">
-  <form  #userAddressForm="ngForm" 
+<form  #userAddressForm="ngForm" 
         (ngSubmit)="userAddressForm.form.valid && 
                     customer_address.city_id !== '0' &&
                     customer_address.district_id !== '0' &&
@@ -111,4 +88,3 @@
 
     <button type="submit" class="btn btn-warning mt-3">Cật nhật</button>
 </form>
-</ng-template>

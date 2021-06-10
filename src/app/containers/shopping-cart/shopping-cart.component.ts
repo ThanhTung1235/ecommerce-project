@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 import {Order} from 'src/app/models/order';
+import { AddressService } from 'src/app/services/address.service';
 import {OrderService} from 'src/app/services/order.service';
 import {AppUtils} from 'src/app/utils/app.utils';
 
@@ -13,12 +15,21 @@ export class ShoppingCartComponent implements OnInit {
   totalAmount = 0;
   orderSuccess = false;
   showError = false;
+  userAddress: any;
+  userInfo: any;
 
-  constructor(private orderService: OrderService) {
+  constructor(
+    private orderService: OrderService,
+    private addressService: AddressService,
+    private router: Router) {
   }
 
   ngOnInit(): void {
     this.initData();
+    if (this.getUserInfo()) {
+      this.getUserAddress(); 
+    }
+    
   }
 
   initData(): void {
@@ -26,6 +37,38 @@ export class ShoppingCartComponent implements OnInit {
     if (data) {
       this.data = JSON.parse(data);
       this.calculatorAmount();
+    }
+    const product_attached = [];
+    this.data.forEach(item => {
+      if (item.product_attached) {
+        product_attached.push({data: item.product_attached, quantity: item.quantity});
+      }
+    })
+    const gifts = [...new Set(product_attached)];
+    gifts.forEach(item => {
+      if (item['data'].name) {
+        let gift = this.data.find(x => x.product_id == item.data['uid'])
+        if (!gift) {
+          this.data.push({
+            product_id: item.data['uid'],
+            product_name: item.data['name'],
+            price: 0,
+            quantity: item.quantity,
+            size: ''
+          });
+        }
+      }
+    })
+    console.log(this.data);
+  }
+
+  getUserInfo(){
+    let user_parser = AppUtils.getDataFromCookies('re_tk');
+    if (user_parser) {
+      this.userInfo = AppUtils.parseJwt(user_parser)['identity'];
+      return true;
+    }else {
+      return false
     }
   }
 
@@ -68,15 +111,15 @@ export class ShoppingCartComponent implements OnInit {
     }
   }
 
-  createOrder(address): void {
-    if (address) {
+  createOrder(): void {
+    console.log(this.userAddress.address);
+    if (this.userAddress.address) {
       const data = {
         ship_money: 5000,
         note: '',
-        address: address,
+        address: this.userAddress.address,
         referral: this.getCookie('referral')
       };
-      console.log(this.getCookie('referral'));
       const productDetail = this.data.map((item) => {
         return {
           product_id: item.product_option_id,
@@ -95,10 +138,12 @@ export class ShoppingCartComponent implements OnInit {
         data.address,
         productDetail
       );
+      console.log(order);
       this.orderService.createOrder(order).subscribe(res => {
         if (res.status_code === 200) {
           this.orderSuccess = true;
           AppUtils.clearCookies('_cart');
+          this.initData();
         } else {
           console.error(res.message);
         }
@@ -106,5 +151,18 @@ export class ShoppingCartComponent implements OnInit {
     } else {
       this.showError = true;
     }
+  }
+
+  continueOrder() {
+    this.router.navigate(['/thong-tin-van-chuyen']);
+  }
+
+  getUserAddress() {
+    this.addressService.getUserAddress().subscribe(res => {
+      if (res.status_code == 200) {
+        const list_user_address = res.data.result;
+        this.userAddress =list_user_address.find(x => x.status == 1);
+      }
+    })
   }
 }

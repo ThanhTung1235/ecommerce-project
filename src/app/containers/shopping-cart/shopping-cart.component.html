@@ -24,10 +24,10 @@
                 </div>
               </div>
 
-              <div *ngIf="item?.product_attached.name" class="product-gift d-flex justify-content-between">
+              <div *ngIf="item?.product_attached?.name" class="product-gift d-flex justify-content-between">
                 <p class="fs11 text-muted">Quà tặng kèm</p>
                 <img [src]="item?.product_attached.image" alt="">
-                <p>{{ (item.product_name.length > 25)? (item.product_attached.product_name | slice:0:25)+'..':(item.product_attached.product_name)}}</p>
+                <p>{{ (item.product_attached.name.length > 25)? (item.product_attached.name | slice:0:25)+'..':(item.product_attached.name)}}</p>
                 <p class="fs13">{{item?.product_attached.price | number}}đ</p>
               </div>
             </li>
@@ -38,10 +38,10 @@
     </div>
 
     <div class="col-12 col-md-4 col-xl-3">
-      <div class="card card-body deal-item">
+      <div *ngIf="userInfo" class="card card-body deal-item">
           <p class="fw500">Địa chỉ nhận hàng</p>
-          <p class="fs14 fw500">Nguyễn Văn A  |  0969296543</p>
-          <!-- <p class="fs12 text-muted">97-99 Láng Hạ - Đống Đa- Hà Nội</p> -->
+          <p class="fs14 fw500">{{userInfo?.name}}  |  {{userInfo?.phone}}</p>
+          <p class="fs12 text-muted">{{userAddress?.address}}i</p>
       </div>
 
       <!-- <div class="card card-body mt-3 deal-item">
@@ -50,11 +50,6 @@
         <a class="btn btn-primary mt-1 btn-sm">Áp dụng</a>
     </div> -->
 
-    <div class="card card-body mt-3 deal-item">
-      <p class="fw500">Địa chỉ</p>
-      <input type="text" placeholder="Nhập địa chỉ" #address class="form-control">
-      <p *ngIf="showError" class="text-danger fs12 mb-0">Địa chỉ không được bỏ trống</p>
-  </div>
 
     <div class="card card-body mt-3 deal-item">
       <div class="d-flex justify-content-between">
@@ -67,7 +62,8 @@
       </div>
     </div>
 
-    <button (click)="createOrder(address.value)" class="btn btn-danger btn-block mt-2">Thanh toán</button>
+    <button *ngIf="userInfo" (click)="createOrder()" class="btn btn-danger btn-block mt-2">Thanh toán</button>
+    <button *ngIf="!userInfo" (click)="continueOrder()" class="btn btn-danger btn-block mt-2">Tiếp tục thanh toán</button>
     </div>
   </div>
 

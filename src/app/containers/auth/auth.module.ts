@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
-import { CustomerInfoComponent } from './customer-info/customer-info.component';
+import { CustomerInfoComponent } from '../customer-info/customer-info.component';
 import { SharedDirectiveModule } from 'src/app/core/directives/shared.directive.module';
 
 export const routes: Routes = [
@@ -13,7 +13,7 @@ export const routes: Routes = [
     path: '',
     component: AuthComponent,
     children: [
-      { path: '', loadChildren: () => import('./customer-info/customer-info.module').then(m => m.CustomerInfoModule) },
+      { path: '', loadChildren: () => import('../customer-info/customer-info.module').then(m => m.CustomerInfoModule) },
       { path: 'dang-nhap', component: LoginComponent },
       { path: 'dang-ki', component: RegisterComponent },
     ],
@@ -31,11 +31,9 @@ export const routes: Routes = [
     AuthComponent,
     LoginComponent,
     RegisterComponent,
-    CustomerInfoComponent
   ],
   exports: [
     AuthComponent,
-    CustomerInfoComponent,
     LoginComponent,
     RegisterComponent
   ],

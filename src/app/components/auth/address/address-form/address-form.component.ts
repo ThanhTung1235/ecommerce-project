@@ -1,15 +1,14 @@
-import { AppUtils } from 'src/app/utils/app.utils';
-import { AddressService } from './../../../../services/address.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerAddress } from 'src/app/models/address';
+import { AddressService } from 'src/app/services/address.service';
 
 @Component({
-  selector: 'app-address',
-  templateUrl: './address.component.html',
-  styleUrls: ['./address.component.scss']
+  selector: 'app-address-form',
+  templateUrl: './address-form.component.html',
+  styleUrls: ['../address/address.component.scss']
 })
-export class AddressComponent implements OnInit {
+export class AddressFormComponent implements OnInit {
   show_address_form = false;
   list_cities_fetch = [];
   list_district_fetch = [];
@@ -17,55 +16,29 @@ export class AddressComponent implements OnInit {
   list_user_address= [];
   customer_address = new CustomerAddress();
   isLoading = false;
-  customer_info: any;
-  userAddressId: any;
   set_default_address_user = false;
-
+  userAddressId: any;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private addressService: AddressService) { }
 
   ngOnInit() {
-    this.customer_address.city_id = "0";
-    this.customer_address.district_id = "0";
-    this.customer_address.ward_id = "0";
-    this.router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
-        return;
-      }
-      const url = evt.url
-      this.getTitlePage(url);
-    });
-    this.getTitlePage(this.router.url);
-    this.initDistrictAndWard();
-    this.getListUserAddress();
-    this.getUserInfoFromJwt();
     this.getCity();
     this.detectUrl();
+    this.initDistrictAndWard();
   }
 
   detectUrl(): void{
-    // this.userAddressId = this.route.snapshot.paramMap.get('edit');
-    // this.getUserAddressDetail(this.userAddressId);
     this.route.queryParams.subscribe(params => {
       this.userAddressId = params.edit;
-      this.getUserAddressDetail(this.userAddressId);
+      if (this.userAddressId !== 'false' && this.userAddressId !== undefined) {
+        this.getUserAddressDetail(this.userAddressId);
+      } else {
+        this.customer_address = new CustomerAddress();
+      }
+      
     });
-  }
-
-  getUserInfoFromJwt() {
-    let token = AppUtils.getDataFromCookies('re_tk')
-    this.customer_info =  AppUtils.parseJwt(token)['identity'];
-  }
-
-  editAddress(uid) {
-    if (uid) {
-      this.router.navigate([], {relativeTo : this.route, queryParams: {edit: uid}});
-      this.getUserAddressDetail(uid);
-    }
-    this.getCity();
-    this.show_address_form = true
   }
 
   getUserAddressDetail(uid) {
@@ -74,20 +47,12 @@ export class AddressComponent implements OnInit {
         this.customer_address = {...res.data};
         this.getDistrict(this.customer_address.city_id);
         this.getWard(this.customer_address.district_id);
+        this.customer_address.address = res.data.address.split('-')[0]
       }
     });
   }
 
-  getTitlePage(url){
-    if (url.includes('tai-khoan/dia-chi')) {
-      if (url.includes('/dia-chi?edit=')) {
-        this.show_address_form = true;
-      }else {
-        this.show_address_form = false;
-      }
-    }
-  }
-
+  
   getCity(){
     this.addressService.getCity().subscribe(res => {
       if (res.status_code == 200) {
@@ -103,6 +68,8 @@ export class AddressComponent implements OnInit {
 
   onCityChange(event) {
     this.getDistrict(event);
+    console.log("evet",event);
+    
   }
 
   getDistrict(district_code){
@@ -136,8 +103,58 @@ export class AddressComponent implements OnInit {
     })
   }
 
-  deleteAddress() {
-    
+  setAddressDefault(value) {
+    this.set_default_address_user = value;
+  }
+
+  saveUserAddress() {
+    this.isLoading = true;
+    if(this.userAddressId) {
+      this.updateUserAddress();
+      if (this.set_default_address_user) {
+        this.addressService.userAddressDefault(this.userAddressId)
+      }
+    } else {
+      this.createUserAddress();
+    }
+  }
+
+  updateUserAddress() {
+    this.addressService.updateUserAddress(this.customer_address).subscribe(res => {
+      this.isLoading = false;
+      if (res.status_code == 200) {
+        this.show_address_form = false;
+        this.router.navigate([], {relativeTo : this.route})
+        this.getListUserAddress();
+      }
+    },
+    err => {
+      this.isLoading = false;
+      console.log(err)
+    })
+  }
+
+  createUserAddress() {
+    this.addressService.createUserAddress(this.customer_address).subscribe(res => {
+      this.isLoading = false;
+      if (res.status_code == 200) {
+        this.show_address_form = false;
+        this.router.navigate([], {relativeTo : this.route})
+        this.getListUserAddress();
+      }
+    },
+    err => {
+      this.isLoading = false;
+      console.log(err)
+    })
+  }
+
+  getListUserAddress() {
+    this.addressService.getUserAddress().subscribe(res => {
+      if (res.status_code == 200) {
+        this.list_user_address = res.data.result;
+      }
+    })
   }
 
   initDistrictAndWard() {
@@ -156,60 +173,6 @@ export class AddressComponent implements OnInit {
         "parent": 0
       })
     }
-  }
-
-  saveUserAddress() {
-    this.isLoading = true;
-    if(this.userAddressId) {
-      this.updateUserAddress();
-      if (this.set_default_address_user) {
-        this.addressService.userAddressDefault(this.userAddressId)
-      }
-    } else {
-      this.createUserAddress();
-    }
-  }
-
-  createUserAddress() {
-    this.addressService.createUserAddress(this.customer_address).subscribe(res => {
-      this.isLoading = false;
-      if (res.status_code == 200) {
-        this.show_address_form = false;
-        this.router.navigate([], {relativeTo : this.route})
-        this.getListUserAddress();
-      }
-    },
-    err => {
-      this.isLoading = false;
-      console.log(err)
-    })
-  }
-
-  updateUserAddress() {
-    this.addressService.updateUserAddress(this.customer_address).subscribe(res => {
-      this.isLoading = false;
-      if (res.status_code == 200) {
-        this.show_address_form = false;
-        this.router.navigate([], {relativeTo : this.route})
-        this.getListUserAddress();
-      }
-    },
-    err => {
-      this.isLoading = false;
-      console.log(err)
-    })
-  }
-
-  setAddressDefault(value) {
-    this.set_default_address_user = value;
-  }
-
-  getListUserAddress() {
-    this.addressService.getUserAddress().subscribe(res => {
-      if (res.status_code == 200) {
-        this.list_user_address = res.data.result;
-      }
-    })
   }
 
 }
