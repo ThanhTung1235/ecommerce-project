@@ -2,39 +2,50 @@
   <h2 class="fs18 fw400 text-uppercase">Giỏ hàng</h2>
   <div *ngIf="data.length > 0" class="row">
     <div class="col-12 col-md-8 col-xl-9">
-      <div *ngFor="let item of data" class="card card-body deal-item">
-          <ul class="list-cart">
-            <li class="shop-name">
-              <p class="fw500 mb-3 text-capitalize"> {{item.seller}} <i class='bx bxs-chevron-right' ></i></p>
-            </li>
-            <li class="inner-product row">
-              <div class="product-thumb col-6 col-md-2">
-                <img class="img-fluid" [src]="item.img" alt="">
-              </div>
-              <div class="product-name col-6 col-md-8">
-                <a class="text-decoration-none text-dark" [routerLink]="['/chi-tiet/'+ item?.product_link]" routerLinkActive="router-link-active" >{{ (item.product_name.length > 25)? (item.product_name | slice:0:25)+'..':(item.product_name)}}</a>
-                <p class="  text-secondary fs13"> <span>Kích thước</span> {{item.size}}</p>
-                <app-quantity-box [quantityProduct]="item.quantity" (quantity)="quantityChange($event,item.product_option_id)"></app-quantity-box>
-              </div>
-              <div class="product-content-price col-12 col-md-2">
-                <p class="fw500 fs22">{{item?.price | number}}</p>
-                <div class="d-flex">
-                  <a (click)="removeProduct(item?.product_option_id)" class="fs12 mr-3 cursor-pointer">Xóa</a>
-                  <a class="fs12 d-none">Mua sau</a>
+      <ng-container *ngFor="let item of data">
+        <div *ngIf="!item?.gift" class="card card-body deal-item">
+            <ul class="list-cart">
+              <li class="shop-name">
+                <p class="fw500 mb-3 text-capitalize"> {{item.seller}} <i class='bx bxs-chevron-right' ></i></p>
+              </li>
+              <li class="inner-product row">
+                <div class="product-thumb col-6 col-md-2">
+                  <img class="img-fluid" [src]="item.img" alt="">
                 </div>
-              </div>
+                <div class="product-name col-6 col-md-8">
+                  <a class="text-decoration-none text-dark" [routerLink]="['/chi-tiet/'+ item?.product_link]" routerLinkActive="router-link-active" >{{ (item.product_name.length > 55)? (item.product_name | slice:0:55)+'...':(item.product_name)}}</a>
+                  <p class="  text-secondary fs13"> <span>Kích thước</span> {{item.size}}</p>
+                  <app-quantity-box [quantityProduct]="item.quantity" (quantity)="quantityChange($event,item.product_option_id)"></app-quantity-box>
+                </div>
+                <div class="product-content-price col-12 col-md-2">
+                  <p class="fw500 fs22">{{item?.price | number}}</p>
+                  <div class="d-flex">
+                    <a (click)="removeProduct(item?.product_option_id)" class="fs12 mr-3 cursor-pointer">Xóa</a>
+                    <a class="fs12 d-none">Mua sau</a>
+                  </div>
+                </div>
 
-              <div *ngIf="item?.product_attached?.name" class="product-gift d-flex justify-content-between">
-                <p class="fs11 text-muted">Quà tặng kèm</p>
-                <img [src]="item?.product_attached.image" alt="">
-                <p>{{ (item.product_attached.name.length > 25)? (item.product_attached.name | slice:0:25)+'..':(item.product_attached.name)}}</p>
-                <p class="fs13">{{item?.product_attached.price | number}}đ</p>
-              </div>
-            </li>
-          </ul>
+                <div *ngIf="item?.product_attached?.name" class="product-gift row pr-sm-0 pr-md-5 pl-sm-0 pl-sm-5">
+                  <div class="col-12 col-md-8">
+                      <img [src]="item?.product_attached.image" alt="">
+                      <span class="gift-box">Quà tặng</span> 
+                      <span class="fs13">{{ (item.product_attached.name.length > 25)? (item.product_attached.name | slice:0:25)+'...':(item.product_attached.name)}}</span>
+                  </div>
+                  <div class="col-12 col-md-2 fs15">
+                    Số lượng: {{item?.quantity}}
+                  </div>
+                  <div class="col-12 col-md-2">
+                    <p class="fs13 text-end">
+                      <b>{{item?.product_attached.price | number}}đ</b>
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
 
 
-      </div>
+        </div>
+      </ng-container>
     </div>
 
     <div class="col-12 col-md-4 col-xl-3">
@@ -51,7 +62,7 @@
     </div> -->
 
 
-    <div class="card card-body mt-3 deal-item">
+    <div [ngClass]="userInfo ? 'mt-3' : ''" class="card card-body deal-item">
       <div class="d-flex justify-content-between">
         <p class="fs16 fw300">Tạm tính</p>
         <p>{{totalAmount | number}}đ</p>

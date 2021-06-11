@@ -41,25 +41,26 @@ export class ShoppingCartComponent implements OnInit {
     const product_attached = [];
     this.data.forEach(item => {
       if (item.product_attached) {
-        product_attached.push({data: item.product_attached, quantity: item.quantity});
+        product_attached.push({data: item.product_attached, quantity: item.quantity, product_parent: item.product_option_id});
       }
     })
     const gifts = [...new Set(product_attached)];
     gifts.forEach(item => {
       if (item['data'].name) {
         let gift = this.data.find(x => x.product_id == item.data['uid'])
-        if (!gift) {
+        if (!gift) {          
           this.data.push({
-            product_id: item.data['uid'],
+            product_option_id: item.data['uid'],
             product_name: item.data['name'],
             price: 0,
             quantity: item.quantity,
-            size: ''
+            size: '',
+            gift: true,
+            product_parent: item.product_parent
           });
         }
       }
     })
-    console.log(this.data);
   }
 
   getUserInfo(){
@@ -74,9 +75,14 @@ export class ShoppingCartComponent implements OnInit {
 
   quantityChange(quantity, id): void {
     const product = this.data.find((x) => x.product_option_id === id);
+    const product_attached = this.data.find((x) => x.product_parent === id);
     if (quantity > 0) {
       if (product) {
         product.quantity = quantity;
+        this.calculatorAmount();
+      }
+      if (product_attached) {
+        product_attached.quantity = quantity;
         this.calculatorAmount();
       }
     }

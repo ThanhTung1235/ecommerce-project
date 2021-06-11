@@ -1,5 +1,5 @@
 import { AppUtils } from 'src/app/utils/app.utils';
-import { AddressService } from './../../../../services/address.service';
+import { AddressService } from '../../../../services/address.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { CustomerAddress } from 'src/app/models/address';

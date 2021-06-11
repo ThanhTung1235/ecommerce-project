@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { OrderService } from './../../../../services/order.service';
+import { Component, Input, OnInit, OnChanges, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerAddress } from 'src/app/models/address';
 import { AddressService } from 'src/app/services/address.service';
@@ -8,7 +9,11 @@ import { AddressService } from 'src/app/services/address.service';
   templateUrl: './address-form.component.html',
   styleUrls: ['../address/address.component.scss']
 })
-export class AddressFormComponent implements OnInit {
+export class AddressFormComponent implements OnInit, OnChanges {
+  @Input() orderView: any;
+  @Output() dataAddress = new EventEmitter<any>();
+  @ViewChild('userAddressForm') userAddressForm;
+
   show_address_form = false;
   list_cities_fetch = [];
   list_district_fetch = [];
@@ -21,12 +26,25 @@ export class AddressFormComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private addressService: AddressService) { }
+    private addressService: AddressService,
+    private orderService: OrderService) { }
 
   ngOnInit() {
     this.getCity();
     this.detectUrl();
     this.initDistrictAndWard();
+  }
+
+  ngOnChanges() {
+    this.orderService.getData().subscribe(data => {
+      if (data.getInfoAddress) {
+        document.getElementById('btn_submit').click();
+        if (this.userAddressForm.form.valid) {
+          this.dataAddress.emit(this.customer_address);  
+        }
+        
+      }
+    })
   }
 
   detectUrl(): void{
@@ -68,8 +86,6 @@ export class AddressFormComponent implements OnInit {
 
   onCityChange(event) {
     this.getDistrict(event);
-    console.log("evet",event);
-    
   }
 
   getDistrict(district_code){
@@ -109,13 +125,15 @@ export class AddressFormComponent implements OnInit {
 
   saveUserAddress() {
     this.isLoading = true;
-    if(this.userAddressId) {
-      this.updateUserAddress();
-      if (this.set_default_address_user) {
-        this.addressService.userAddressDefault(this.userAddressId)
+    if (!this.orderView) {
+      if(this.userAddressId) {
+        this.updateUserAddress();
+        if (this.set_default_address_user) {
+          this.addressService.userAddressDefault(this.userAddressId)
+        }
+      } else {
+        this.createUserAddress();
       }
-    } else {
-      this.createUserAddress();
     }
   }
 
@@ -174,5 +192,7 @@ export class AddressFormComponent implements OnInit {
       })
     }
   }
+
+  
 
 }
