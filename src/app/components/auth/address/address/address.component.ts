@@ -84,4 +84,11 @@ export class AddressComponent implements OnInit {
     })
   }
 
+  listUserAddressChange(data) {
+    if (data == true) {
+      this.getListUserAddress();
+    }
+    
+  }
+
 }

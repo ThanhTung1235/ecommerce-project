@@ -12,6 +12,7 @@ import { AddressService } from 'src/app/services/address.service';
 export class AddressFormComponent implements OnInit, OnChanges {
   @Input() orderView: any;
   @Output() dataAddress = new EventEmitter<any>();
+  @Output() listUserAddress = new EventEmitter<any>();
   @ViewChild('userAddressForm') userAddressForm;
 
   show_address_form = false;
@@ -126,7 +127,7 @@ export class AddressFormComponent implements OnInit, OnChanges {
   saveUserAddress() {
     this.isLoading = true;
     if (!this.orderView) {
-      if(this.userAddressId) {
+      if(this.userAddressId !== 'false') {
         this.updateUserAddress();
         if (this.set_default_address_user) {
           this.addressService.userAddressDefault(this.userAddressId)
@@ -168,11 +169,7 @@ export class AddressFormComponent implements OnInit, OnChanges {
   }
 
   getListUserAddress() {
-    this.addressService.getUserAddress().subscribe(res => {
-      if (res.status_code == 200) {
-        this.list_user_address = res.data.result;
-      }
-    })
+    this.listUserAddress.emit(true);
   }
 
   initDistrictAndWard() {
