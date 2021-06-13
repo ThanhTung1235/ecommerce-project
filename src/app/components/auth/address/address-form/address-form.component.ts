@@ -67,6 +67,7 @@ export class AddressFormComponent implements OnInit, OnChanges {
         this.getDistrict(this.customer_address.city_id);
         this.getWard(this.customer_address.district_id);
         this.customer_address.address = res.data.address.split('-')[0]
+        this.set_default_address_user = res.data.status;
       }
     });
   }
@@ -129,8 +130,16 @@ export class AddressFormComponent implements OnInit, OnChanges {
     if (!this.orderView) {
       if(this.userAddressId !== 'false') {
         this.updateUserAddress();
+        console.log("this.set_default_address_user", this.set_default_address_user);
+        
         if (this.set_default_address_user) {
-          this.addressService.userAddressDefault(this.userAddressId)
+          this.addressService.userAddressDefault(this.userAddressId).subscribe(res => {
+            if (res.status_code == 200) {
+              alert("update default success")
+            }else {
+              console.log("set default address user fail", res.data);
+            }
+          });
         }
       } else {
         this.createUserAddress();

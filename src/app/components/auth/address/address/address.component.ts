@@ -80,6 +80,11 @@ export class AddressComponent implements OnInit {
     this.addressService.getUserAddress().subscribe(res => {
       if (res.status_code == 200) {
         this.list_user_address = res.data.result;
+        this.list_user_address = this.list_user_address.sort((a, b) => {
+          if (b.status < a.status) return -1;
+          if (b.status > a.status) return 1;
+          return 0;
+        });
       }
     })
   }
