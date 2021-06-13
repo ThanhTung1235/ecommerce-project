@@ -47,7 +47,7 @@ export class ShoppingCartComponent implements OnInit {
     const gifts = [...new Set(product_attached)];
     gifts.forEach(item => {
       if (item['data'].name) {
-        let gift = this.data.find(x => x.product_id == item.data['uid'])
+        let gift = this.data.find(x => x.product_option_id == item.data['uid'])
         if (!gift) {          
           this.data.push({
             product_option_id: item.data['uid'],
@@ -118,7 +118,6 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   createOrder(): void {
-    console.log(this.userAddress.address);
     if (this.userAddress.address) {
       const data = {
         ship_money: 5000,
@@ -144,7 +143,6 @@ export class ShoppingCartComponent implements OnInit {
         data.address,
         productDetail
       );
-      console.log(order);
       this.orderService.createOrder(order).subscribe(res => {
         if (res.status_code === 200) {
           this.orderSuccess = true;
