@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import {Order} from 'src/app/models/order';
@@ -21,7 +22,8 @@ export class ShoppingCartComponent implements OnInit {
   constructor(
     private orderService: OrderService,
     private addressService: AddressService,
-    private router: Router) {
+    private router: Router,
+    private toastService: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -150,10 +152,12 @@ export class ShoppingCartComponent implements OnInit {
           this.initData();
         } else {
           console.error(res.message);
+          this.toastService.error('Đặt hàng không thành công', '')
         }
       });
     } else {
       this.showError = true;
+      this.toastService.error('Đặt hàng không thành công', '')
     }
   }
 
