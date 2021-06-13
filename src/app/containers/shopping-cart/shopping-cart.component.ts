@@ -58,7 +58,8 @@ export class ShoppingCartComponent implements OnInit {
             quantity: item.quantity,
             size: '',
             gift: true,
-            product_parent: item.product_parent
+            product_parent: item.product_parent,
+            product: "attanched"
           });
         }
       }
@@ -135,6 +136,7 @@ export class ShoppingCartComponent implements OnInit {
           product_name: item.product_name,
           size: item.size,
           image: item.image,
+          product: item.product
         };
       });
       const order = new Order(
