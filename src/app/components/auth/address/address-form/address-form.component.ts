@@ -3,6 +3,7 @@ import { Component, Input, OnInit, OnChanges, Output, EventEmitter, ViewChild } 
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerAddress } from 'src/app/models/address';
 import { AddressService } from 'src/app/services/address.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-address-form',
@@ -28,7 +29,8 @@ export class AddressFormComponent implements OnInit, OnChanges {
     private router: Router,
     private route: ActivatedRoute,
     private addressService: AddressService,
-    private orderService: OrderService) { }
+    private orderService: OrderService,
+    private toastService: ToastrService) { }
 
   ngOnInit() {
     this.getCity();
@@ -134,10 +136,9 @@ export class AddressFormComponent implements OnInit, OnChanges {
         
         if (this.set_default_address_user) {
           this.addressService.userAddressDefault(this.userAddressId).subscribe(res => {
-            if (res.status_code == 200) {
-              alert("update default success")
-            }else {
-              console.log("set default address user fail", res.data);
+            if (res.status_code !== 200) {
+              this.toastService.error("set default address user fail");
+              console.log(res.message);
             }
           });
         }
@@ -154,11 +155,15 @@ export class AddressFormComponent implements OnInit, OnChanges {
         this.show_address_form = false;
         this.router.navigate([], {relativeTo : this.route})
         this.getListUserAddress();
+        this.toastService.success('Cật nhật địa chỉ thành công','')
+      } else {
+        this.toastService.error('Tạo mới địa chỉ không thành công', '')
       }
     },
     err => {
       this.isLoading = false;
-      console.log(err)
+      console.log(err);
+      this.toastService.error('Tạo mới địa chỉ không thành công', '')
     })
   }
 
@@ -169,11 +174,15 @@ export class AddressFormComponent implements OnInit, OnChanges {
         this.show_address_form = false;
         this.router.navigate([], {relativeTo : this.route})
         this.getListUserAddress();
+        this.toastService.success('Tạo mới địa chỉ thành công','')
+      }else {
+        this.toastService.error('Tạo mới địa chỉ không thành công', '')
       }
     },
     err => {
       this.isLoading = false;
-      console.log(err)
+      console.log(err);
+      this.toastService.error('Tạo mới địa chỉ không thành công', '')
     })
   }
 

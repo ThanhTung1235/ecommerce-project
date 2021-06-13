@@ -10,6 +10,8 @@ import {ProductService} from './services/product.service';
 import {CategoryService} from './services/category.service';
 import {HttpClientModule} from '@angular/common/http';
 import { httpInterceptorProviders } from './core/interceptors';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -18,9 +20,11 @@ import { httpInterceptorProviders } from './core/interceptors';
   imports: [
     BrowserModule,
     SharedModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(AppRouting, { useHash: true }),
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     ProductService,

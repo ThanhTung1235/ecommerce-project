@@ -133,6 +133,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.router.url.includes('/tai-khoan')) {
       this.router.navigate(['/tai-khoan/dang-nhap'])
     }
+    window.location.reload();
   }
 
   ngOnDestroy() {
