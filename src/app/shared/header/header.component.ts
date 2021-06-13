@@ -80,11 +80,17 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getNotifyFromSubject() { 
     this.dataService.getData().subscribe((data) => {
-      window.scrollTo(0, 0);
-      setTimeout(() => {
-        document.getElementById('dropNotifyCart').click();
+      if (data.createOrderSuccess == true) {
         this.countProductInCart();
-      }, 500);
+      }
+
+      if (data.addProducToCart == true) {
+        window.scrollTo(0, 0);
+        setTimeout(() => {
+          document.getElementById('dropNotifyCart').click();
+          this.countProductInCart();
+        }, 500); 
+      }
     });
   }
 

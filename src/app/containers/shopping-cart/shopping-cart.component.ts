@@ -1,3 +1,4 @@
+import { BaseService } from './../../services/base.service';
 import { ToastrService } from 'ngx-toastr';
 import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
@@ -18,12 +19,14 @@ export class ShoppingCartComponent implements OnInit {
   showError = false;
   userAddress: any;
   userInfo: any;
+  codeOrder = '';
 
   constructor(
     private orderService: OrderService,
     private addressService: AddressService,
     private router: Router,
-    private toastService: ToastrService) {
+    private toastService: ToastrService,
+    private baseService: BaseService) {
   }
 
   ngOnInit(): void {
@@ -59,7 +62,8 @@ export class ShoppingCartComponent implements OnInit {
             size: '',
             gift: true,
             product_parent: item.product_parent,
-            product: "attanched"
+            product: "attanched",
+            seller: item['seller']
           });
         }
       }
@@ -139,19 +143,14 @@ export class ShoppingCartComponent implements OnInit {
           product: item.product
         };
       });
-      const order = new Order(
-        this.totalAmount,
-        data.ship_money,
-        this.totalAmount,
-        data.note,
-        data.address,
-        productDetail
-      );
+      const order = new Order(this.totalAmount, data.ship_money, this.totalAmount, data.note, data.address, productDetail);
       this.orderService.createOrder(order).subscribe(res => {
         if (res.status_code === 200) {
           this.orderSuccess = true;
           AppUtils.clearCookies('_cart');
           this.initData();
+          this.codeOrder = res.data;
+          this.baseService.sendData({createOrderSuccess: true})
         } else {
           console.error(res.message);
           this.toastService.error('Đặt hàng không thành công', '')

@@ -1,3 +1,4 @@
+import { FooterComponent } from './footer/footer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { CommonModule } from '@angular/common';
@@ -17,8 +18,8 @@ import { SharedDirectiveModule } from '../core/directives/shared.directive.modul
         SharedDirectiveModule,
         NgbModule
     ],
-    exports: [HeaderComponent, SearchBoxComponent, QuantityBoxComponent],
-    declarations: [HeaderComponent, SearchBoxComponent, QuantityBoxComponent],
+    exports: [HeaderComponent, SearchBoxComponent, QuantityBoxComponent, FooterComponent],
+    declarations: [HeaderComponent, SearchBoxComponent, QuantityBoxComponent, FooterComponent],
     providers: [],
 })
 export class SharedModule { }
