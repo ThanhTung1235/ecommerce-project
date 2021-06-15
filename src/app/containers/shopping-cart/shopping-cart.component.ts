@@ -1,3 +1,5 @@
+import { filter } from 'rxjs/operators';
+import { BaseService } from './../../services/base.service';
 import { ToastrService } from 'ngx-toastr';
 import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
@@ -18,12 +20,15 @@ export class ShoppingCartComponent implements OnInit {
   showError = false;
   userAddress: any;
   userInfo: any;
+  codeOrder = '';
+  listProductSeleted = [];
 
   constructor(
     private orderService: OrderService,
     private addressService: AddressService,
     private router: Router,
-    private toastService: ToastrService) {
+    private toastService: ToastrService,
+    private baseService: BaseService) {
   }
 
   ngOnInit(): void {
@@ -38,32 +43,9 @@ export class ShoppingCartComponent implements OnInit {
     const data = AppUtils.getDataFromCookies('_cart');
     if (data) {
       this.data = JSON.parse(data);
-      this.calculatorAmount();
+      this.data = this.data.map(item => ({...item, checked: false}));
+      this.calculatorAmount(this.listProductSeleted);
     }
-    const product_attached = [];
-    this.data.forEach(item => {
-      if (item.product_attached) {
-        product_attached.push({data: item.product_attached, quantity: item.quantity, product_parent: item.product_option_id});
-      }
-    })
-    const gifts = [...new Set(product_attached)];
-    gifts.forEach(item => {
-      if (item['data'].name) {
-        let gift = this.data.find(x => x.product_option_id == item.data['uid'])
-        if (!gift) {          
-          this.data.push({
-            product_option_id: item.data['uid'],
-            product_name: item.data['name'],
-            price: 0,
-            quantity: item.quantity,
-            size: '',
-            gift: true,
-            product_parent: item.product_parent,
-            product: "attanched"
-          });
-        }
-      }
-    })
   }
 
   getUserInfo(){
@@ -77,33 +59,49 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   quantityChange(quantity, id): void {
-    const product = this.data.find((x) => x.product_option_id === id);
+    const product = this.listProductSeleted.find((x) => x.product_option_id === id);
     const product_attached = this.data.find((x) => x.product_parent === id);
     if (quantity > 0) {
       if (product) {
         product.quantity = quantity;
-        this.calculatorAmount();
+        this.calculatorAmount(this.listProductSeleted);
       }
       if (product_attached) {
         product_attached.quantity = quantity;
-        this.calculatorAmount();
+        this.calculatorAmount(this.listProductSeleted);
       }
     }
   }
 
-  removeProduct(id): void {
-    const productIndex = this.data.findIndex((x) => x.product_option_id === id);
-    if (productIndex > -1) {
-      this.data.splice(productIndex, 1);
-      this.calculatorAmount();
+  removeProduct(product, sellerItem): void {
+    const seller = this.data.find(x => x.seller == product.seller);
+    if (seller) {
+      const productIndex = seller.products.findIndex((x) => x.product_option_id === product.product_option_id);
+      const sellerIndex = this.data.indexOf(seller);
+      
+      if (productIndex > -1) {
+        seller.products.splice(productIndex, 1);
+        this.calculatorAmount(this.listProductSeleted);
+      }
+
+      if (seller.products.length == 0) {
+        this.data.splice(sellerIndex, 1);
+      }
+      AppUtils.saveDataToCookies('_cart', JSON.stringify(this.data));
+      this.initData();
     }
+    
   }
 
-  calculatorAmount(): void {
-    this.totalAmount = this.data.reduce((subtotal, item) => {
+  calculatorAmount(data): void {
+    const list_product = data.filter(x => x.checked = true);
+    this.listProductSeleted = [...new Set(list_product)]
+    this.totalAmount = 0
+    
+    this.totalAmount = this.listProductSeleted.reduce((subtotal, item) => {
       return subtotal + item.price * item.quantity;
     }, 0);
-    AppUtils.saveDataToCookies('_cart', JSON.stringify(this.data));
+    AppUtils.saveDataToCookies('_product_payment', JSON.stringify(this.listProductSeleted));
   }
 
   getCookie(name: string) {
@@ -139,19 +137,14 @@ export class ShoppingCartComponent implements OnInit {
           product: item.product
         };
       });
-      const order = new Order(
-        this.totalAmount,
-        data.ship_money,
-        this.totalAmount,
-        data.note,
-        data.address,
-        productDetail
-      );
+      const order = new Order(this.totalAmount, data.ship_money, this.totalAmount, data.note, data.address, productDetail);
       this.orderService.createOrder(order).subscribe(res => {
         if (res.status_code === 200) {
           this.orderSuccess = true;
           AppUtils.clearCookies('_cart');
           this.initData();
+          this.codeOrder = res.data;
+          this.baseService.sendData({createOrderSuccess: true})
         } else {
           console.error(res.message);
           this.toastService.error('Đặt hàng không thành công', '')
@@ -174,5 +167,78 @@ export class ShoppingCartComponent implements OnInit {
         this.userAddress =list_user_address.find(x => x.status == 1);
       }
     })
+  }
+
+  isAllChecked() {
+    return this.data.every(x => x.checked == true)
+  }
+
+
+  checkAllOptions() {
+    if (this.data.every(val => val.checked == true)) {
+      this.data.forEach(val => {
+        val.checked = false;
+        val.products.forEach(item => {
+          item.checked = false;
+          this.listProductSeleted = [];
+        });
+      });
+    } else {
+      this.data.forEach(val => {
+        val.checked = true;
+        val.products.forEach(item => {
+          item.checked = true;
+          this.listProductSeleted.push(item);
+        });
+      });
+      this.calculatorAmount(this.listProductSeleted);
+    }
+  }
+
+  isAllProductOfseller(listProductOfSeller) {
+    if (this.data.every(x => x.checked)) {
+      return true;
+    } else {
+      this.checkDataChecked();
+      return listProductOfSeller.every(x => x.checked == true);
+    }
+    
+  }
+
+  checkAllProductOfseller(listProductOfSeller, event) {
+    if (listProductOfSeller.products.every(val => val.checked == true)){
+      listProductOfSeller.forEach(val => { val.checked = false });
+    } else {
+      listProductOfSeller.products.forEach(val => { val.checked = true });
+
+    }
+  }
+
+  selectedProduct(listProductOfSeller, event) {
+    const product = listProductOfSeller.products.find(x => x.product_id == event.target.value);
+    product.checked = event.target.checked ? true : false;
+    this.checkDataChecked();
+    } 
+
+  checkDataChecked() {
+    this.data.forEach(val => {
+      const list_product = val.products.filter(x => x.checked == true);
+      if (list_product.length == val.products.length) {
+        val.checked = true;
+      } else {
+        val.checked = false;
+      }
+      val.products.forEach(item => {
+        if (item.checked) {
+          this.listProductSeleted.push(item);
+        } else {
+          const index = this.listProductSeleted.indexOf(item)
+          if (index > -1) {
+            this.listProductSeleted.splice(index, 1);
+          }
+        }
+      });
+    });
+    this.calculatorAmount(this.listProductSeleted);
   }
 }

@@ -43,7 +43,18 @@ export class AddressFormComponent implements OnInit, OnChanges {
       if (data.getInfoAddress) {
         document.getElementById('btn_submit').click();
         if (this.userAddressForm.form.valid) {
-          this.dataAddress.emit(this.customer_address);  
+          const city = this.list_cities_fetch.find(x => x.code == this.customer_address.city_id);
+          const district = this.list_district_fetch.find(x => x.code == this.customer_address.district_id);
+          const ward = this.list_ward_fetch.find(x => x.code == this.customer_address.ward_id);
+          const data = {
+            city: city.name,
+            district: district.name,
+            ward: ward.name,
+            full_name: this.customer_address.full_name,
+            phone: this.customer_address.phone_number,
+            address: this.customer_address.address
+          }
+          this.dataAddress.emit(data);  
         }
         
       }

@@ -1,27 +1,46 @@
-<h5>THÔNG TIN GIAO HÀNG</h5>
-<div class="row">
-  <div class="col-md-7 col--12">
-    <app-address-form [orderView]="true" (dataAddress)="dataAddress($event)"></app-address-form>
-  </div>
-  <div class="col-md-5 col--12">
-    <div class="card card-body border-0">
-      <h5>Đơn hàng</h5>
-      <hr>
-      <ul>
-        <li *ngFor="let item of listProductOrder" class="row mt-2">
-          <p class="product--name fs13 col-8">
-            <span *ngIf="item?.gift" class="gift-box">Quà tặng</span>
-            {{ (item?.product_name.length > 50)? (item?.product_name | slice:0:50)+'...':(item?.product_name)}}
-          </p>
-          <p class="product--price fs13 col text-end">{{item?.price | number}} đ</p>
-        </li>
-      </ul>
-      <hr>
-      <div class="total--amount d-flex justify-content-between mb-3">
-        <span class="fs18 fw500">Thành tiền</span>
-        <span class="text-danger fs18 fw500">{{totalAmount | number}}</span>
+<ng-template [ngIf]="!orderSuccess">
+  <h5>THÔNG TIN GIAO HÀNG</h5>
+  <div class="row">
+    <div class="col-md-7 col--12">
+      <app-address-form [orderView]="true" (dataAddress)="dataAddress($event)"></app-address-form>
+    </div>
+    <div class="col-md-5 col--12">
+      <div class="card card-body border-0">
+        <h5>Đơn hàng</h5>
+        <hr>
+        <ul>
+          <li *ngFor="let item of listProductOrder" class="row mt-2">
+            <p class="product--name fs13 col-8">
+              {{ (item?.product_name.length > 50)? (item?.product_name | slice:0:50)+'...':(item?.product_name)}}
+            </p>
+            <p class="product--price fs13 col text-end">{{item.price | number}} đ</p>
+            <ng-template [ngIf]="item?.product_attached.name">
+              <p class="product--name fs13 col-8">
+                <span class="gift-box">Quà tặng</span>
+                {{ (item.product_attached?.name.length > 50)? (item.product_attached?.name | slice:0:50)+'...':(item.product_attached?.name)}}
+              </p>
+              <p class="product--price fs13 col text-end">{{item.product_attached?.price | number}} đ</p>
+            </ng-template>
+          </li>
+        </ul>
+        <hr>
+        <div class="total--amount d-flex justify-content-between mb-3">
+          <span class="fs18 fw500">Thành tiền</span>
+          <span class="text-danger fs18 fw500">{{totalAmount | number}}</span>
+        </div>
+        <button class="btn btn-danger" (click)="createOrder()">Hoàn tất đặt hàng</button>
       </div>
-      <button class="btn btn-danger" (click)="createOrder()">Hoàn tất đặt hàng</button>
     </div>
   </div>
-</div>
+</ng-template>
+
+
+<div *ngIf="orderSuccess" class="order-succes pt-5 pb-5">
+  <div class="card">
+    <div class="card-body text-center">
+      <i class='bx bx-check-circle fs50 text-primary'></i>
+      <p class="text-primary fs24 fw500">Đặt hàng thành công</p>
+      <p class="fs16">Mã đơn hàng của bạn: <b>{{codeOrder}}</b></p>
+      <p class="fs13">Bạn sẽ nhận được chi tiết đơn hàng trong email <span class="text-primary">example@mail.com</span></p>
+    </div>
+  </div>

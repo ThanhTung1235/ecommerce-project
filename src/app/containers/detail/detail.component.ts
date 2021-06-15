@@ -54,37 +54,51 @@ export class DetailComponent implements OnInit {
 
   buyNow(_product): void{
     this.showNotiCart = true;
-    this.dataService.sendData(true);
+    this.dataService.sendData({addProducToCart: true});
     const data = {
       product_name: this.product.name,
       product_id: this.prodId,
       price: _product.price,
-      seller: 'Mua hoàn tiền',
+      seller: 'Mua Hoàn Tiền',
       quantity: this.quantityProd,
       img: _product.image,
       size: _product.size,
       color: _product.color,
       product_link: AppUtils.productNameInURL(this.product.name, this.prodId),
       product_option_id: _product.uid,
-      product_attached: this.product.product_attached
+      product_attached: this.product.product_attached,
+      checked: false
     };
     this.productBuyer = data
-    let listProd = [];
+    let listProductOfSeller = [];
     const dataFormCookies = AppUtils.getDataFromCookies('_cart');
     if (dataFormCookies) {
-      const products = JSON.parse(dataFormCookies);
-      const product = products.find(x => x.product_option_id === this.productOption.uid);
-      if (product) {
-        console.log(this.quantityProd + product.quantity);
-        product.quantity = this.quantityProd + product.quantity;
-      } else {
-        products.push(data);
-      }
-      listProd = [...products];
-      AppUtils.saveDataToCookies('_cart', JSON.stringify(listProd));
-    }else {
-      listProd.push(data);
-      AppUtils.saveDataToCookies('_cart', JSON.stringify(listProd));
+      const list_seller = JSON.parse(dataFormCookies);
+        let seller_item = list_seller.find(x => x.seller == data.seller);
+          console.log("seller_item", data.seller);
+          
+          if (seller_item) {
+            let index_seller_item = list_seller.indexOf(seller_item)
+            let list_product = seller_item.products;
+            const product = list_product.find(x => x.product_option_id === this.productOption.uid);
+            if (product) {
+              product.quantity = this.quantityProd + product.quantity;
+            } else {
+              list_product.push(data);
+            }
+            let item = {seller : data.seller, products: list_product};
+            list_seller[index_seller_item] = item;
+            AppUtils.saveDataToCookies('_cart', JSON.stringify(list_seller));
+          } else {
+            let item = {seller : data.seller, products: [data]};
+            list_seller.push(item);
+            console.log("list seller: ", seller_item);
+            AppUtils.saveDataToCookies('_cart', JSON.stringify(list_seller));
+          } 
+    } else {
+      let item = {seller : data.seller, products: [data]};
+      listProductOfSeller.push(item);
+      AppUtils.saveDataToCookies('_cart', JSON.stringify(listProductOfSeller));
     }
   }
 

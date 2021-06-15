@@ -2,14 +2,20 @@
   <h2 class="fs18 fw400 text-uppercase">Giỏ hàng</h2>
   <div *ngIf="data.length > 0" class="row">
     <div class="col-12 col-md-8 col-xl-9">
-      <ng-container *ngFor="let item of data">
+      <div class="form-check form-check-inline bg-white col-12 p-3">
+        <input type="checkbox" [checked]="isAllChecked()" (change)="checkAllOptions($event)" class="mr-3">
+        <label class="form-check-label fs13" for="inlineRadio1"> <b>Tất cả(3 sản phẩm)</b> </label>
+      </div>
+      <ng-container *ngFor="let seller_item of data">
         <div *ngIf="!item?.gift" class="card card-body deal-item">
             <ul class="list-cart">
-              <li class="shop-name">
-                <p class="fw500 mb-3 text-capitalize"> {{item.seller}} <i class='bx bxs-chevron-right' ></i></p>
+              <li class="shop-name d-flex mb-3 align-items-baseline">
+                <input type="checkbox" [checked]="isAllProductOfseller(seller_item.products)" class="mr-3" [(ngModel)]="seller_item.checked" (ngModelChange)="checkAllProductOfseller(seller_item, $event)">
+                <p class="fw500 text-capitalize"> {{seller_item.seller}} <i class='bx bxs-chevron-right' ></i></p>
               </li>
-              <li class="inner-product row">
+              <li *ngFor="let item of seller_item.products; let i = index" class="inner-product row" [ngClass]="i == 0 ? '' : 'mt-5'">
                 <div class="product-thumb col-6 col-md-2">
+                  <input type="checkbox" class="mr-3" [(ngModel)]="item.checked" (change)="selectedProduct(seller_item, $event)" [value]="item.product_id">
                   <img class="img-fluid" [src]="item.img" alt="">
                 </div>
                 <div class="product-name col-6 col-md-8">
@@ -20,7 +26,7 @@
                 <div class="product-content-price col-12 col-md-2">
                   <p class="fw500 fs22">{{item?.price | number}}</p>
                   <div class="d-flex">
-                    <a (click)="removeProduct(item?.product_option_id)" class="fs12 mr-3 cursor-pointer">Xóa</a>
+                    <a (click)="removeProduct(item, seller_item.products)" class="fs12 mr-3 cursor-pointer">Xóa</a>
                     <a class="fs12 d-none">Mua sau</a>
                   </div>
                 </div>
@@ -74,7 +80,7 @@
     </div>
 
     <button *ngIf="userInfo" (click)="createOrder()" class="btn btn-danger btn-block mt-2">Thanh toán</button>
-    <button *ngIf="!userInfo" (click)="continueOrder()" class="btn btn-danger btn-block mt-2">Tiếp tục thanh toán</button>
+    <button *ngIf="!userInfo" [disabled]="listProductSeleted.length == 0" (click)="continueOrder()" class="btn btn-danger btn-block mt-2">Tiếp tục thanh toán</button>
     </div>
   </div>
 
@@ -99,7 +105,7 @@
     <div class="card-body text-center">
       <i class='bx bx-check-circle fs50 text-primary'></i>
       <p class="text-primary fs24 fw500">Đặt hàng thành công</p>
-      <p class="fs16">Mã đơn hàng của bạn</p>
+      <p class="fs16">Mã đơn hàng của bạn: <b>{{codeOrder}}</b></p>
       <p class="fs13">Bạn sẽ nhận được chi tiết đơn hàng trong email <span class="text-primary">example@mail.com</span></p>
     </div>
   </div>
