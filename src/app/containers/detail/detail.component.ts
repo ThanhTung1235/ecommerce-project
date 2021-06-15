@@ -59,14 +59,15 @@ export class DetailComponent implements OnInit {
       product_name: this.product.name,
       product_id: this.prodId,
       price: _product.price,
-      seller: 'Shopee',
+      seller: 'Mua Hoàn Tiền',
       quantity: this.quantityProd,
       img: _product.image,
       size: _product.size,
       color: _product.color,
       product_link: AppUtils.productNameInURL(this.product.name, this.prodId),
       product_option_id: _product.uid,
-      product_attached: this.product.product_attached
+      product_attached: this.product.product_attached,
+      checked: false
     };
     this.productBuyer = data
     let listProductOfSeller = [];
@@ -89,7 +90,6 @@ export class DetailComponent implements OnInit {
             list_seller[index_seller_item] = item;
             AppUtils.saveDataToCookies('_cart', JSON.stringify(list_seller));
           } else {
-            alert(2);
             let item = {seller : data.seller, products: [data]};
             list_seller.push(item);
             console.log("list seller: ", seller_item);

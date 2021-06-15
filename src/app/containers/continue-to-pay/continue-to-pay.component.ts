@@ -22,7 +22,7 @@ export class ContinueToPayComponent implements OnInit {
   }
 
   initData(): void {
-    const data = AppUtils.getDataFromCookies('_cart');
+    const data = AppUtils.getDataFromCookies('_product_payment');
     if (data) {
       this.listProductOrder = JSON.parse(data);
       this.calculatorAmount();

@@ -1,4 +1,4 @@
-<ng-template [ngIf]="orderSuccess">
+<ng-template [ngIf]="!orderSuccess">
   <h5>THÔNG TIN GIAO HÀNG</h5>
   <div class="row">
     <div class="col-md-7 col--12">
@@ -11,10 +11,16 @@
         <ul>
           <li *ngFor="let item of listProductOrder" class="row mt-2">
             <p class="product--name fs13 col-8">
-              <span *ngIf="item?.gift" class="gift-box">Quà tặng</span>
               {{ (item?.product_name.length > 50)? (item?.product_name | slice:0:50)+'...':(item?.product_name)}}
             </p>
-            <p class="product--price fs13 col text-end">{{item?.price | number}} đ</p>
+            <p class="product--price fs13 col text-end">{{item.price | number}} đ</p>
+            <ng-template [ngIf]="item?.product_attached.name">
+              <p class="product--name fs13 col-8">
+                <span class="gift-box">Quà tặng</span>
+                {{ (item.product_attached?.name.length > 50)? (item.product_attached?.name | slice:0:50)+'...':(item.product_attached?.name)}}
+              </p>
+              <p class="product--price fs13 col text-end">{{item.product_attached?.price | number}} đ</p>
+            </ng-template>
           </li>
         </ul>
         <hr>
