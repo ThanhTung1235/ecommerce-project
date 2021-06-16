@@ -75,8 +75,6 @@ export class DetailComponent implements OnInit {
     if (dataFormCookies) {
       const list_seller = JSON.parse(dataFormCookies);
         let seller_item = list_seller.find(x => x.seller == data.seller);
-          console.log("seller_item", data.seller);
-          
           if (seller_item) {
             let index_seller_item = list_seller.indexOf(seller_item)
             let list_product = seller_item.products;

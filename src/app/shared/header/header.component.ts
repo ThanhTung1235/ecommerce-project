@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
-  productCount: any;
+  productCount = 0;
   isTop = false;
   listCategory: any;
   isShowCategory = false;
@@ -64,7 +64,9 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     const dataFromCookie = AppUtils.getDataFromCookies('_cart');
     if (dataFromCookie) {
       const products = JSON.parse(dataFromCookie);
-      this.productCount = products.length;
+      products.forEach(item => {
+        this.productCount += item.products.length;
+      })
     } else {
       this.productCount = 0;
     }

@@ -22,6 +22,7 @@ export class ShoppingCartComponent implements OnInit {
   userInfo: any;
   codeOrder = '';
   listProductSeleted = [];
+  totalProduct = 0;
 
   constructor(
     private orderService: OrderService,
@@ -44,6 +45,9 @@ export class ShoppingCartComponent implements OnInit {
     if (data) {
       this.data = JSON.parse(data);
       this.data = this.data.map(item => ({...item, checked: false}));
+      this.data.forEach(item => {
+        this.totalProduct += item.products.length;
+      })
       this.calculatorAmount(this.listProductSeleted);
     }
   }
