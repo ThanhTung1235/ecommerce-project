@@ -12,4 +12,8 @@ export class OrderService extends BaseService{
   createOrder(order): Observable<ResponseData>{
     return this.http.post<ResponseData>(`${this.API_HOST}/create`, order, {headers: this.requestHeaders});
   }
+
+  getListOrder(limit, page): Observable<ResponseData>{
+    return this.http.get<ResponseData>(`${this.API_HOST}/get_order?limit=${limit}&page=${page}`, {headers: this.requestHeaders});
+  }
 }

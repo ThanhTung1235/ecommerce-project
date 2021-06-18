@@ -1,4 +1,4 @@
-<div class="card p-3 table-responsive">
+<div *ngIf="listOrder?.length > 0; else emptyOrder" class="card p-3 table-responsive">
   <table class="table table-hover table-borderless">
     <thead>
       <tr>
@@ -36,7 +36,17 @@
 
     </tbody>
   </table>
-  <div class="d-flex justify-content-end mt-3">
-    <ngb-pagination [collectionSize]="20" [(page)]="page" [maxSize]="5" [boundaryLinks]="true"></ngb-pagination>
+  <div *ngIf="listOrder?.length > limit" class="d-flex justify-content-end mt-3">
+    <ngb-pagination [hidden]="totalPublisher <= limit" class=""
+                    (pageChange)="pageChanging($event)"
+                    [collectionSize]="totalOrder"
+                    [pageSize]="limit" [(page)]="page"
+                    [maxSize]="3" [boundaryLinks]="true"></ngb-pagination>
   </div>
 </div>
+
+<ng-template #emptyOrder>
+  <div class="card">
+    <p class="text-center p-5 mb-0 text-muted">Hiện tại bạn chưa có đơn hàng</p>
+  </div>
+</ng-template>

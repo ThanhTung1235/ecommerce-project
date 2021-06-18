@@ -19,7 +19,8 @@ export const routes: Routes = [
     children: [
       { path: 'chinh-sua', component: UserInfoComponent },
       { path: 'dia-chi', component: AddressComponent },
-      { path: 'lich-su-don-hang', component: OrderHistoryComponent}
+      { path: 'lich-su-don-hang', component: OrderHistoryComponent},
+      { path: 'don-hang', component: OrderHistoryComponent}
     ],
   },
 ];

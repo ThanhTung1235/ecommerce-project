@@ -64,8 +64,8 @@ export class AddressService extends BaseService{
     return this.http.post<ResponseData>(`${this.API_HOST_ADDRESS_MEMBER}/update_address_member_default`,{uid : uid_address}, {headers: this.requestHeaders});
   }
 
-  getUserAddress(): Observable<ResponseData>{
-    return this.http.get<ResponseData>(`${this.API_HOST_ADDRESS_MEMBER}/get_list_address?limit=10&page=1`, {headers: this.requestHeaders});
+  getUserAddress(limit, page): Observable<ResponseData>{
+    return this.http.get<ResponseData>(`${this.API_HOST_ADDRESS_MEMBER}/get_list_address?limit=${limit}&page=${page}`, {headers: this.requestHeaders});
   }
 
   getUserAddressDetail(uid_address): Observable<ResponseData>{

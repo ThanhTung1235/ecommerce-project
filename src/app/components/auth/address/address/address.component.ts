@@ -20,6 +20,10 @@ export class AddressComponent implements OnInit {
   customer_info: any;
   userAddressId: any;
   set_default_address_user = false;
+  page = 1;
+  pageSize = 1;
+  limit = 5;
+  totalUserAddress = 0;
 
   constructor(
     private router: Router,
@@ -77,9 +81,10 @@ export class AddressComponent implements OnInit {
   }
 
   getListUserAddress() {
-    this.addressService.getUserAddress().subscribe(res => {
+    this.addressService.getUserAddress(this.limit, this.page).subscribe(res => {
       if (res.status_code == 200) {
         this.list_user_address = res.data.result;
+        this.totalUserAddress = res.data.total
         this.list_user_address = this.list_user_address.sort((a, b) => {
           if (b.status < a.status) return -1;
           if (b.status > a.status) return 1;
@@ -94,6 +99,11 @@ export class AddressComponent implements OnInit {
       this.getListUserAddress();
     }
     
+  }
+
+  pageChanging(event){
+    this.page = event;
+    this.getListUserAddress();
   }
 
 }

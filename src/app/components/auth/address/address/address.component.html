@@ -16,6 +16,15 @@
       <a class="text-danger cursor-pointer" (click)="deleteAddress(item.id)">Xóa</a>
     </div>
   </div>
+  
+  <div class="d-flex mt-3 justify-content-end">
+    <ngb-pagination [hidden]="totalPublisher <= limit" class=""
+                    (pageChange)="pageChanging($event)"
+                    [collectionSize]="totalUserAddress"
+                    [pageSize]="limit" [(page)]="page"
+                    [maxSize]="3" [boundaryLinks]="true"></ngb-pagination>
+  </div>
+  {{collectionSize | json}}
 
 </ng-template>
 
