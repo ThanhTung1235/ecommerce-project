@@ -16,4 +16,8 @@ export class OrderService extends BaseService{
   getListOrder(limit, page): Observable<ResponseData>{
     return this.http.get<ResponseData>(`${this.API_HOST}/get_order?limit=${limit}&page=${page}`, {headers: this.requestHeaders});
   }
+
+  getOrderDetail(uid): Observable<ResponseData>{
+    return this.http.get<ResponseData>(`${this.API_HOST}/get_order_detail?uid=${uid}`, {headers: this.requestHeaders});
+  }
 }
