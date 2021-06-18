@@ -1,3 +1,5 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OrderHistoryComponent } from './../../components/auth/customer-info/order-history/order-history.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +18,9 @@ export const routes: Routes = [
     component: CustomerInfoComponent,
     children: [
       { path: 'chinh-sua', component: UserInfoComponent },
-      { path: 'dia-chi', component: AddressComponent }
+      { path: 'dia-chi', component: AddressComponent },
+      { path: 'lich-su-don-hang', component: OrderHistoryComponent},
+      { path: 'don-hang', component: OrderHistoryComponent}
     ],
   },
 ];
@@ -27,15 +31,18 @@ export const routes: Routes = [
     RouterModule.forChild(routes),
     FormsModule,
     SharedDirectiveModule,
-    AddressSharedModule 
+    AddressSharedModule,
+    NgbModule
   ],
   declarations: [
     UserInfoComponent,
-    CustomerInfoComponent
+    CustomerInfoComponent,
+    OrderHistoryComponent
   ],
   exports: [
     UserInfoComponent,
-    CustomerInfoComponent
+    CustomerInfoComponent,
+    OrderHistoryComponent
   ]
 })
 export class CustomerInfoModule { }

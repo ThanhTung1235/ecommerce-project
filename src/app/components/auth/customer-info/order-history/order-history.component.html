@@ -1,0 +1,52 @@
+<div *ngIf="listOrder?.length > 0; else emptyOrder" class="card p-3 table-responsive">
+  <table class="table table-hover table-borderless">
+    <thead>
+      <tr>
+        <th class="fs14">Mã đơn hàng</th>
+        <th class="fs14">Ngày mua</th>
+        <th class="fs14">Sản phẩm</th>
+        <th class="fs14">Tổng tiền</th>
+        <th class="fs14">Trạng thái đơn hàng</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="text-primary">098765456789</td>
+        <td class="fs14">28/04/2021</td>
+        <td class="fs14">Bộ tua vít đa năng sửa chữa điện thoại 25 in 1 vít từ tính chất liệu cao cấp S2</td>
+        <td class="fs14">144.050 ₫</td>
+        <td class="fs14">Giao hàng thành công</td>
+      </tr>
+
+      <tr>
+        <td class="text-primary">098765456789</td>
+        <td class="fs14">28/04/2021</td>
+        <td class="fs14">Bộ tua vít đa năng sửa chữa điện thoại 25 in 1 vít từ tính chất liệu cao cấp S2</td>
+        <td class="fs14">144.050 ₫</td>
+        <td class="fs14">Giao hàng thành công</td>
+      </tr>
+
+      <tr>
+        <td class="text-primary">098765456789</td>
+        <td class="fs14">28/04/2021</td>
+        <td class="fs14">Bộ tua vít đa năng sửa chữa điện thoại 25 in 1 vít từ tính chất liệu cao cấp S2</td>
+        <td class="fs14">144.050 ₫</td>
+        <td class="fs14">Giao hàng thành công</td>
+      </tr>
+
+    </tbody>
+  </table>
+  <div *ngIf="listOrder?.length > limit" class="d-flex justify-content-end mt-3">
+    <ngb-pagination [hidden]="totalPublisher <= limit" class=""
+                    (pageChange)="pageChanging($event)"
+                    [collectionSize]="totalOrder"
+                    [pageSize]="limit" [(page)]="page"
+                    [maxSize]="3" [boundaryLinks]="true"></ngb-pagination>
+  </div>
+</div>
+
+<ng-template #emptyOrder>
+  <div class="card">
+    <p class="text-center p-5 mb-0 text-muted">Hiện tại bạn chưa có đơn hàng</p>
+  </div>
+</ng-template>

@@ -130,7 +130,7 @@ export class ShoppingCartComponent implements OnInit {
         address: this.userAddress.address,
         referral: this.getCookie('referral')
       };
-      const productDetail = this.data.map((item) => {
+      const productDetail = this.listProductSeleted.map((item) => {
         return {
           product_id: item.product_option_id,
           price: item.price,
@@ -165,7 +165,9 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   getUserAddress() {
-    this.addressService.getUserAddress().subscribe(res => {
+    const limit = 10;
+    const page = 1
+    this.addressService.getUserAddress(limit, page).subscribe(res => {
       if (res.status_code == 200) {
         const list_user_address = res.data.result;
         this.userAddress =list_user_address.find(x => x.status == 1);
