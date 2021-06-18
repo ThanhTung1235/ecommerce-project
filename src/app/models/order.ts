@@ -5,6 +5,7 @@ export class Order {
   note: string;
   address: string;
   product_detail: ProductDetail[];
+  phone_number: string;
 
   constructor(
     total_price: number,
@@ -12,7 +13,8 @@ export class Order {
     price: number,
     note: string,
     address: string,
-    product_detail: ProductDetail[]
+    product_detail: ProductDetail[],
+    phone_number: string
   ){
     this.total_price = total_price;
     this.ship_money = ship_money;
@@ -20,6 +22,7 @@ export class Order {
     this.note = note;
     this.address = address;
     this.product_detail = product_detail;
+    this.phone_number = phone_number
   }
 
 }

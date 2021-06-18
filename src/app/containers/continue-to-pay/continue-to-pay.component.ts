@@ -14,6 +14,7 @@ export class ContinueToPayComponent implements OnInit {
   customer_address: any;
   orderSuccess = false;
   codeOrder = '';
+  userInfo: any;
 
   constructor(private orderService: OrderService) { }
 
@@ -23,9 +24,13 @@ export class ContinueToPayComponent implements OnInit {
 
   initData(): void {
     const data = AppUtils.getDataFromCookies('_product_payment');
+    const userInfo = AppUtils.getDataFromCookies('re_tk');
     if (data) {
       this.listProductOrder = JSON.parse(data);
       this.calculatorAmount();
+    }
+    if (userInfo) {
+      this.userInfo = JSON.parse(userInfo);
     }
   }
 
@@ -49,7 +54,7 @@ export class ContinueToPayComponent implements OnInit {
       }
       const address = `${this.customer_address.address} - ${this.customer_address.ward} - ${this.customer_address.district} - ${this.customer_address.city}`;
 
-      const order = new Order(this.totalAmount, data.ship_money, this.totalAmount, data.note, address, this.listProductOrder);
+      const order = new Order(this.totalAmount, data.ship_money, this.totalAmount, data.note, address, this.listProductOrder, this.userInfo.phone);
       this.orderService.createOrder(order).subscribe(res => {
         if (res.status_code == 200) {
           this.orderSuccess = true;

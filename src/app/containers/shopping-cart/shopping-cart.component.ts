@@ -141,7 +141,7 @@ export class ShoppingCartComponent implements OnInit {
           product: item.product
         };
       });
-      const order = new Order(this.totalAmount, data.ship_money, this.totalAmount, data.note, data.address, productDetail);
+      const order = new Order(this.totalAmount, data.ship_money, this.totalAmount, data.note, data.address, productDetail, this.userInfo.phone);
       this.orderService.createOrder(order).subscribe(res => {
         if (res.status_code === 200) {
           this.orderSuccess = true;

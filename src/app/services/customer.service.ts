@@ -1,5 +1,5 @@
 import { Observable, Subject } from 'rxjs';
-import { environment } from './../../environments/environment.prod';
+import { environment } from './../../environments/environment';
 import { BaseService } from './base.service';
 import { Injectable } from '@angular/core';
 import { ResponseData } from '../models/response';
