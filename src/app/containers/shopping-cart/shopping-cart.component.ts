@@ -216,7 +216,6 @@ export class ShoppingCartComponent implements OnInit {
       listProductOfSeller.forEach(val => { val.checked = false });
     } else {
       listProductOfSeller.products.forEach(val => { val.checked = true });
-
     }
   }
 

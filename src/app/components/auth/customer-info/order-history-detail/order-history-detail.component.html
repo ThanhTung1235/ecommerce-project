@@ -1,3 +1,39 @@
-<p>
-  order-history-detail works!
-</p>
+<div class="row order-detail">
+  <div class="col-md-6 order-detail-info order-detail--info__address">
+    <p class="mb-1">ĐỊA CHỈ NGƯỜI NHẬN</p>
+    <div class="card">
+      <p class="fw500">Tùng lee</p>
+      <p class="text-muted fs13">Địa chỉ: Tòa Nhà 97 99 láng hạ, Phường Láng Hạ, Quận Đống Đa, Hà Nội, Việt Nam</p>
+      <p class="text-muted fs11">Điện thoại: 0969296064</p>
+    </div>
+  </div>
+  <div class="col-md-6  order-detail-info order-detail-info__delivery">
+    <p class="mb-1">HÌNH THỨC GIAO HÀNG</p>
+    <div class="card">
+      <p>&nbsp;</p>
+      <p class="text-muted fs13">Giao vào Thứ năm, 19/11</p>
+      <p class="text-muted fs11">Phí vận chuyển: 14.000đ</p>
+    </div>
+  </div>
+</div>
+<section class="list-product--order mt-4">
+  <p class="mb-1">SẢN PHẨM</p>
+  <div *ngFor="let item of orderDetail?.list_product" class="order-item">
+    <div class="p-3  bg-white">
+      <div class="order--content row">
+        <div class="col-3">
+          <img class="img-fluid" [src]="item?.image" alt="">
+        </div>
+        <div class="col-9">
+          <b class="fs16">{{item?.product_name}}</b>
+          <p class="text-muted fs15">Số lượng {{item?.quantity}} | Giá {{item?.price | number}} ₫</p>
+        </div>
+      </div>
+    </div>
+    <div class="order--spacing"></div>
+  </div>
+  <div class="order-detail--total-price p-3 bg-white mt-3">
+    <p>Tổng cộng <span class="text-danger mb-0">{{orderDetail.total_price | number}}</span></p>
+    <p></p>
+  </div>
+</section>

@@ -40,6 +40,9 @@ export class CustomerInfoComponent implements OnInit {
         this.title_page = 'Sổ địa chỉ'
       }
     }
+    if (url.includes('lich-su-don-hang')) {
+      
+    }
   }
 
   getUserInfo() {
