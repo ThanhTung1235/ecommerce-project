@@ -1,5 +1,5 @@
-<div *ngIf="listOrder?.length > 0; else emptyOrder" class="card p-3 table-responsive">
-  <table class="table table-hover table-borderless">
+<div *ngIf="listOrder?.length > 0; else emptyOrder" class="card table-responsive border-0">
+  <table class="table table-hover table-borderless d-none d-sm-none d-md-block p-3">
     <thead>
       <tr>
         <th class="fs14">Mã đơn hàng</th>
@@ -11,18 +11,41 @@
     </thead>
     <tbody>
 
-      <tr>
-        <td class="text-primary">098765456789</td>
-        <td class="fs14">28/04/2021</td>
-        <td class="fs14">Bộ tua vít đa năng sửa chữa điện thoại 25 in 1 vít từ tính chất liệu cao cấp S2</td>
-        <td class="fs14">144.050 ₫</td>
-        <td class="fs14">Giao hàng thành công</td>
+      <tr *ngFor="let item of listOrder">
+        <td class="text-primary">{{item?.order_id}}</td>
+        <td class="fs14">{{item?.ctime}}</td>
+        <td class="fs14">{{item?.name}}</td>
+        <td class="fs14">{{item?.total_price | number}} ₫</td>
+        <td class="fs14">{{item?.status | statusOrder}}</td>
       </tr>
       
     </tbody>
   </table>
+
+
+<div class="list-order-sm">
+  <div *ngFor="let item of listOrder" class="order-item d-block d-sm-block d-md-none">
+    <div class="p-3">
+      <p class="order--status border-bottom pb-2 text-muted fs13">{{item?.status | statusOrder}}</p>
+      <div class="order--content row">
+        <div class="col-3">
+          <img class="img-fluid" [src]="item?.image" alt="">
+        </div>
+        <div class="col-9">
+          <b class="fs13">{{item?.name}}</b>
+          <p class="text-muted fs13">{{item?.total_price | number}} ₫</p>
+        </div>
+        <div class="col-12">
+          <a class="btn btn-outline-primary btn-block">Xem chi tiết</a>
+        </div>
+      </div>
+    </div>
+    <div class="order--spacing"></div>
+  </div>
+</div>
+
   <div *ngIf="listOrder?.length > limit" class="d-flex justify-content-end mt-3">
-    <ngb-pagination [hidden]="totalPublisher <= limit" class=""
+    <ngb-pagination [hidden]="totalOrder <= limit" class=""
                     (pageChange)="pageChanging($event)"
                     [collectionSize]="totalOrder"
                     [pageSize]="limit" [(page)]="page"

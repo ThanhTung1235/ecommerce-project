@@ -10,6 +10,7 @@ import { AddressComponent } from 'src/app/components/auth/address/address/addres
 import { SharedDirectiveModule } from 'src/app/core/directives/shared.directive.module';
 import { AddressFormComponent } from 'src/app/components/auth/address/address-form/address-form.component';
 import { AddressSharedModule } from 'src/app/components/auth/address/address.shared.module';
+import { SharedPipeModule } from 'src/app/core/pipes/shared.pipe.module';
 
 
 export const routes: Routes = [
@@ -32,7 +33,8 @@ export const routes: Routes = [
     FormsModule,
     SharedDirectiveModule,
     AddressSharedModule,
-    NgbModule
+    NgbModule,
+    SharedPipeModule
   ],
   declarations: [
     UserInfoComponent,
