@@ -17,18 +17,17 @@ export class OrderHistoryDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.order_id = Number(this.route.snapshot.paramMap.get('order_id'));
+    this.order_id = this.route.snapshot.paramMap.get('order_id');
     this.getOrder();
   }
 
   getOrder() {
-    this.orderDetail = this.demoData().data;
-    // this.orderService.getOrderDetail(this.order_id).subscribe(res => {
-    //   if (res.status_code == 200) {
-    //     this.orderDetail = res.data.list_product[0];
+    this.orderService.getOrderDetail(this.order_id).subscribe(res => {
+      if (res.status_code == 200) {
+        this.orderDetail = res.data;
 
-    //   }
-    // })
+      }
+    })
   }
 
   demoData() {
