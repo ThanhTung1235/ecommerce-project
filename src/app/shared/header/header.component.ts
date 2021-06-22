@@ -1,7 +1,7 @@
 import { CustomerInfo } from './../../models/customer';
 import { CustomerService } from 'src/app/services/customer.service';
 import { AppUtils } from 'src/app/utils/app.utils';
-import { AfterViewInit, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BaseService } from 'src/app/services/base.service';
 import { CategoryService } from 'src/app/services/category.service';
@@ -25,9 +25,9 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     private dataService: BaseService,
     private categoryService: CategoryService,
     private route: ActivatedRoute,
-    private modalService: NgbModal,
     private customerService: CustomerService,
-    private router: Router
+    private router: Router,
+    private cdRef: ChangeDetectorRef
     ) {}
 
   ngOnInit(): void {
@@ -37,9 +37,6 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.detectUrlChange();
     this.getUserInfo();
     this.getUserInfoAfterLogin();
-    const token = AppUtils.getDataFromCookies('re_tk');
-    this.isLogin = token ? true : false
-    
   }
 
   detectUrlChange() {
@@ -49,6 +46,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(){
+    const token = AppUtils.getDataFromCookies('re_tk');
+    this.isLogin = token ? true : false;
     const haederMobile = document.getElementById("header-sm");
     if (window.pageYOffset > 0) {
       haederMobile.style.height = "50px";
@@ -57,6 +56,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       this.isTop = true;
       haederMobile.style.height = "110px";
     }
+    this.cdRef.detectChanges(); 
   }
 
   countProductInCart(): void {

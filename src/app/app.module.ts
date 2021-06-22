@@ -21,7 +21,7 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserModule,
     SharedModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(AppRouting, { useHash: true }),
+    RouterModule.forRoot(AppRouting),
     NgbModule,
     HttpClientModule,
     ToastrModule.forRoot()
