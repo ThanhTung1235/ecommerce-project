@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NumberOnlyDirective } from './number-only.directive';
+import { PhoneNumberDirective } from './phone-number.directive';
 
 
 @NgModule({
@@ -8,11 +9,13 @@ import { NumberOnlyDirective } from './number-only.directive';
         CommonModule
     ],
     exports: [
-        NumberOnlyDirective
+        NumberOnlyDirective,
+        PhoneNumberDirective
     ],
-    declarations: [
-        NumberOnlyDirective
-],
+    declarations: [	
+        NumberOnlyDirective,
+        PhoneNumberDirective
+   ],
     providers: [],
 })
 export class SharedDirectiveModule { }

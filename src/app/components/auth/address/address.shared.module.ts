@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AddressComponent } from './address/address.component';
 import { AddressFormComponent } from './address-form/address-form.component';
+import { SharedDirectiveModule } from 'src/app/core/directives/shared.directive.module';
 
 
 
@@ -11,7 +12,8 @@ import { AddressFormComponent } from './address-form/address-form.component';
   imports: [
     CommonModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    SharedDirectiveModule
   ],
   declarations: [
     AddressComponent,
