@@ -146,6 +146,7 @@ export class ShoppingCartComponent implements OnInit {
         if (res.status_code === 200) {
           this.orderSuccess = true;
           AppUtils.clearCookies('_cart');
+          AppUtils.clearCookies('_product_payment');
           this.initData();
           this.codeOrder = res.data;
           this.baseService.sendData({createOrderSuccess: true})

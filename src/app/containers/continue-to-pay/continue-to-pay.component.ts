@@ -1,8 +1,10 @@
+import { routes } from './../detail/detail.module';
 import { BaseService } from './../../services/base.service';
 import { OrderService } from './../../services/order.service';
 import { Component, OnInit } from '@angular/core';
 import { AppUtils } from 'src/app/utils/app.utils';
 import { Order } from 'src/app/models/order';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-continue-to-pay',
@@ -19,7 +21,8 @@ export class ContinueToPayComponent implements OnInit {
 
   constructor(
     private orderService: OrderService,
-    private baseService: BaseService) { }
+    private baseService: BaseService,
+    private router: Router) { }
 
   ngOnInit() {
     this.initData()
@@ -77,6 +80,7 @@ export class ContinueToPayComponent implements OnInit {
         if (res.status_code == 200) {
           this.orderSuccess = true;
           AppUtils.clearCookies('_cart');
+          AppUtils.clearCookies('_product_payment');
           this.initData();
           this.codeOrder = res.data;
           this.baseService.sendData({createOrderSuccess: true})
