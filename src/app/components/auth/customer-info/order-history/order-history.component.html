@@ -12,7 +12,9 @@
     <tbody>
 
       <tr *ngFor="let item of listOrder">
-        <td class="text-primary">{{item?.order_id}}</td>
+        <td class="text-primary">
+          <a [routerLink]="['/tai-khoan/don-hang', item?.order_id]">{{item?.order_id}}</a>
+        </td>
         <td class="fs14">{{item?.ctime}}</td>
         <td class="fs14">{{item?.name}}</td>
         <td class="fs14">{{item?.total_price | number}} ₫</td>

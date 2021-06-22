@@ -123,7 +123,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   createOrder(): void {
-    if (this.userAddress.address) {
+    if (this.userAddress) {
       const data = {
         ship_money: 5000,
         note: '',
@@ -156,7 +156,7 @@ export class ShoppingCartComponent implements OnInit {
       });
     } else {
       this.showError = true;
-      this.toastService.error('Đặt hàng không thành công', '')
+      this.toastService.warning('Bạn hãy đặt địa chỉ mặc định trước khi đặt hàng', '')
     }
   }
 
@@ -212,11 +212,13 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   checkAllProductOfseller(listProductOfSeller, event) {
-    if (listProductOfSeller.products.every(val => val.checked == true)){
-      listProductOfSeller.forEach(val => { val.checked = false });
+    const listProductSeller = this.data.find(x => x.seller == listProductOfSeller.seller);
+    if (listProductSeller.products.every(val => val.checked == true)){
+      listProductSeller.products.forEach(val => { val.checked = false });
     } else {
-      listProductOfSeller.products.forEach(val => { val.checked = true });
+      listProductSeller.products.forEach(val => { val.checked = true });
     }
+    this.checkDataChecked();
   }
 
   selectedProduct(listProductOfSeller, event) {
