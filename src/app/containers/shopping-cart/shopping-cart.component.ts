@@ -247,5 +247,5 @@ export class ShoppingCartComponent implements OnInit {
       });
     });
     this.calculatorAmount(this.listProductSeleted);
-  }
+   }
 }

@@ -1,3 +1,4 @@
+import { BaseService } from './../../services/base.service';
 import { OrderService } from './../../services/order.service';
 import { Component, OnInit } from '@angular/core';
 import { AppUtils } from 'src/app/utils/app.utils';
@@ -16,7 +17,9 @@ export class ContinueToPayComponent implements OnInit {
   codeOrder = '';
   userInfo: any;
 
-  constructor(private orderService: OrderService) { }
+  constructor(
+    private orderService: OrderService,
+    private baseService: BaseService) { }
 
   ngOnInit() {
     this.initData()
@@ -42,25 +45,41 @@ export class ContinueToPayComponent implements OnInit {
 
   dataAddress(data){
     this.customer_address = {...data};
+    console.log(this.customer_address);
+    
   }
 
   createOrder() {
     this.orderService.sendData({getInfoAddress: true})
     if (this.customer_address) {
-      console.log(this.customer_address);
-      const data = {
-        ship_money: 5000,
-        note : '',
-      }
       const address = `${this.customer_address.address} - ${this.customer_address.ward} - ${this.customer_address.district} - ${this.customer_address.city}`;
 
-      const order = new Order(this.totalAmount, data.ship_money, this.totalAmount, data.note, address, this.listProductOrder, this.userInfo.phone);
-      this.orderService.createOrder(order).subscribe(res => {
+      const data = {
+        ship_money: 5000,
+        note: '',
+        address: address,
+        referral: AppUtils.getDataFromCookies('referral')
+      };
+      const productDetail = this.listProductOrder.map((item) => {
+        return {
+          product_id: item.product_option_id,
+          price: item.price,
+          quantity: item.quantity,
+          product_name: item.product_name,
+          size: item.size,
+          image: item.image,
+          product: item.product
+        };
+      });
+
+      const order = new Order(this.totalAmount, data.ship_money, this.totalAmount, data.note, address, productDetail, this.customer_address.phone);
+      this.orderService.createOrderNoAuth(order).subscribe(res => {
         if (res.status_code == 200) {
           this.orderSuccess = true;
           AppUtils.clearCookies('_cart');
           this.initData();
           this.codeOrder = res.data;
+          this.baseService.sendData({createOrderSuccess: true})
         }
       })
     }

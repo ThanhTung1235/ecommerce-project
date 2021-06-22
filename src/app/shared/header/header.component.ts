@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     if (dataFromCookie) {
       const products = JSON.parse(dataFromCookie);
       products.forEach(item => {
-        this.productCount += item.products.length;
+        this.productCount = item.products.length;
       })
     } else {
       this.productCount = 0;
