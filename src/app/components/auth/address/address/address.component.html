@@ -3,28 +3,27 @@
     <i class='bx bx-plus'></i>
     Thêm địa chỉ mới
   </div>
-  
+
   <div *ngFor="let item of list_user_address" class="user-info-address">
     <ul>
       <li class="user-info--name">{{this.customer_info?.name}} <span *ngIf="item.status == 1" class="default-address"><i class='bx bx-check-circle'></i> Địa chỉ mặc định</span></li>
       <li class="user-info--address"><span>Địa chỉ:</span> {{item.address}}</li>
-      <li class="user-info--phone"><span>Điện thoại:</span> {{this.customer_info?.phone}}</li>
+      <li class="user-info--phone"><span>Điện thoại:</span> {{item.phone_number}}</li>
     </ul>
-  
+
     <div class="user-infor-address--action">
       <a class="text-primary cursor-pointer mr-2" (click)="editAddress(item.id)">Chỉnh sửa</a>
       <a class="text-danger cursor-pointer" (click)="deleteAddress(item.id)">Xóa</a>
     </div>
   </div>
-  
+
   <div class="d-flex mt-3 justify-content-end">
-    <ngb-pagination [hidden]="totalPublisher <= limit" class=""
+    <ngb-pagination [hidden]="totalUserAddress <= limit" class=""
                     (pageChange)="pageChanging($event)"
                     [collectionSize]="totalUserAddress"
                     [pageSize]="limit" [(page)]="page"
                     [maxSize]="3" [boundaryLinks]="true"></ngb-pagination>
   </div>
-  {{collectionSize | json}}
 
 </ng-template>
 
