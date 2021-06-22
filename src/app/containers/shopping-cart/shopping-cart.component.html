@@ -79,7 +79,10 @@
       </div>
     </div>
 
-    <button *ngIf="userInfo" (click)="createOrder()" class="btn btn-danger btn-block mt-2">Thanh toán</button>
+    <button [disabled]="isLoading" *ngIf="userInfo" (click)="createOrder()" class="btn btn-danger btn-block mt-2">
+      Thanh toán
+      <div *ngIf="isLoading" class="spinner spinner-border" role="status"></div>
+    </button>
     <button *ngIf="!userInfo" [disabled]="listProductSeleted.length == 0" (click)="continueOrder()" class="btn btn-danger btn-block mt-2">Tiếp tục thanh toán</button>
     </div>
   </div>

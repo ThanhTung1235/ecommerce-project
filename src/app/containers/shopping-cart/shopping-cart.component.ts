@@ -23,6 +23,7 @@ export class ShoppingCartComponent implements OnInit {
   codeOrder = '';
   listProductSeleted = [];
   totalProduct = 0;
+  isLoading = false;
 
   constructor(
     private orderService: OrderService,
@@ -141,8 +142,10 @@ export class ShoppingCartComponent implements OnInit {
           product: item.product
         };
       });
+      this.isLoading = true;
       const order = new Order(this.totalAmount, data.ship_money, this.totalAmount, data.note, data.address, productDetail, this.userInfo.phone);
       this.orderService.createOrder(order).subscribe(res => {
+        this.isLoading = false;
         if (res.status_code === 200) {
           this.orderSuccess = true;
           AppUtils.clearCookies('_cart');
@@ -154,6 +157,10 @@ export class ShoppingCartComponent implements OnInit {
           console.error(res.message);
           this.toastService.error('Đặt hàng không thành công', '')
         }
+      },
+      err => {
+        this.isLoading = false;
+        this.toastService.warning('Server under maintenance')
       });
     } else {
       this.showError = true;

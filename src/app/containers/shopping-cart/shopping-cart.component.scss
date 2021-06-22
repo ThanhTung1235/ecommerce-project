@@ -44,6 +44,13 @@
     align-items: center;
 }
 
+
+.spinner {
+    width: 15px;
+    height: 15px;
+    font-size: 8px;
+}
+
 @media (max-width: 768px) {
     .product-content-price{
         align-items: flex-end;

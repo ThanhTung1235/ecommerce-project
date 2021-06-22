@@ -37,6 +37,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.detectUrlChange();
     this.getUserInfo();
     this.getUserInfoAfterLogin();
+    const token = AppUtils.getDataFromCookies('re_tk');
+    this.isLogin = token ? true : false;
   }
 
   detectUrlChange() {
@@ -46,8 +48,6 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(){
-    const token = AppUtils.getDataFromCookies('re_tk');
-    this.isLogin = token ? true : false;
     const haederMobile = document.getElementById("header-sm");
     if (window.pageYOffset > 0) {
       haederMobile.style.height = "50px";

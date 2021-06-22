@@ -1,10 +1,9 @@
-import { routes } from './../detail/detail.module';
 import { BaseService } from './../../services/base.service';
 import { OrderService } from './../../services/order.service';
 import { Component, OnInit } from '@angular/core';
 import { AppUtils } from 'src/app/utils/app.utils';
 import { Order } from 'src/app/models/order';
-import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-continue-to-pay',
@@ -18,11 +17,12 @@ export class ContinueToPayComponent implements OnInit {
   orderSuccess = false;
   codeOrder = '';
   userInfo: any;
+  isLoading =  false;
 
   constructor(
     private orderService: OrderService,
     private baseService: BaseService,
-    private router: Router) { }
+    private toastService: ToastrService) { }
 
   ngOnInit() {
     this.initData()
@@ -74,17 +74,25 @@ export class ContinueToPayComponent implements OnInit {
           product: item.product
         };
       });
-
+      this.isLoading = true;
       const order = new Order(this.totalAmount, data.ship_money, this.totalAmount, data.note, address, productDetail, this.customer_address.phone);
       this.orderService.createOrderNoAuth(order).subscribe(res => {
+        this.isLoading = true;
         if (res.status_code == 200) {
           this.orderSuccess = true;
           AppUtils.clearCookies('_cart');
           AppUtils.clearCookies('_product_payment');
           this.initData();
           this.codeOrder = res.data;
-          this.baseService.sendData({createOrderSuccess: true})
+          this.baseService.sendData({createOrderSuccess: true});
+          window.scrollTo(0, 0);
+        }else {
+          this.toastService.error(res.message)
         }
+      },
+      err => {
+        this.isLoading = false;
+        this.toastService.warning('Server under maintenance')
       })
     }
     

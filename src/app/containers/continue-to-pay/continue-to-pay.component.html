@@ -29,7 +29,10 @@
             <span class="fs18 fw500">Thành tiền</span>
             <span class="text-danger fs18 fw500">{{totalAmount | number}}</span>
           </div>
-          <button class="btn btn-danger" (click)="createOrder()">Hoàn tất đặt hàng</button>
+          <button [disabled]="isLoading" class="btn btn-danger" (click)="createOrder()">
+            Hoàn tất đặt hàng
+            <div *ngIf="isLoading" class="spinner spinner-border" role="status"></div>
+          </button>
         </div>
       </div>
     </div>

@@ -26,7 +26,7 @@
 
     <div class="col-md-5 border-1">
       <!-- Datos del vendedor y titulo del producto -->
-      <h3 class="fw300 fs24">{{ (product?.name.length > 25)? (product?.name | slice:0:25)+'..':(product?.name)}}</h3>
+      <h3 class="fw300 fs24">{{ product?.name}}</h3>
       <h5>
         <ngb-rating [rate]="0" [max]="5"></ngb-rating> ·
         <small style="color: #337ab7">(0 lượt bán)</small>
@@ -183,7 +183,7 @@
   <div class="col-12 p-0">
     <div class="card card-body">
       <h4 class="fs18 text-uppercase">Đánh giá sản phẩm</h4>
-      <app-comment></app-comment>
+      <!-- <app-comment></app-comment> -->
     </div>
   </div>
 </div>
